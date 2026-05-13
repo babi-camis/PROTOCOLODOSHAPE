@@ -5,199 +5,91 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Finalizar Inscrição | PROTOCOLO DO SHAPE</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Oswald:wght@700&display=swap" rel="stylesheet">
     <style>
         :root { --neon: #e2ff00; --dark: #050505; }
-        body { font-family: 'Inter', sans-serif; background-color: var(--dark); color: white; margin: 0; }
-        h1, h2, h3, .font-oswald { font-family: 'Oswald', sans-serif; text-transform: uppercase; }
-
-        .glow-box {
-            border: 1px solid rgba(226, 255, 0, 0.2);
-            background: rgba(255, 255, 255, 0.02);
-            box-shadow: 0 0 20px rgba(0,0,0,0.5);
-            transition: all 0.3s ease;
-        }
-        .glow-box:focus-within { border-color: var(--neon); box-shadow: 0 0 30px rgba(226, 255, 0, 0.1); }
-
-        input {
-            background: #111 !important;
-            border: 1px solid #333 !important;
-            color: white !important;
-            transition: all 0.3s;
-        }
-        input:focus { border-color: var(--neon) !important; outline: none; box-shadow: 0 0 15px rgba(226, 255, 0, 0.1); }
-
-        .btn-glow { transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        body { font-family: 'Inter', sans-serif; background-color: var(--dark); color: white; }
+        input { background: #111 !important; border: 1px solid #333 !important; color: white !important; }
         .btn-glow:hover { box-shadow: 0 0 40px var(--neon); transform: scale(1.02); }
-
-        .loading-overlay {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.95);
-            z-index: 100;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            backdrop-filter: blur(15px);
-        }
     </style>
 </head>
-<body class="min-h-screen pb-20">
+<body class="min-h-screen p-6 md:p-20">
 
-    <header class="py-8 border-b border-white/5 bg-black/40 backdrop-blur-md sticky top-0 z-50">
-        <div class="max-w-6xl mx-auto px-6 flex justify-between items-center">
-            <div class="text-2xl md:text-4xl font-black italic uppercase tracking-tighter">
-                PROTOCOLO<span class="text-neon">DO SHAPE</span>
-            </div>
-            <div class="flex items-center gap-3 text-[10px] md:text-xs font-bold text-gray-400 uppercase tracking-[0.2em]">
-                <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
-                Checkout 100% Seguro
-            </div>
-        </div>
-    </header>
-
-    <main class="max-w-7xl mx-auto px-6 mt-16 grid lg:grid-cols-12 gap-16">
-        <div class="lg:col-span-7 space-y-12">
-            <div class="glow-box p-10 md:p-16 rounded-[50px]">
-                <form id="backend-checkout-form" class="space-y-10">
-                    
-                    <div>
-                        <h2 class="text-3xl font-black italic mb-8 flex items-center gap-5">
-                            <span class="w-10 h-10 bg-neon text-black rounded-full flex items-center justify-center text-sm not-italic font-bold">1</span>
-                            Dados Cadastrais
-                        </h2>
-                        <div class="grid gap-6">
-                            <div class="space-y-2">
-                                <label class="text-[10px] font-black text-gray-500 uppercase tracking-widest ml-1">Nome Completo</label>
-                                <input type="text" id="name" name="name" required placeholder="Nome e Sobrenome" class="w-full p-6 rounded-2xl font-bold text-lg">
-                            </div>
-                            <div class="grid md:grid-cols-2 gap-6">
-                                <div class="space-y-2">
-                                    <label class="text-[10px] font-black text-gray-500 uppercase tracking-widest ml-1">E-mail</label>
-                                    <input type="email" id="email" name="email" required placeholder="seu@email.com" class="w-full p-6 rounded-2xl font-bold text-lg">
-                                </div>
-                                <div class="space-y-2">
-                                    <label class="text-[10px] font-black text-gray-500 uppercase tracking-widest ml-1">WhatsApp</label>
-                                    <input type="tel" id="whatsapp" name="whatsapp" required placeholder="(00) 00000-0000" class="w-full p-6 rounded-2xl font-bold text-lg">
-                                </div>
-                            </div>
-                            <div class="space-y-2">
-                                <label class="text-[10px] font-black text-gray-500 uppercase tracking-widest ml-1">CPF</label>
-                                <input type="text" id="cpf" name="cpf" required placeholder="000.000.000-00" class="w-full p-6 rounded-2xl font-bold text-lg">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="pt-10 border-t border-white/5">
-                        <h2 class="text-3xl font-black italic mb-8 flex items-center gap-5">
-                            <span class="w-10 h-10 bg-neon text-black rounded-full flex items-center justify-center text-sm not-italic font-bold">2</span>
-                            Endereço
-                        </h2>
-                        <div class="grid gap-6">
-                            <div class="grid md:grid-cols-3 gap-6">
-                                <div class="space-y-2">
-                                    <label class="text-[10px] font-black text-gray-500 uppercase tracking-widest ml-1">CEP</label>
-                                    <input type="text" id="cep" name="cep" required placeholder="00000-000" class="w-full p-6 rounded-2xl font-bold text-lg">
-                                </div>
-                                <div class="md:col-span-2 space-y-2">
-                                    <label class="text-[10px] font-black text-gray-500 uppercase tracking-widest ml-1">Cidade</label>
-                                    <input type="text" id="city" readonly class="w-full p-6 rounded-2xl font-bold text-lg opacity-40">
-                                </div>
-                            </div>
-                            <div class="grid md:grid-cols-4 gap-6">
-                                <div class="md:col-span-3 space-y-2">
-                                    <label class="text-[10px] font-black text-gray-500 uppercase tracking-widest ml-1">Rua</label>
-                                    <input type="text" id="street" name="street" required class="w-full p-6 rounded-2xl font-bold text-lg">
-                                </div>
-                                <div class="space-y-2">
-                                    <label class="text-[10px] font-black text-gray-500 uppercase tracking-widest ml-1">Nº</label>
-                                    <input type="text" name="number" required class="w-full p-5 rounded-2xl font-bold text-lg text-center">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <button type="submit" class="w-full bg-neon text-black py-8 rounded-[30px] font-black text-3xl uppercase italic btn-glow flex items-center justify-center gap-5 mt-10">
-                        FINALIZAR PAGAMENTO
-                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                    </button>
-                </form>
-            </div>
-        </div>
-
-        <div class="lg:col-span-5">
-            <div class="glow-box p-10 rounded-[50px] sticky top-32">
-                <h3 class="text-2xl font-black italic mb-10 border-b border-white/5 pb-5">Resumo</h3>
-                <div class="flex gap-6 mb-10">
-                    <div class="w-24 h-24 bg-neon/10 rounded-3xl flex items-center justify-center border border-neon/20">
-                        <svg class="w-12 h-12 text-neon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-                    </div>
-                    <div>
-                        <p class="font-black text-xl italic uppercase">Protocolo do Shape</p>
-                        <p class="text-xs text-neon font-bold uppercase mt-1">Acesso Vitalício</p>
-                        <p class="text-3xl font-black italic mt-2">R$ 29,90</p>
-                    </div>
+    <div class="max-w-6xl mx-auto grid lg:grid-cols-2 gap-16">
+        <div>
+            <h2 class="text-4xl font-black italic mb-10 uppercase">Finalizar <span class="text-neon">Inscrição</span></h2>
+            <form id="cakto-form" class="space-y-6">
+                <div class="space-y-4">
+                    <input type="text" id="name" required placeholder="Nome Completo" class="w-full p-5 rounded-2xl font-bold text-lg">
+                    <input type="email" id="email" required placeholder="E-mail Principal" class="w-full p-5 rounded-2xl font-bold text-lg">
+                    <input type="tel" id="whatsapp" required placeholder="WhatsApp (DDD + Número)" class="w-full p-5 rounded-2xl font-bold text-lg">
+                    <input type="text" id="cpf" required placeholder="CPF (Apenas números)" class="w-full p-5 rounded-2xl font-bold text-lg">
                 </div>
-                <div class="space-y-4 py-8 border-t border-white/5">
-                    <div class="flex justify-between items-center opacity-40">
-                        <span class="text-xs font-bold uppercase tracking-widest">Preço Original</span>
-                        <span class="line-through italic">R$ 97,00</span>
-                    </div>
-                    <div class="flex justify-between items-center text-green-500">
-                        <span class="text-xs font-bold uppercase tracking-widest">Desconto Aplicado</span>
-                        <span class="font-black italic">- R$ 67,10</span>
-                    </div>
+                
+                <div class="pt-6 space-y-4">
+                    <h3 class="text-xl font-black italic uppercase text-gray-500">Endereço</h3>
+                    <input type="text" id="cep" required placeholder="CEP" class="w-full p-5 rounded-2xl font-bold text-lg">
+                    <input type="text" id="street" required placeholder="Rua / Logradouro" class="w-full p-5 rounded-2xl font-bold text-lg">
+                    <input type="text" id="number" required placeholder="Número" class="w-full p-5 rounded-2xl font-bold text-lg">
                 </div>
+
+                <button type="submit" class="w-full bg-neon text-black py-8 rounded-3xl font-black text-2xl uppercase italic btn-glow mt-10">
+                    PAGAR AGORA
+                </button>
+            </form>
+        </div>
+
+        <div class="bg-white/5 p-10 rounded-[40px] border border-white/5 self-start sticky top-10">
+            <h3 class="text-2xl font-black mb-8 uppercase italic">Resumo</h3>
+            <div class="flex justify-between items-center mb-4">
+                <span>Protocolo do Shape</span>
+                <span class="font-bold">R$ 29,90</span>
+            </div>
+            <div class="border-t border-white/5 pt-4 text-xs text-gray-500 uppercase font-bold tracking-widest">
+                Acesso Imediato • 100% Seguro
             </div>
         </div>
-    </main>
-
-    <div id="loader" class="loading-overlay">
-        <div class="w-24 h-24 border-4 border-neon/10 border-t-neon rounded-full animate-spin mb-8"></div>
-        <p class="text-neon font-black italic tracking-[0.3em] text-2xl uppercase animate-pulse">Protegendo sua conexão...</p>
-        <p class="text-gray-500 text-xs mt-4 uppercase font-bold">Autenticando com Gateway Cakto</p>
     </div>
 
     <script>
-    /* ... existing masks code ... */
-
-    // REDIRECIONAMENTO DIRETO PARA CAKTO (Sem Backend)
-    document.getElementById('backend-checkout-form').addEventListener('submit', function(e) {
+    document.getElementById('cakto-form').addEventListener('submit', function(e) {
         e.preventDefault();
-        const loader = document.getElementById('loader');
-        loader.style.display = 'flex';
 
-        // Captura de dados
-        const name = document.getElementById('name').value;
-        const email = document.getElementById('email').value;
+        // LIMPEZA DE DADOS: Remove tudo que não for número para evitar erros na API
         const phone = document.getElementById('whatsapp').value.replace(/\D/g, '');
-        const documentCpf = document.getElementById('cpf').value.replace(/\D/g, '');
-        const zipcode = document.getElementById('cep').value.replace(/\D/g, '');
-        const street = document.getElementById('street').value;
-        const number = e.target.number.value;
-
-        // Seu Link Direto da Cakto
+        const cpf = document.getElementById('cpf').value.replace(/\D/g, '');
+        const zip = document.getElementById('cep').value.replace(/\D/g, '');
+        
         const baseUrl = "https://pay.cakto.com.br/376mm6y_883600";
         
-        // Mapeamento de campos padrão da Cakto para preenchimento automático
+        // Mapeamento exato de parâmetros que gateways brasileiros costumam aceitar
         const params = new URLSearchParams({
-            name: name,
-            email: email,
+            name: document.getElementById('name').value,
+            email: document.getElementById('email').value,
             phone: phone,
-            document: documentCpf,    // CPF
-            zipcode: zipcode,        // CEP
-            address: street,         // Rua
-            address_number: number   // Número
+            document: cpf,
+            zipcode: zip,
+            address: document.getElementById('street').value,
+            address_number: document.getElementById('number').value
         });
 
-        const checkoutUrl = `${baseUrl}?${params.toString()}`;
-
-        // Pequeno delay para o loader ser visto (melhora a percepção de segurança)
-        setTimeout(() => {
-            window.location.href = checkoutUrl;
-        }, 800);
+        const finalUrl = `${baseUrl}?${params.toString()}`;
+        
+        // Redirecionamento imediato
+        window.location.href = finalUrl;
     });
-</script>
+
+    document.getElementById('cep').addEventListener('blur', function() {
+        const cep = this.value.replace(/\D/g, '');
+        if(cep.length === 8) {
+            fetch(`https://viacep.com.br/ws/${cep}/json/`)
+                .then(r => r.json())
+                .then(d => {
+                    if(!d.erro) {
+                        document.getElementById('street').value = d.logradouro;
+                    }
+                });
+        }
+    });
+    </script>
 </body>
 </html>
