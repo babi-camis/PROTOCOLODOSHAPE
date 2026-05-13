@@ -3,135 +3,239 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PROTOCOLO DO SHAPE - O Treino que Transforma</title>
+    <title>PROTOCOLO DO SHAPE - Performance Extrema</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Oswald:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&family=Oswald:wght@700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #e2ff00; /* Amarelo Neon Fitness */
-            --dark-bg: #0a0a0a;
-            --card-bg: #161616;
+            --neon: #e2ff00;
+            --dark: #050505;
+            --card-glow: rgba(226, 255, 0, 0.15);
         }
-        body { font-family: 'Inter', sans-serif; background-color: var(--dark-bg); color: white; margin: 0; padding: 0; }
-        h1, h2, h3, .font-oswald { font-family: 'Oswald', sans-serif; text-transform: uppercase; letter-spacing: -0.02em; }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: var(--dark); 
+            color: white; 
+            margin: 0;
+            overflow-x: hidden;
+            line-height: 1.5;
+        }
+        h1, h2, h3, .font-oswald { 
+            font-family: 'Oswald', sans-serif; 
+            text-transform: uppercase; 
+            letter-spacing: -0.02em; 
+        }
+
+        .text-neon { color: var(--neon); }
+        .bg-neon { background-color: var(--neon); }
+        .border-neon { border-color: var(--neon); }
         
-        .text-neon { color: var(--primary); text-shadow: 0 0 10px rgba(226, 255, 0, 0.3); }
-        .bg-neon { background-color: var(--primary); }
-        .btn-glow:hover { box-shadow: 0 0 25px rgba(226, 255, 0, 0.5); transform: translateY(-2px); }
-        
-        .hero-overlay { background: linear-gradient(0deg, var(--dark-bg) 0%, rgba(10,10,10,0.7) 50%, rgba(10,10,10,0.4) 100%); }
-        .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); }
-        
-        input, select { background: #222 !important; border: 1px solid #333 !important; color: white !important; }
-        input:focus { border-color: var(--primary) !important; outline: none; box-shadow: 0 0 0 2px rgba(226, 255, 0, 0.2); }
+        .glow-box {
+            border: 1px solid var(--neon);
+            box-shadow: 0 0 20px rgba(226, 255, 0, 0.2), inset 0 0 10px rgba(226, 255, 0, 0.1);
+            transition: all 0.4s ease;
+        }
+        .glow-box:hover {
+            box-shadow: 0 0 40px rgba(226, 255, 0, 0.4), inset 0 0 15px rgba(226, 255, 0, 0.2);
+        }
+
+        .btn-glow { transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .btn-glow:hover { 
+            box-shadow: 0 0 30px var(--neon); 
+            transform: scale(1.02);
+        }
+
+        .glass { 
+            background: rgba(255, 255, 255, 0.02); 
+            backdrop-filter: blur(20px); 
+            border: 1px solid rgba(255, 255, 255, 0.08); 
+        }
+
+        .hero-gradient {
+            background: linear-gradient(180deg, rgba(5,5,5,0) 0%, rgba(5,5,5,1) 100%);
+        }
+
+        input, select { 
+            background: #111 !important; 
+            border: 1px solid #333 !important; 
+            color: white !important;
+            transition: all 0.3s;
+        }
+        input:focus { border-color: var(--neon) !important; outline: none; box-shadow: 0 0 15px var(--card-glow); }
 
         .custom-scrollbar::-webkit-scrollbar { width: 6px; }
         .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-fade { animation: fadeIn 0.8s ease forwards; }
     </style>
 </head>
-<body class="overflow-x-hidden w-full">
+<body class="custom-scrollbar">
 
-    <header class="fixed w-full z-50 glass border-b border-white/10">
-        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-            <div class="text-2xl md:text-3xl font-black italic tracking-tighter uppercase">PROTOCOLO<span class="text-neon">DO SHAPE</span></div>
-            <div class="hidden md:flex space-x-8 text-sm font-bold tracking-widest uppercase">
-                <a href="#metodo" class="hover:text-neon transition">O Método</a>
-                <a href="#form-section" class="hover:text-neon transition">Gerar Treino</a>
+    <header class="fixed w-full z-50 glass border-b border-white/5 py-4">
+        <div class="max-w-[1400px] mx-auto px-6 flex items-center justify-between">
+            <div class="text-2xl md:text-3xl font-black italic tracking-tighter uppercase">
+                PROTOCOLO<span class="text-neon">DO SHAPE</span>
             </div>
-            <a href="#form-section" class="bg-neon text-black px-6 py-2 rounded-full font-black text-xs btn-glow transition-all uppercase tracking-tighter">
-                Acesso Imediato
+            <div class="hidden lg:flex items-center gap-10 text-xs font-bold uppercase tracking-widest">
+                <a href="#metodo" class="hover:text-neon transition">O Método</a>
+                <a href="#resultados" class="hover:text-neon transition">Resultados</a>
+                <a href="#faq" class="hover:text-neon transition">Dúvidas</a>
+            </div>
+            <a href="#form-section" class="bg-neon text-black px-6 py-3 rounded-full font-black text-xs btn-glow uppercase">
+                Começar Agora
             </a>
         </div>
     </header>
 
-    <section class="relative min-h-screen flex items-center pt-20">
+    <section class="relative min-h-[90vh] flex items-center pt-20 overflow-hidden">
         <div class="absolute inset-0 z-0">
-            <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=1920" alt="Gym" class="w-full h-full object-cover opacity-40">
-            <div class="absolute inset-0 hero-overlay"></div>
+            <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=1920" class="w-full h-full object-cover opacity-20">
+            <div class="absolute inset-0 hero-gradient"></div>
         </div>
         
-        <div class="relative z-10 max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
-            <div>
-                <span class="inline-block bg-white/10 text-neon px-4 py-1 rounded-full text-xs font-bold tracking-[0.2em] uppercase mb-6 border border-white/10">Performance Extrema</span>
-                <h1 class="text-5xl md:text-8xl font-black mb-6 leading-[0.9] italic">
+        <div class="relative z-10 max-w-[1400px] mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center">
+            <div class="animate-fade">
+                <div class="flex items-center gap-3 mb-6">
+                    <span class="w-12 h-[2px] bg-neon"></span>
+                    <span class="text-neon font-bold uppercase tracking-[0.3em] text-xs">Performance Extrema</span>
+                </div>
+                <h1 class="text-6xl md:text-8xl lg:text-9xl font-black italic mb-8 leading-tight tracking-tighter uppercase">
                     CONSTRUA SEU <br> <span class="text-neon">MELHOR SHAPE.</span>
                 </h1>
-                <p class="text-gray-300 text-lg md:text-xl mb-10 max-w-lg">
+                <p class="text-gray-400 text-lg md:text-xl mb-12 max-w-xl leading-relaxed">
                     Pare de perder tempo com treinos genéricos. Receba o mapa exato baseado no seu objetivo real.
                 </p>
-                <a href="#form-section" class="bg-neon text-black px-8 py-5 rounded-xl font-black text-xl btn-glow transition-all text-center uppercase italic inline-flex items-center gap-3">
-                    Gerar meu Treino
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M13 7l5 5m0 0l-5 5m5-5H6"></path></svg>
-                </a>
+                <div class="flex flex-col sm:flex-row gap-6">
+                    <a href="#form-section" class="bg-neon text-black px-10 py-6 rounded-2xl font-black text-xl btn-glow text-center uppercase italic flex items-center justify-center gap-4">
+                        Gerar meu Treino
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M13 7l5 5m0 0l-5 5m5-5H6"></path></svg>
+                    </a>
+                </div>
+            </div>
+            <div class="hidden lg:block relative">
+                <div class="glow-box rounded-[40px] overflow-hidden p-2">
+                    <img src="https://images.unsplash.com/photo-1583454110551-21f2fa2adfcd?auto=format&fit=crop&q=80&w=800" class="rounded-[35px] w-full">
+                </div>
             </div>
         </div>
     </section>
 
-    <section id="form-section" class="py-24 bg-[#0a0a0a] relative">
-        <div class="max-w-4xl mx-auto px-6 relative z-10">
-            <div id="form-container" class="glass p-8 md:p-16 rounded-[40px] shadow-2xl">
-                <div class="text-center mb-12">
-                    <h2 class="text-3xl md:text-5xl font-black mb-4 uppercase">Calculadora de <span class="text-neon">Performance</span></h2>
-                    <p class="text-gray-400">Insira seus dados para gerar sua prévia estratégica.</p>
+    <section class="py-20 bg-neon text-black w-full overflow-hidden">
+        <div class="max-w-[1400px] mx-auto px-6">
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-12 text-center">
+                <div>
+                    <div class="text-5xl md:text-7xl font-black italic" data-target="27391">0</div>
+                    <div class="text-[10px] font-black uppercase tracking-widest opacity-60">Alunos Ativos</div>
+                </div>
+                <div>
+                    <div class="text-5xl md:text-7xl font-black italic" data-target="143">0</div>
+                    <div class="text-[10px] font-black uppercase tracking-widest opacity-60">Ton. Perdidas</div>
+                </div>
+                <div>
+                    <div class="text-5xl md:text-7xl font-black italic" data-target="98">0</div>
+                    <div class="text-[10px] font-black uppercase tracking-widest opacity-60">% de Sucesso</div>
+                </div>
+                <div>
+                    <div class="text-5xl md:text-7xl font-black italic" data-target="12">0</div>
+                    <div class="text-[10px] font-black uppercase tracking-widest opacity-60">Países</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="resultados" class="py-32 bg-[#050505]">
+        <div class="max-w-[1400px] mx-auto px-6">
+            <div class="text-center mb-24">
+                <h2 class="text-5xl md:text-7xl font-black italic mb-6">RESULTADOS <span class="text-neon">REAIS</span></h2>
+                <div class="w-24 h-1 bg-neon mx-auto"></div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                <!-- Testimonial 1 -->
+                <div class="glass p-10 rounded-[40px] border-white/5 hover:border-neon/20 transition-all">
+                    <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&q=80&w=400" class="w-24 h-24 rounded-full object-cover mb-8 border-2 border-neon">
+                    <p class="italic text-gray-400 mb-8 text-lg">"Saí de 115kg para 88kg em 4 meses. O treino é curto, mas a intensidade é brutal."</p>
+                    <div class="font-bold text-neon uppercase italic text-xl">Ricardo Mendes</div>
+                </div>
+                <!-- Testimonial 2 -->
+                <div class="glass p-10 rounded-[40px] border-white/5 hover:border-neon/20 transition-all">
+                    <img src="https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?auto=format&fit=crop&q=80&w=400" class="w-24 h-24 rounded-full object-cover mb-8 border-2 border-neon">
+                    <p class="italic text-gray-400 mb-8 text-lg">"Finalmente ganhei densidade. O protocolo de hipertrofia mudou meu corpo."</p>
+                    <div class="font-bold text-neon uppercase italic text-xl">Julia Santos</div>
+                </div>
+                <!-- Testimonial 3 -->
+                <div class="glass p-10 rounded-[40px] border-white/5 hover:border-neon/20 transition-all">
+                    <img src="https://images.unsplash.com/photo-1594381898411-846e7d193883?auto=format&fit=crop&q=80&w=400" class="w-24 h-24 rounded-full object-cover mb-8 border-2 border-neon">
+                    <p class="italic text-gray-400 mb-8 text-lg">"Bati meu recorde de carga em 3 semanas. Foco total em força bruta."</p>
+                    <div class="font-bold text-neon uppercase italic text-xl">Marcos Lins</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="form-section" class="py-32 bg-[#0a0a0a]">
+        <div class="max-w-[900px] mx-auto px-6">
+            <div class="glow-box p-10 md:p-20 rounded-[50px] glass">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-5xl font-black mb-4 uppercase">Sua <span class="text-neon">Metodologia</span></h2>
+                    <p class="text-gray-500 text-sm font-bold tracking-widest uppercase">Análise Biométrica Instantânea</p>
                 </div>
                 
-                <form id="workout-form" class="space-y-8">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div class="space-y-2">
-                            <label class="text-xs font-black uppercase tracking-widest text-gray-500">Idade</label>
-                            <input type="number" name="age" required class="w-full p-5 rounded-2xl text-lg font-bold" placeholder="Anos">
+                <form id="workout-form" class="space-y-10">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="space-y-3">
+                            <label class="text-[10px] font-black uppercase tracking-[0.2em] text-gray-500 ml-1">Idade</label>
+                            <input type="number" name="age" required class="w-full p-6 rounded-2xl text-xl font-bold" placeholder="25">
                         </div>
-                        <div class="space-y-2">
-                            <label class="text-xs font-black uppercase tracking-widest text-gray-500">Gênero</label>
-                            <select name="gender" required class="w-full p-5 rounded-2xl text-lg font-bold">
+                        <div class="space-y-3">
+                            <label class="text-[10px] font-black uppercase tracking-[0.2em] text-gray-500 ml-1">Gênero</label>
+                            <select name="gender" required class="w-full p-6 rounded-2xl text-xl font-bold appearance-none">
                                 <option value="masculino">Masculino</option>
                                 <option value="feminino">Feminino</option>
                             </select>
                         </div>
                     </div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div class="space-y-2">
-                            <label class="text-xs font-black uppercase tracking-widest text-gray-500">Peso (kg)</label>
-                            <input type="number" name="weight" required class="w-full p-5 rounded-2xl text-lg font-bold" placeholder="Ex: 80">
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="space-y-3">
+                            <label class="text-[10px] font-black uppercase tracking-[0.2em] text-gray-500 ml-1">Peso (kg)</label>
+                            <input type="number" name="weight" required class="w-full p-6 rounded-2xl text-xl font-bold" placeholder="80">
                         </div>
-                        <div class="space-y-2">
-                            <label class="text-xs font-black uppercase tracking-widest text-gray-500">Altura (cm)</label>
-                            <input type="number" name="height" required class="w-full p-5 rounded-2xl text-lg font-bold" placeholder="Ex: 175">
+                        <div class="space-y-3">
+                            <label class="text-[10px] font-black uppercase tracking-[0.2em] text-gray-500 ml-1">Altura (cm)</label>
+                            <input type="number" name="height" required class="w-full p-6 rounded-2xl text-xl font-bold" placeholder="180">
                         </div>
                     </div>
-                    <div class="space-y-2">
-                        <label class="text-xs font-black uppercase tracking-widest text-gray-500">Seu Maior Objetivo</label>
-                        <select name="objective" required class="w-full p-5 rounded-2xl text-lg font-bold">
+
+                    <div class="space-y-3">
+                        <label class="text-[10px] font-black uppercase tracking-[0.2em] text-gray-500 ml-1">Meta Principal</label>
+                        <select name="objective" required class="w-full p-6 rounded-2xl text-xl font-bold appearance-none">
                             <option value="hipertrofia">Ganho de Massa Muscular</option>
-                            <option value="emagrecimento">Definição e Queima de Gordura</option>
-                            <option value="forca">Força e Powerlifting</option>
+                            <option value="emagrecimento">Definição / Queima Extrema</option>
+                            <option value="forca">Força Bruta / Powerlifting</option>
                         </select>
                     </div>
-                    <button type="submit" class="w-full bg-neon text-black py-6 rounded-2xl font-black text-2xl uppercase btn-glow transition-all italic">
-                        Gerar Meu Protocolo
+
+                    <button type="submit" class="w-full bg-neon text-black py-8 rounded-3xl font-black text-2xl uppercase btn-glow italic mt-4">
+                        Processar Perfil
                     </button>
                 </form>
-            </div>
 
-            <!-- Previsualização de Treino -->
-            <div id="preview-section" class="hidden mt-12 animate-fade-in">
-                <div class="glass rounded-[32px] overflow-hidden border-neon/30">
-                    <div class="bg-neon p-6 text-black flex justify-between items-center">
-                        <h3 class="font-black italic text-xl">PRÉVIA DO SEU PLANO</h3>
-                        <span class="text-xs font-bold uppercase">Status: Liberado</span>
-                    </div>
-                    <div class="p-8 space-y-4">
-                        <div id="preview-content" class="space-y-3"></div>
-                        <div class="pt-8 border-t border-white/10 mt-8 relative">
-                            <div class="blur-sm opacity-30 select-none">
-                                <p>Exercício 4: Bloqueado</p>
-                                <p>Exercício 5: Bloqueado</p>
-                            </div>
-                            <div class="absolute inset-0 flex flex-col items-center justify-center">
-                                <p class="text-neon font-black mb-4">RESTANTE DO TREINO BLOQUEADO</p>
-                                <a href="checkout.html" class="bg-white text-black px-8 py-3 rounded-xl font-black uppercase text-sm btn-glow">Destravar Protocolo Completo</a>
-                            </div>
+                <!-- Preview Section Hidden by Default -->
+                <div id="preview-section" class="hidden mt-16 animate-fade pt-10 border-t border-white/10">
+                    <div id="preview-content" class="bg-white/5 p-8 rounded-3xl mb-10"></div>
+                    <div class="text-center relative">
+                        <div class="filter blur-md opacity-20 select-none space-y-4 mb-10">
+                            <p class="text-2xl font-black uppercase italic">DIETA ANABÓLICA: BLOQUEADA</p>
+                            <p class="text-2xl font-black uppercase italic">MÓDULO CORE: BLOQUEADO</p>
+                        </div>
+                        <div class="absolute inset-0 flex flex-col items-center justify-center">
+                            <a href="checkout.html" class="bg-white text-black px-12 py-5 rounded-2xl font-black uppercase text-lg btn-glow inline-flex items-center gap-4">
+                                Destravar Tudo
+                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"></path></svg>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -139,125 +243,99 @@
         </div>
     </section>
 
-    <footer class="bg-[#050505] pt-20 pb-10 border-t border-white/10 w-full">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16 items-start">
-                <!-- Coluna 1: Logo e Bio -->
+    <footer class="bg-[#050505] pt-32 pb-16 border-t border-white/5">
+        <div class="max-w-[1400px] mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-20 mb-24">
                 <div class="space-y-6">
-                    <div class="text-2xl font-black italic tracking-tighter uppercase text-white">
-                        PROTOCOLO<span class="text-neon">DO SHAPE</span>
-                    </div>
-                    <p class="text-gray-400 text-sm leading-relaxed">
-                        A metodologia definitiva para quem busca performance e estética. Resultados validados pela ciência.
-                    </p>
-                    <div class="flex space-x-4">
-                        <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-neon hover:text-black transition-all">
-                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.166.054 1.8.249 2.223.415.562.217.96.477 1.382.896.419.42.679.819.896 1.381.164.422.36 1.057.413 2.223.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.054 1.165-.249 1.8-.413 2.223-.217.562-.477.96-.896 1.382-.42.419-.819.679-1.381.896-.422.164-1.056.36-2.223.413-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.166-.054-1.8-.249-2.223-.415-.562-.217-.96-.477-1.382-.896-.419-.42-.679-.819-.896-1.381-.164-.422-.36-1.057-.413-2.223-.058-1.266-.07-1.646-.07-4.85s.012-3.584.07-4.85c.054-1.165.249-1.8.415-2.223.217-.562.477-.96.896-1.382.42-.419.819-.679 1.381-.896.422-.164 1.057-.36 2.223-.413 1.266-.058 1.646-.07 4.85-.07zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948s.014 3.667.072 4.947c.2 4.337 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072s3.667-.014 4.947-.072c4.358-.2 6.78-2.618 6.98-6.98.058-1.281.072-1.689.072-4.947s-.014-3.667-.072-4.947c-.2-4.358-2.618-6.78-6.98-6.98-1.28-.059-1.688-.073-4.947-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-                        </a>
-                    </div>
+                    <div class="text-3xl font-black italic tracking-tighter uppercase">PROTOCOLO<span class="text-neon">DO SHAPE</span></div>
+                    <p class="text-gray-500 text-sm leading-relaxed max-w-xs font-medium uppercase opacity-70">O mapa definitivo para a elite estética. Performance sem limites.</p>
                 </div>
-
-                <!-- Coluna 2: Navegação -->
                 <div>
-                    <h4 class="text-white font-bold uppercase mb-6 text-sm tracking-widest">Links Rápidos</h4>
-                    <ul class="space-y-4 text-gray-400 text-sm">
-                        <li><a href="#metodo" class="hover:text-neon transition">O Método</a></li>
-                        <li><a href="#form-section" class="hover:text-neon transition">Gerar Plano</a></li>
+                    <h4 class="text-white font-black uppercase text-xs tracking-widest mb-10 opacity-50">Mapa</h4>
+                    <ul class="space-y-6 text-sm text-gray-400 font-bold uppercase tracking-widest italic">
+                        <li><a href="#" class="hover:text-neon transition">Home</a></li>
+                        <li><a href="#metodo" class="hover:text-neon transition">Método</a></li>
+                        <li><a href="#resultados" class="hover:text-neon transition">Resultados</a></li>
                     </ul>
                 </div>
-
-                <!-- Coluna 3: Suporte -->
                 <div>
-                    <h4 class="text-white font-bold uppercase mb-6 text-sm tracking-widest">Suporte</h4>
-                    <p class="text-gray-400 text-sm mb-4">suporte@protocolodoshape.com.br</p>
-                    <a href="#" class="inline-flex items-center gap-2 bg-[#25D366]/10 text-[#25D366] px-4 py-2 rounded-lg font-bold text-xs border border-[#25D366]/20 hover:bg-[#25D366] hover:text-white transition-all uppercase">
-                        WhatsApp Suporte
-                    </a>
+                    <h4 class="text-white font-black uppercase text-xs tracking-widest mb-10 opacity-50">Atendimento</h4>
+                    <ul class="space-y-6 text-sm text-gray-400 font-bold uppercase tracking-widest italic">
+                        <li class="text-neon">suporte@protocolo.com</li>
+                        <li>Seg - Sex</li>
+                        <li>09h às 18h</li>
+                    </ul>
                 </div>
-
-                <!-- Coluna 4: Pagamento -->
                 <div>
-                    <h4 class="text-white font-bold uppercase mb-6 text-sm tracking-widest">Checkout Seguro</h4>
-                    <div class="flex gap-2 mb-6">
-                        <div class="w-10 h-6 bg-white/5 rounded border border-white/10 flex items-center justify-center">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg" class="w-8 opacity-50" alt="Visa">
-                        </div>
-                        <div class="w-10 h-6 bg-white/5 rounded border border-white/10 flex items-center justify-center">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" class="w-8 opacity-50" alt="MC">
-                        </div>
-                        <div class="w-10 h-6 bg-white/5 rounded border border-white/10 flex items-center justify-center">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a2/Logo%E2%80%94Pix.svg" class="w-8 opacity-50" alt="Pix">
-                        </div>
-                    </div>
-                    <div class="text-[10px] text-gray-500 uppercase font-black bg-white/5 p-3 rounded-lg border border-white/10">
-                        🔒 Dados Criptografados
+                    <h4 class="text-white font-black uppercase text-xs tracking-widest mb-10 opacity-50">Segurança</h4>
+                    <div class="glass p-6 rounded-2xl flex items-center gap-4">
+                        <svg class="w-10 h-10 text-neon" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                        <span class="text-[10px] font-black uppercase tracking-widest text-gray-400">100% Seguro<br>Criptografado</span>
                     </div>
                 </div>
             </div>
-
-            <!-- Links Legais e Copyright -->
-            <div class="pt-8 border-t border-white/5 text-center">
-                <div class="flex flex-wrap justify-center gap-x-8 gap-y-2 text-xs text-gray-500 mb-8 uppercase font-bold">
-                    <button onclick="openLegal('privacidade')" class="hover:text-neon transition">Privacidade</button>
-                    <button onclick="openLegal('termos')" class="hover:text-neon transition">Termos</button>
-                    <button onclick="openLegal('aviso')" class="hover:text-neon transition">Aviso Legal</button>
-                    <button onclick="openLegal('arrependimento')" class="hover:text-neon transition">Reembolso</button>
-                </div>
-                <p class="text-[10px] text-gray-600 mb-6">Este site não é afiliado ao Google ou Facebook. Resultados podem variar de acordo com o indivíduo.</p>
-                <p class="text-[11px] text-gray-500 uppercase tracking-widest">© 2024 PROTOCOLO DO SHAPE - CNPJ: 00.000.000/0001-00</p>
+            
+            <div class="pt-10 border-t border-white/5 text-center">
+                <p class="text-[10px] text-gray-700 font-bold uppercase tracking-[0.4em]">© 2024 Protocolo do Shape. Todos os direitos reservados.</p>
             </div>
         </div>
     </footer>
 
-    <div id="legal-modal" class="fixed inset-0 z-[100] hidden bg-black/90 backdrop-blur-md flex items-center justify-center p-4">
-        <div class="bg-[#111] border border-white/10 w-full max-w-2xl max-h-[80vh] rounded-[32px] overflow-hidden flex flex-col">
-            <div class="p-8 overflow-y-auto custom-scrollbar">
-                <h2 id="modal-title" class="text-2xl font-black italic text-neon mb-6">TÍTULO</h2>
-                <div id="modal-body" class="text-gray-400 space-y-4 text-sm leading-relaxed"></div>
-            </div>
-            <button onclick="closeModal()" class="p-4 bg-white/5 text-white font-bold uppercase text-xs hover:bg-white/10 transition">Fechar</button>
-        </div>
-    </div>
-
     <script>
-        const legalDocs = {
-            privacidade: { title: "Política de Privacidade", content: "<p>Seus dados biométricos são usados apenas para gerar a prévia do seu treino e não são armazenados permanentemente sem sua compra.</p>" },
-            termos: { title: "Termos de Uso", content: "<p>O conteúdo do Protocolo do Shape é protegido por direitos autorais. O compartilhamento indevido resultará em cancelamento de acesso.</p>" },
-            aviso: { title: "Aviso Legal", content: "<p>Consulte um médico antes de iniciar. Resultados dependem de dieta, genética e consistência.</p>" },
-            arrependimento: { title: "Direito de Arrependimento", content: "<p>Garantimos 7 dias de satisfação ou seu dinheiro de volta, conforme o CDC.</p>" }
-        };
-
-        function openLegal(key) {
-            document.getElementById('modal-title').textContent = legalDocs[key].title;
-            document.getElementById('modal-body').innerHTML = legalDocs[key].content;
-            document.getElementById('legal-modal').classList.remove('hidden');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeModal() {
-            document.getElementById('legal-modal').classList.add('hidden');
-            document.body.style.overflow = 'auto';
-        }
-
         document.getElementById('workout-form').addEventListener('submit', function(e) {
             e.preventDefault();
-            const gender = this.gender.value;
-            const obj = this.objective.value;
-            const content = document.getElementById('preview-content');
+            const btn = e.target.querySelector('button');
+            btn.innerHTML = "CALCULANDO...";
+            btn.disabled = true;
             
-            let workout = "";
-            if(gender === 'masculino') {
-                workout = obj === 'hipertrofia' ? "1. Supino Reto (4x10)<br>2. Agachamento Livre (4x12)<br>3. Remada Curvada (3x15)" : "1. Corrida HIIT (20 min)<br>2. Burpees (4x20)<br>3. Prancha (3x60s)";
-            } else {
-                workout = obj === 'hipertrofia' ? "1. Elevação Pélvica (4x15)<br>2. Leg Press (4x12)<br>3. Stiff (3x12)" : "1. Caminhada Inclinada (30 min)<br>2. Agachamento Sumô (4x20)<br>3. Mountain Climbers (3x30s)";
-            }
+            setTimeout(() => {
+                const gender = this.gender.value;
+                const obj = this.objective.value;
+                const content = document.getElementById('preview-content');
+                
+                let workout = "";
+                if(gender === 'masculino') {
+                    workout = obj === 'hipertrofia' ? "• Supino Inclinado (4x10)<br>• Agachamento Livre (5x8)<br>• Barra Fixa (3x MÁX)" : "• Sprint HIIT (15 min)<br>• Burpees (5x20)<br>• Flexão Diamante (4x15)";
+                } else {
+                    workout = obj === 'hipertrofia' ? "• Elevação Pélvica (4x20)<br>• Leg Press 45 (4x15)<br>• Stiff Barra (4x12)" : "• Escada Cardio (30 min)<br>• Agachamento Sumô (4x25)<br>• Abdominal Infra (4x20)";
+                }
 
-            content.innerHTML = `<p class='font-bold text-lg'>Treino Recomendado:</p><div class='text-gray-400'>${workout}</div>`;
-            document.getElementById('preview-section').classList.remove('hidden');
-            
-            // Ajuste de scroll para não pular para o topo
-            document.getElementById('preview-section').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                content.innerHTML = `
+                    <p class='text-neon font-bold mb-4 uppercase text-xs tracking-widest italic'>Dia 01 - Amostra Estratégica:</p>
+                    <p class='text-white text-3xl font-black italic leading-tight uppercase'>${workout}</p>`;
+                
+                document.getElementById('preview-section').classList.remove('hidden');
+                btn.innerHTML = "PROCESSADO COM SUCESSO";
+                btn.disabled = false;
+                
+                setTimeout(() => {
+                    document.getElementById('preview-section').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 100);
+            }, 1200);
         });
+
+        // Counter Animation
+        const counters = document.querySelectorAll('[data-target]');
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const updateCount = () => {
+                        const target = +entry.target.getAttribute('data-target');
+                        const count = +entry.target.innerText;
+                        const inc = target / 100;
+                        if (count < target) {
+                            entry.target.innerText = Math.ceil(count + inc);
+                            setTimeout(updateCount, 20);
+                        } else {
+                            entry.target.innerText = target;
+                        }
+                    };
+                    updateCount();
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+        counters.forEach(c => observer.observe(c));
     </script>
 </body>
 </html>
