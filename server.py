@@ -16,7 +16,7 @@ app.add_middleware(
 # CREDENCIAIS PROTEGIDAS (Nunca expostas no front-end)
 CAKTO_CLIENT_ID = "R50kJbZ68mXF3e6gpMdpzXrm4oSb0uRQazu0q9vi"
 CAKTO_CLIENT_SECRET = "pqlU93417QYEsaZasiQ0Fjh8cotF9eSsHFfHR3hmEITefXu52jkmnnIOwVwKnjU2H1XT6V4niyKlrwhOvbPyiVyOh2Pd9QPS7TNUppfZhW1k3PPA26XpbOcP3t13lryU"
-PRODUCT_LINK = "https://pay.cakto.com.br/SEU_ID_PRODUTO"
+PRODUCT_LINK = "https://pay.cakto.com.br/376mm6y_883600"
 
 class CheckoutRequest(BaseModel):
     name: str
