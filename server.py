@@ -30,30 +30,32 @@ class CheckoutRequest(BaseModel):
 @app.post("/api/create-payment")
 async def create_payment(data: CheckoutRequest):
     """
-    Aqui o backend processaria a autenticação OAuth com a Cakto
-    usando o CLIENT_ID e CLIENT_SECRET para gerar um token de checkout.
+    Simula a geração de um link de checkout autenticado.
+    Em um ambiente real, você faria um POST para a Cakto enviando o Client ID e Secret.
     """
     try:
-        # Em um fluxo real, faríamos uma chamada POST à API da Cakto aqui.
-        base_url = PRODUCT_LINK
+        # Simulando a estrutura de URL da Cakto que aceita preenchimento automático
+        # Certifique-se de substituir PRODUCT_LINK pelo link do seu produto real na Cakto
+        base_url = PRODUCT_LINK 
+        
+        # Parâmetros que a Cakto geralmente utiliza para preenchimento via URL
         params = {
             "name": data.name,
             "email": data.email,
             "phone": data.phone,
             "cpf": data.cpf,
-            "zip_code": data.zip_code,
+            "zipcode": data.zip_code,
             "address": data.street,
             "number": data.number,
-            "client_id": CAKTO_CLIENT_ID
+            "client_id": CAKTO_CLIENT_ID # ID da aplicação para rastreio
         }
         
-        # Simulando a resposta da API externa
-        checkout_url = f"{base_url}?{'&'.join([f'{k}={v}' for k, v in params.items()])}"
+        # Gerando a URL final codificada para evitar erros de leitura da API
+        from urllib.parse import urlencode
+        query_string = urlencode(params)
+        checkout_url = f"{base_url}?{query_string}"
         
         return {"checkout_url": checkout_url}
         
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
-
-if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+        raise HTTPException(status_code=500, detail=f"Erro no processamento: {str(e)}")
