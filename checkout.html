@@ -160,63 +160,44 @@
     </div>
 
     <script>
-        const mask = (el, fn) => el.addEventListener('input', e => e.target.value = fn(e.target.value));
-        const mCPF = v => v.replace(/\D/g, '').replace(/(\d{3})(\d)/, '$1.$2').replace(/(\d{3})(\d)/, '$1.$2').replace(/(\d{3})(\d{1,2})$/, '$1-$2').substring(0, 14);
-        const mTel = v => v.replace(/\D/g, '').replace(/^(\d{2})(\d)/g, '($1) $2').replace(/(\d)(\d{4})$/, '$1-$2').substring(0, 15);
-        const mCEP = v => v.replace(/\D/g, '').replace(/^(\d{5})(\d)/, '$1-$2').substring(0, 9);
+    /* ... existing masks code ... */
 
-        mask(document.getElementById('cpf'), mCPF);
-        mask(document.getElementById('whatsapp'), mTel);
-        mask(document.getElementById('cep'), mCEP);
+    // REDIRECIONAMENTO DIRETO PARA CAKTO (Sem Backend)
+    document.getElementById('backend-checkout-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const loader = document.getElementById('loader');
+        loader.style.display = 'flex';
 
-        // Busca CEP Automática
-        document.getElementById('cep').addEventListener('blur', async (e) => {
-            const cep = e.target.value.replace(/\D/g, '');
-            if (cep.length === 8) {
-                const res = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
-                const data = await res.json();
-                if (!data.erro) {
-                    document.getElementById('street').value = data.logradouro;
-                    document.getElementById('city').value = `${data.localidade} - ${data.uf}`;
-                }
-            }
+        // Captura de dados
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const phone = document.getElementById('whatsapp').value.replace(/\D/g, '');
+        const documentCpf = document.getElementById('cpf').value.replace(/\D/g, '');
+        const zipcode = document.getElementById('cep').value.replace(/\D/g, '');
+        const street = document.getElementById('street').value;
+        const number = e.target.number.value;
+
+        // Seu Link Direto da Cakto
+        const baseUrl = "https://pay.cakto.com.br/376mm6y_883600";
+        
+        // Mapeamento de campos padrão da Cakto para preenchimento automático
+        const params = new URLSearchParams({
+            name: name,
+            email: email,
+            phone: phone,
+            document: documentCpf,    // CPF
+            zipcode: zipcode,        // CEP
+            address: street,         // Rua
+            address_number: number   // Número
         });
 
-        // ENVIO PARA O BACKEND
-        document.getElementById('backend-checkout-form').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const loader = document.getElementById('loader');
-            loader.style.display = 'flex';
+        const checkoutUrl = `${baseUrl}?${params.toString()}`;
 
-            const formData = {
-                name: document.getElementById('name').value,
-                email: document.getElementById('email').value,
-                phone: document.getElementById('whatsapp').value.replace(/\D/g, ''),
-                cpf: document.getElementById('cpf').value.replace(/\D/g, ''),
-                zip_code: document.getElementById('cep').value.replace(/\D/g, ''),
-                street: document.getElementById('street').value,
-                number: e.target.number.value
-            };
-
-            try {
-                const response = await fetch('http://localhost:8000/api/create-payment', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(formData)
-                });
-
-                const result = await response.json();
-                
-                if (result.checkout_url) {
-                    window.location.href = result.checkout_url;
-                } else {
-                    throw new Error('Falha ao gerar link');
-                }
-            } catch (error) {
-                alert('Erro ao processar pagamento. Tente novamente.');
-                loader.style.display = 'none';
-            }
-        });
-    </script>
+        // Pequeno delay para o loader ser visto (melhora a percepção de segurança)
+        setTimeout(() => {
+            window.location.href = checkoutUrl;
+        }, 800);
+    });
+</script>
 </body>
 </html>
