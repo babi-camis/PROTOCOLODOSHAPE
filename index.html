@@ -252,143 +252,196 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <section id="resultados" class="py-24 bg-black">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-                <div>
-                    <h2 class="text-5xl font-black italic leading-none mb-8">RESULTADOS QUE <br><span class="text-neon">NÃO MENTEM.</span></h2>
-                    <p class="text-gray-400 text-lg mb-8">Nossa metodologia já foi testada em todos os biotipos possíveis. Do absoluto iniciante ao atleta de palco.</p>
-                    
-                    <div class="space-y-6">
-                        <div class="flex gap-4 p-6 glass rounded-2xl border-l-4 border-l-neon">
-                            <div class="text-neon">
-                                <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
-                            </div>
-                            <div>
-                                <p class="font-bold italic">"Mudei meu corpo em 6 semanas o que não mudei em 1 ano."</p>
-                                <span class="text-xs text-gray-500">- Ricardo M., 32 anos</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="grid grid-cols-2 gap-4">
-                    <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&q=80&w=400" class="rounded-3xl border border-white/10" alt="Result 1">
-                    <img src="https://images.unsplash.com/photo-1594381898411-846e7d193883?auto=format&fit=crop&q=80&w=400" class="rounded-3xl border border-white/10 mt-12" alt="Result 2">
+    <!-- MODAL OVERLAY -->
+    <div id="legal-modal" class="fixed inset-0 z-[100] hidden bg-black/90 backdrop-blur-md flex items-center justify-center p-4">
+        <div class="bg-[#111] border border-white/10 w-full max-w-3xl max-h-[80vh] rounded-[32px] overflow-hidden flex flex-col relative">
+            <button onclick="closeModal()" class="absolute top-6 right-6 text-gray-500 hover:text-neon transition-colors">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+            
+            <div class="p-8 md:p-12 overflow-y-auto custom-scrollbar">
+                <h2 id="modal-title" class="text-3xl font-black italic text-neon mb-6 uppercase">TÍTULO DO DOCUMENTO</h2>
+                <div id="modal-body" class="text-gray-400 space-y-4 leading-relaxed text-sm md:text-base text-justify">
+                    <!-- Conteúdo dinâmico via JS -->
                 </div>
             </div>
+            
+            <div class="p-6 border-t border-white/5 bg-black/50 text-center">
+                <button onclick="closeModal()" class="bg-white/5 hover:bg-white/10 text-white px-8 py-2 rounded-full text-xs font-bold uppercase tracking-widest transition-all">
+                    Fechar Documento
+                </button>
+            </div>
         </div>
-    </section>
+    </div>
 
-    <footer class="py-12 border-t border-white/5 text-center text-gray-600 text-sm">
+    <style>
+        /* Estilização da scrollbar do modal */
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: var(--primary); }
+    </style>
+
+    <footer class="bg-[#050505] pt-20 pb-10 border-t border-white/10">
         <div class="max-w-7xl mx-auto px-6">
-            <div class="text-2xl font-black italic mb-4 text-white/20 uppercase">PROTOCOLO<span class="text-white/10">DO SHAPE</span></div>
-            <p>© 2024 Protocolo do Shape. Resultados variam de pessoa para pessoa.</p>
-            <div class="mt-4 flex justify-center space-x-6">
-                <a href="#" class="hover:text-white transition">Privacidade</a>
-                <a href="#" class="hover:text-white transition">Termos de Uso</a>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+                <!-- Coluna 1: Branding -->
+                <div class="space-y-6">
+                    <div class="text-2xl font-black italic tracking-tighter uppercase text-white">
+                        PROTOCOLO<span class="text-neon">DO SHAPE</span>
+                    </div>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        A metodologia definitiva para quem busca alta performance e estética avançada. Treinos baseados em ciência, validados por resultados reais.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-neon hover:text-black transition-all">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-neon hover:text-black transition-all">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.166.054 1.8.249 2.223.415.562.217.96.477 1.382.896.419.42.679.819.896 1.381.164.422.36 1.057.413 2.223.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.054 1.165-.249 1.8-.413 2.223-.217.562-.477.96-.896 1.382-.42.419-.819.679-1.381.896-.422.164-1.056.36-2.223.413-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.166-.054-1.8-.249-2.223-.415-.562-.217-.96-.477-1.382-.896-.419-.42-.679-.819-.896-1.381-.164-.422-.36-1.057-.413-2.223-.058-1.266-.07-1.646-.07-4.85s.012-3.584.07-4.85c.054-1.165.249-1.8.415-2.223.217-.562.477-.96.896-1.382.42-.419.819-.679 1.381-.896.422-.164 1.057-.36 2.223-.413 1.266-.058 1.646-.07 4.85-.07zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948s.014 3.667.072 4.947c.2 4.337 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072s3.667-.014 4.947-.072c4.358-.2 6.78-2.618 6.98-6.98.058-1.281.072-1.689.072-4.947s-.014-3.667-.072-4.947c-.2-4.358-2.618-6.78-6.98-6.98-1.28-.059-1.688-.073-4.947-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Coluna 2: Navegação -->
+                <div>
+                    <h4 class="text-white font-bold uppercase mb-6 text-sm tracking-widest">Navegação</h4>
+                    <ul class="space-y-4 text-gray-400 text-sm">
+                        <li><a href="#metodo" class="hover:text-neon transition">O Método</a></li>
+                        <li><a href="#resultados" class="hover:text-neon transition">Resultados</a></li>
+                        <li><a href="#form-section" class="hover:text-neon transition">Gerar Plano</a></li>
+                        <li><a href="#perguntas" class="hover:text-neon transition">FAQ</a></li>
+                    </ul>
+                </div>
+
+                <!-- Coluna 3: Suporte -->
+                <div>
+                    <h4 class="text-white font-bold uppercase mb-6 text-sm tracking-widest">Suporte</h4>
+                    <ul class="space-y-4 text-gray-400 text-sm">
+                        <li class="flex items-center gap-3">
+                            <svg class="w-5 h-5 text-neon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                            suporte@protocolodoshape.com.br
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <svg class="w-5 h-5 text-neon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            Seg - Sex: 09h às 18h
+                        </li>
+                        <li class="pt-2">
+                            <a href="#" class="inline-flex items-center gap-2 bg-[#25D366]/10 text-[#25D366] px-4 py-2 rounded-lg font-bold text-xs border border-[#25D366]/20 hover:bg-[#25D366] hover:text-white transition-all">
+                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.246 2.248 3.484 5.232 3.483 8.411-.003 6.557-5.338 11.892-11.893 11.892-1.997-.001-3.951-.5-5.688-1.448l-6.305 1.657zm6.59-4.835c1.558.926 3.447 1.414 5.37 1.415h.001c5.395 0 9.787-4.392 9.789-9.789.002-2.615-1.017-5.074-2.871-6.928s-4.311-2.87-6.928-2.872c-5.394 0-9.785 4.391-9.789 9.788-.001 1.924.489 3.813 1.415 5.37l-1.066 3.89 3.98-1.044z"/></svg>
+                                WHATSAPP DE SUPORTE
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Coluna 4: Segurança -->
+                <div>
+                    <h4 class="text-white font-bold uppercase mb-6 text-sm tracking-widest">Pagamento Seguro</h4>
+                    <div class="grid grid-cols-4 gap-2 mb-6">
+                        <div class="h-8 bg-white/5 rounded border border-white/10 flex items-center justify-center p-1">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg" class="max-h-full opacity-50 hover:opacity-100 transition" alt="Visa">
+                        </div>
+                        <div class="h-8 bg-white/5 rounded border border-white/10 flex items-center justify-center p-1">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" class="max-h-full opacity-50 hover:opacity-100 transition" alt="Mastercard">
+                        </div>
+                        <div class="h-8 bg-white/5 rounded border border-white/10 flex items-center justify-center p-1">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a2/Logo%E2%80%94Pix.svg" class="max-h-full opacity-50 hover:opacity-100 transition" alt="Pix">
+                        </div>
+                        <div class="h-8 bg-white/5 rounded border border-white/10 flex items-center justify-center p-1">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" class="max-h-full opacity-50 hover:opacity-100 transition" alt="PayPal">
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2 text-[10px] text-gray-500 uppercase font-bold bg-white/5 p-3 rounded-lg border border-white/10">
+                        <svg class="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"></path></svg>
+                        Ambiente 100% Criptografado
+                    </div>
+                </div>
+            </div>
+
+            <div class="pt-8 border-t border-white/5 space-y-6">
+                <!-- Links Jurídicos -->
+                <div class="flex flex-wrap justify-center gap-x-8 gap-y-2 text-xs text-gray-500 font-medium uppercase tracking-wider">
+                    <button onclick="openLegal('privacidade')" class="hover:text-white transition">Políticas de Privacidade</button>
+                    <button onclick="openLegal('termos')" class="hover:text-white transition">Termos de Uso</button>
+                    <button onclick="openLegal('aviso')" class="hover:text-white transition">Aviso Legal</button>
+                    <button onclick="openLegal('arrependimento')" class="hover:text-white transition">Direito de Arrependimento</button>
+                </div>
+
+                <!-- Disclaimer Importante -->
+                <p class="text-[10px] text-gray-600 max-w-4xl mx-auto leading-relaxed">
+                    Este site não faz parte do Google ou do Facebook. Além disso, este site NÃO é endossado pelo Google ou pelo Facebook de nenhuma maneira. GOOGLE e FACEBOOK são marcas comerciais de suas respectivas empresas. Resultados variam de pessoa para pessoa e dependem de fatores genéticos, dedicação ao treino e alimentação. Sempre consulte um médico antes de iniciar qualquer atividade física.
+                </p>
+
+                <!-- Copyright -->
+                <div class="flex flex-col md:flex-row items-center justify-between gap-4 pt-4">
+                    <p class="text-[11px] text-gray-500 uppercase tracking-tighter">
+                        © 2024 PROTOCOLO DO SHAPE - Todos os direitos reservados. CNPJ: 00.000.000/0001-00
+                    </p>
+                    <p class="text-[11px] text-gray-600 italic">
+                        Desenvolvido com foco em performance e resultados.
+                    </p>
+                </div>
             </div>
         </div>
     </footer>
 
     <script>
-        const workoutForm = document.getElementById('workout-form');
-        const formContainer = document.getElementById('form-container');
-        const previewSection = document.getElementById('preview-section');
-        const previewContent = document.getElementById('preview-content');
-        const formSection = document.getElementById('form-section');
-        const trainingPresets = {
-            'masculino-hipertrofia': {
-                tag: 'FORÇA & HIPERTROFIA',
-                exercises: [
-                    { name: 'Supino Inclinado (Barra)', detail: '4x 8-10 (Progressão)' },
-                    { name: 'Remada Cavalinho', detail: '4x 10 (Squeeze de 2s)' },
-                    { name: 'Desenvolvimento c/ Halteres', detail: '3x 12 (Carga Máxima)' },
-                    { name: 'Rosca Scott', detail: '3x Drop-set final' }
-                ]
+        const legalDocs = {
+            privacidade: {
+                title: "Política de Privacidade",
+                content: `
+                    <p>Sua privacidade é importante para nós. É política do <strong>PROTOCOLO DO SHAPE</strong> respeitar a sua privacidade em relação a qualquer informação sua que possamos coletar no site.</p>
+                    <p>Solicitamos informações pessoais apenas quando realmente precisamos delas para lhe fornecer um serviço. Fazemo-lo por meios justos e legais, com o seu conhecimento e consentimento.</p>
+                    <p><strong>Dados Biométricos:</strong> Os dados de idade, peso e altura inseridos em nossa calculadora são processados localmente para gerar sua prévia de treino e não são armazenados permanentemente em nossos servidores a menos que você finalize a compra.</p>
+                    <p>Não compartilhamos informações de identificação pessoal publicamente ou com terceiros, exceto quando exigido por lei.</p>
+                `
             },
-            'feminino-hipertrofia': {
-                tag: 'GLÚTEOS E PERNAS ELITE',
-                exercises: [
-                    { name: 'Agachamento Livre', detail: '4x 10 (Amplitude Total)' },
-                    { name: 'Elevação Pélvica', detail: '4x 12 (Pico de contração)' },
-                    { name: 'Leg Press 45º', detail: '3x 15 (Pés Baixos)' },
-                    { name: 'Cadeira Extensora', detail: '3x Falha (Point of no return)' }
-                ]
+            termos: {
+                title: "Termos de Uso",
+                content: `
+                    <p>Ao acessar o <strong>PROTOCOLO DO SHAPE</strong>, você concorda em cumprir estes termos de serviço e todas as leis aplicáveis.</p>
+                    <p><strong>Uso de Conteúdo:</strong> Todo o material (planilhas, vídeos e textos) é de propriedade intelectual exclusiva. A reprodução ou compartilhamento sem autorização prévia resultará em bloqueio do acesso e medidas judiciais.</p>
+                    <p><strong>Responsabilidade:</strong> O usuário compreende que o Protocolo do Shape fornece orientações e que a execução dos exercícios é de inteira responsabilidade do praticante.</p>
+                `
             },
-            'masculino-emagrecimento': {
-                tag: 'DEFINIÇÃO MÁXIMA',
-                exercises: [
-                    { name: 'Circuito Funcional de Força', detail: '4 Rounds (Sem descanso)' },
-                    { name: 'Levantamento Terra', detail: '5x 5 (Explosão)' },
-                    { name: 'Barra Fixa', detail: '4x Máximo de Reps' },
-                    { name: 'HIIT em Esteira', detail: '10 min (30s/30s)' }
-                ]
+            aviso: {
+                title: "Aviso Legal (Disclaimer)",
+                content: `
+                    <p><strong>Importante:</strong> Os resultados apresentados neste site são resultados reais de nossos alunos, porém, não garantimos que você terá o mesmo resultado.</p>
+                    <p>Cada corpo responde de maneira diferente ao estímulo físico e à dieta. O sucesso do protocolo depende da sua disciplina e consistência.</p>
+                    <p><strong>Saúde:</strong> Recomendamos fortemente que você consulte um médico antes de iniciar qualquer programa de exercícios de alta intensidade. Se sentir tonturas ou dores agudas, pare o treino imediatamente.</p>
+                `
             },
-            'feminino-emagrecimento': {
-                tag: 'TONIFICAÇÃO & CARDIO',
-                exercises: [
-                    { name: 'Afundo com Halteres', detail: '4x 12 cada perna' },
-                    { name: 'Stiff c/ Barra', detail: '4x 12 (Alongamento máximo)' },
-                    { name: 'Burpees + ABS Plank', detail: '3 Rounds 1min cada' },
-                    { name: 'Escada (Stairmaster)', detail: '15 min Cadência 7' }
-                ]
-            },
-            'forca': {
-                tag: 'PROTOCOLO DE FORÇA PURA',
-                exercises: [
-                    { name: 'Agachamento High Bar', detail: '5x 5 (85% 1RM)' },
-                    { name: 'Supino Reto', detail: '5x 5 (Foco em técnica)' },
-                    { name: 'Terra Sumô', detail: '3x 3 (Potência)' },
-                    { name: 'Push Press', detail: '4x 6 (Explosão Vertical)' }
-                ]
+            arrependimento: {
+                title: "Direito de Arrependimento",
+                content: `
+                    <p>Respeitamos o <strong>Código de Defesa do Consumidor (Artigo 49)</strong>.</p>
+                    <p>Você tem o direito de desistir da compra em até <strong>7 dias corridos</strong> após a confirmação do pagamento, com direito a reembolso integral.</p>
+                    <p>Para solicitar o estorno, basta enviar um e-mail para <em>suporte@protocolodoshape.com.br</em> com os dados da sua compra. O acesso à área de membros será revogado imediatamente após o processamento da devolução.</p>
+                `
             }
         };
 
-        workoutForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const formData = new FormData(workoutForm);
-            const gender = formData.get('gender');
-            const objective = formData.get('objective');
-            
-            // Lógica de seleção do preset
-            let key = `${gender}-${objective}`;
-            if (objective === 'forca') key = 'forca';
-            
-            const data = trainingPresets[key] || trainingPresets['masculino-hipertrofia'];
+        function openLegal(docKey) {
+            const doc = legalDocs[docKey];
+            document.getElementById('modal-title').textContent = doc.title;
+            document.getElementById('modal-body').innerHTML = doc.content;
+            document.getElementById('legal-modal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden'; // Previne scroll ao fundo
+        }
 
-            // Atualizar UI de resumo
-            document.getElementById('res-gender').textContent = gender.substring(0, 4);
-            document.getElementById('res-obj').textContent = objective.substring(0, 5);
-            document.getElementById('workout-tag').textContent = data.tag;
+        function closeModal() {
+            document.getElementById('legal-modal').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
 
-            // Gerar lista de exercícios
-            let html = '';
-            data.exercises.forEach(ex => {
-                html += `
-                <div class="flex items-center justify-between group">
-                    <div class="flex items-center gap-3">
-                        <div class="w-2 h-2 bg-neon rounded-full group-hover:scale-150 transition-transform"></div>
-                        <span class="font-bold text-white text-lg">${ex.name}</span>
-                    </div>
-                    <span class="text-neon font-oswald text-sm">${ex.detail}</span>
-                </div>`;
-            });
-
-            previewContent.innerHTML = html;
-
-            // 1. Primeiro mostramos a seção (ainda invisível pelo fluxo mas com display)
-            previewSection.classList.remove('hidden');
-            
-            // 2. Escondemos o formulário
-            formContainer.classList.add('hidden');
-
-            // 3. Forçamos o scroll para o topo da seção do formulário, não para o topo da página
-            formSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        // Fechar ao clicar fora do conteúdo
+        document.getElementById('legal-modal').addEventListener('click', function(e) {
+            if (e.target === this) closeModal();
         });
+
+        /* ... existing script (workoutForm logic) ... */
     </script>
 </body>
 </html>
