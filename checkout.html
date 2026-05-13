@@ -7,10 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Oswald:wght@700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --neon: #e2ff00;
-            --dark: #050505;
-        }
+        :root { --neon: #e2ff00; --dark: #050505; }
         body { font-family: 'Inter', sans-serif; background-color: var(--dark); color: white; margin: 0; }
         h1, h2, h3, .font-oswald { font-family: 'Oswald', sans-serif; text-transform: uppercase; }
 
@@ -20,10 +17,7 @@
             box-shadow: 0 0 20px rgba(0,0,0,0.5);
             transition: all 0.3s ease;
         }
-        .glow-box:focus-within {
-            border-color: var(--neon);
-            box-shadow: 0 0 30px rgba(226, 255, 0, 0.1);
-        }
+        .glow-box:focus-within { border-color: var(--neon); box-shadow: 0 0 30px rgba(226, 255, 0, 0.1); }
 
         input {
             background: #111 !important;
@@ -36,23 +30,16 @@
         .btn-glow { transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
         .btn-glow:hover { box-shadow: 0 0 40px var(--neon); transform: scale(1.02); }
 
-        .text-neon { color: var(--neon); }
-        .bg-neon { background-color: var(--neon); }
-
-        /* Chrome, Safari, Edge, Opera */
-        input::-webkit-outer-spin-button,
-        input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
-        
         .loading-overlay {
             display: none;
             position: fixed;
             inset: 0;
-            background: rgba(0,0,0,0.9);
+            background: rgba(0,0,0,0.95);
             z-index: 100;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(15px);
         }
     </style>
 </head>
@@ -71,16 +58,14 @@
     </header>
 
     <main class="max-w-7xl mx-auto px-6 mt-16 grid lg:grid-cols-12 gap-16">
-        
-        <!-- FORMULÁRIO -->
         <div class="lg:col-span-7 space-y-12">
             <div class="glow-box p-10 md:p-16 rounded-[50px]">
-                <form id="cakto-integration-form" class="space-y-10">
+                <form id="backend-checkout-form" class="space-y-10">
                     
                     <div>
                         <h2 class="text-3xl font-black italic mb-8 flex items-center gap-5">
                             <span class="w-10 h-10 bg-neon text-black rounded-full flex items-center justify-center text-sm not-italic font-bold">1</span>
-                            Dados Pessoais
+                            Dados Cadastrais
                         </h2>
                         <div class="grid gap-6">
                             <div class="space-y-2">
@@ -89,7 +74,7 @@
                             </div>
                             <div class="grid md:grid-cols-2 gap-6">
                                 <div class="space-y-2">
-                                    <label class="text-[10px] font-black text-gray-500 uppercase tracking-widest ml-1">E-mail para Acesso</label>
+                                    <label class="text-[10px] font-black text-gray-500 uppercase tracking-widest ml-1">E-mail</label>
                                     <input type="email" id="email" name="email" required placeholder="seu@email.com" class="w-full p-6 rounded-2xl font-bold text-lg">
                                 </div>
                                 <div class="space-y-2">
@@ -98,7 +83,7 @@
                                 </div>
                             </div>
                             <div class="space-y-2">
-                                <label class="text-[10px] font-black text-gray-500 uppercase tracking-widest ml-1">CPF (Necessário para nota fiscal)</label>
+                                <label class="text-[10px] font-black text-gray-500 uppercase tracking-widest ml-1">CPF</label>
                                 <input type="text" id="cpf" name="cpf" required placeholder="000.000.000-00" class="w-full p-6 rounded-2xl font-bold text-lg">
                             </div>
                         </div>
@@ -107,7 +92,7 @@
                     <div class="pt-10 border-t border-white/5">
                         <h2 class="text-3xl font-black italic mb-8 flex items-center gap-5">
                             <span class="w-10 h-10 bg-neon text-black rounded-full flex items-center justify-center text-sm not-italic font-bold">2</span>
-                            Endereço de Faturamento
+                            Endereço
                         </h2>
                         <div class="grid gap-6">
                             <div class="grid md:grid-cols-3 gap-6">
@@ -116,75 +101,52 @@
                                     <input type="text" id="cep" name="cep" required placeholder="00000-000" class="w-full p-6 rounded-2xl font-bold text-lg">
                                 </div>
                                 <div class="md:col-span-2 space-y-2">
-                                    <label class="text-[10px] font-black text-gray-500 uppercase tracking-widest ml-1">Cidade / Estado</label>
-                                    <input type="text" id="city" readonly placeholder="Auto-preenchimento" class="w-full p-6 rounded-2xl font-bold text-lg opacity-40 cursor-not-allowed">
+                                    <label class="text-[10px] font-black text-gray-500 uppercase tracking-widest ml-1">Cidade</label>
+                                    <input type="text" id="city" readonly class="w-full p-6 rounded-2xl font-bold text-lg opacity-40">
                                 </div>
                             </div>
                             <div class="grid md:grid-cols-4 gap-6">
                                 <div class="md:col-span-3 space-y-2">
-                                    <label class="text-[10px] font-black text-gray-500 uppercase tracking-widest ml-1">Logradouro / Rua</label>
-                                    <input type="text" id="street" name="street" required placeholder="Rua, Avenida..." class="w-full p-6 rounded-2xl font-bold text-lg">
+                                    <label class="text-[10px] font-black text-gray-500 uppercase tracking-widest ml-1">Rua</label>
+                                    <input type="text" id="street" name="street" required class="w-full p-6 rounded-2xl font-bold text-lg">
                                 </div>
                                 <div class="space-y-2">
                                     <label class="text-[10px] font-black text-gray-500 uppercase tracking-widest ml-1">Nº</label>
-                                    <input type="text" name="number" required placeholder="123" class="w-full p-6 rounded-2xl font-bold text-lg text-center">
+                                    <input type="text" name="number" required class="w-full p-5 rounded-2xl font-bold text-lg text-center">
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     <button type="submit" class="w-full bg-neon text-black py-8 rounded-[30px] font-black text-3xl uppercase italic btn-glow flex items-center justify-center gap-5 mt-10">
-                        FINALIZAR E PAGAR
+                        FINALIZAR PAGAMENTO
                         <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                     </button>
-                    <p class="text-center text-xs text-gray-500 font-bold uppercase tracking-widest">Acesso imediato após confirmação</p>
                 </form>
             </div>
         </div>
 
         <div class="lg:col-span-5">
-            <div class="glow-box p-10 rounded-[50px] sticky top-32 border-neon/10">
-                <h3 class="text-2xl font-black italic mb-10 border-b border-white/5 pb-5">Resumo do Pedido</h3>
-                
+            <div class="glow-box p-10 rounded-[50px] sticky top-32">
+                <h3 class="text-2xl font-black italic mb-10 border-b border-white/5 pb-5">Resumo</h3>
                 <div class="flex gap-6 mb-10">
                     <div class="w-24 h-24 bg-neon/10 rounded-3xl flex items-center justify-center border border-neon/20">
-                        <svg class="w-12 h-12 text-neon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
+                        <svg class="w-12 h-12 text-neon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
                     </div>
-                    <div class="flex flex-col justify-center">
-                        <p class="font-black text-xl italic uppercase leading-tight">Protocolo do Shape</p>
-                        <p class="text-xs text-gray-500 uppercase mt-2 tracking-widest font-bold">Acesso Vitalício + Atualizações</p>
-                        <div class="flex items-center gap-3 mt-3">
-                            <span class="text-neon font-black text-3xl italic">R$ 29,90</span>
-                            <span class="text-gray-600 line-through text-sm font-bold">R$ 97,00</span>
-                        </div>
+                    <div>
+                        <p class="font-black text-xl italic uppercase">Protocolo do Shape</p>
+                        <p class="text-xs text-neon font-bold uppercase mt-1">Acesso Vitalício</p>
+                        <p class="text-3xl font-black italic mt-2">R$ 29,90</p>
                     </div>
                 </div>
-
-                <div class="space-y-5 py-10 border-y border-white/5 mb-10">
-                    <div class="flex justify-between items-center">
-                        <span class="text-gray-400 font-bold uppercase text-xs tracking-widest">Subtotal</span>
-                        <span class="text-gray-400 font-bold text-lg">R$ 97,00</span>
+                <div class="space-y-4 py-8 border-t border-white/5">
+                    <div class="flex justify-between items-center opacity-40">
+                        <span class="text-xs font-bold uppercase tracking-widest">Preço Original</span>
+                        <span class="line-through italic">R$ 97,00</span>
                     </div>
-                    <div class="flex justify-between items-center">
-                        <span class="text-green-500 font-black uppercase text-xs tracking-widest italic">Cupom Aplicado</span>
-                        <span class="text-green-500 font-black text-lg">- R$ 67,10</span>
-                    </div>
-                    <div class="flex justify-between items-center pt-6">
-                        <span class="text-2xl font-black italic">TOTAL</span>
-                        <span class="text-5xl font-black text-neon italic tracking-tighter">R$ 29,90</span>
-                    </div>
-                </div>
-
-                <div class="space-y-8">
-                    <div class="flex items-center gap-6 grayscale opacity-30 justify-center">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg" class="h-5" alt="Visa">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" class="h-8" alt="Master">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a2/Logo%E2%80%94Pix.svg" class="h-6" alt="Pix">
-                    </div>
-                    <div class="p-6 bg-white/5 rounded-3xl border border-white/5">
-                        <p class="text-[10px] text-center text-gray-500 uppercase font-black leading-relaxed tracking-widest">
-                            Sua compra está segura. Utilizamos criptografia de 256 bits para proteger seus dados através da plataforma Cakto.
-                        </p>
+                    <div class="flex justify-between items-center text-green-500">
+                        <span class="text-xs font-bold uppercase tracking-widest">Desconto Aplicado</span>
+                        <span class="font-black italic">- R$ 67,10</span>
                     </div>
                 </div>
             </div>
@@ -192,22 +154,13 @@
     </main>
 
     <div id="loader" class="loading-overlay">
-        <div class="w-20 h-20 border-4 border-neon/20 border-t-neon rounded-full animate-spin mb-6"></div>
-        <p class="text-neon font-black italic tracking-widest text-xl uppercase animate-pulse">Sincronizando com Cakto...</p>
+        <div class="w-24 h-24 border-4 border-neon/10 border-t-neon rounded-full animate-spin mb-8"></div>
+        <p class="text-neon font-black italic tracking-[0.3em] text-2xl uppercase animate-pulse">Protegendo sua conexão...</p>
+        <p class="text-gray-500 text-xs mt-4 uppercase font-bold">Autenticando com Gateway Cakto</p>
     </div>
 
     <script>
-        // CONFIGURAÇÕES CAKTO (CREDENCIAIS)
-        const CAKTO_CLIENT_ID = "R50kJbZ68mXF3e6gpMdpzXrm4oSb0uRQazu0q9vi";
-        // Em um sistema real, o secret ficaria no servidor. 
-        const CAKTO_CLIENT_SECRET = "pqlU93417QYEsaZasiQ0Fjh8cotF9eSsHFfHR3hmEITefXu52jkmnnIOwVwKnjU2H1XT6V4niyKlrwhOvbPyiVyOh2Pd9QPS7TNUppfZhW1k3PPA26XpbOcP3t13lryU";
-        const CAKTO_PRODUCT_LINK = "https://pay.cakto.com.br/SEU_ID_DO_PRODUTO"; // Substitua pelo ID final do checkout
-
-        // MÁSCARAS
-        const mask = (el, fn) => {
-            el.addEventListener('input', e => e.target.value = fn(e.target.value));
-        };
-
+        const mask = (el, fn) => el.addEventListener('input', e => e.target.value = fn(e.target.value));
         const mCPF = v => v.replace(/\D/g, '').replace(/(\d{3})(\d)/, '$1.$2').replace(/(\d{3})(\d)/, '$1.$2').replace(/(\d{3})(\d{1,2})$/, '$1-$2').substring(0, 14);
         const mTel = v => v.replace(/\D/g, '').replace(/^(\d{2})(\d)/g, '($1) $2').replace(/(\d)(\d{4})$/, '$1-$2').substring(0, 15);
         const mCEP = v => v.replace(/\D/g, '').replace(/^(\d{5})(\d)/, '$1-$2').substring(0, 9);
@@ -216,48 +169,53 @@
         mask(document.getElementById('whatsapp'), mTel);
         mask(document.getElementById('cep'), mCEP);
 
-        // BUSCA CEP (ViaCEP)
+        // Busca CEP Automática
         document.getElementById('cep').addEventListener('blur', async (e) => {
             const cep = e.target.value.replace(/\D/g, '');
             if (cep.length === 8) {
-                try {
-                    const res = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
-                    const data = await res.json();
-                    if (!data.erro) {
-                        document.getElementById('street').value = data.logradouro;
-                        document.getElementById('city').value = `${data.localidade} - ${data.uf}`;
-                    }
-                } catch (e) { console.error('Erro na busca do CEP'); }
+                const res = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
+                const data = await res.json();
+                if (!data.erro) {
+                    document.getElementById('street').value = data.logradouro;
+                    document.getElementById('city').value = `${data.localidade} - ${data.uf}`;
+                }
             }
         });
 
-        // INTEGRAÇÃO DE ENVIO CAKTO
-        document.getElementById('cakto-integration-form').addEventListener('submit', function(e) {
+        // ENVIO PARA O BACKEND
+        document.getElementById('backend-checkout-form').addEventListener('submit', async (e) => {
             e.preventDefault();
-            
             const loader = document.getElementById('loader');
             loader.style.display = 'flex';
 
-            // Coleta de dados higienizados
-            const name = encodeURIComponent(document.getElementById('name').value);
-            const email = encodeURIComponent(document.getElementById('email').value);
-            const phone = encodeURIComponent(document.getElementById('whatsapp').value.replace(/\D/g, ''));
-            const cpf = encodeURIComponent(document.getElementById('cpf').value.replace(/\D/g, ''));
-            const cep = encodeURIComponent(document.getElementById('cep').value.replace(/\D/g, ''));
-            const street = encodeURIComponent(document.getElementById('street').value);
-            const number = encodeURIComponent(e.target.number.value);
+            const formData = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('whatsapp').value.replace(/\D/g, ''),
+                cpf: document.getElementById('cpf').value.replace(/\D/g, ''),
+                zip_code: document.getElementById('cep').value.replace(/\D/g, ''),
+                street: document.getElementById('street').value,
+                number: e.target.number.value
+            };
 
-            /* 
-               FLUXO CAKTO: 
-               Como estamos no front-end, o Client ID e Secret são usados para 
-               identificar a conta. O redirecionamento preenche os campos do checkout.
-            */
-            const finalUrl = `${CAKTO_PRODUCT_LINK}?name=${name}&email=${email}&phone=${phone}&cpf=${cpf}&zip_code=${cep}&address=${street}&number=${number}&client_id=${CAKTO_CLIENT_ID}`;
+            try {
+                const response = await fetch('http://localhost:8000/api/create-payment', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formData)
+                });
 
-            // Simulação de processamento de API para efeito visual e segurança
-            setTimeout(() => {
-                window.location.href = finalUrl;
-            }, 1500);
+                const result = await response.json();
+                
+                if (result.checkout_url) {
+                    window.location.href = result.checkout_url;
+                } else {
+                    throw new Error('Falha ao gerar link');
+                }
+            } catch (error) {
+                alert('Erro ao processar pagamento. Tente novamente.');
+                loader.style.display = 'none';
+            }
         });
     </script>
 </body>
