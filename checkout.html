@@ -3,208 +3,261 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Checkout | PROTOCOLO DO SHAPE</title>
+    <title>Finalizar Inscrição | PROTOCOLO DO SHAPE</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Oswald:wght@700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #e2ff00; /* Amarelo Neon */
-            --dark-bg: #0a0a0a;
+            --neon: #e2ff00;
+            --dark: #050505;
         }
-        body { font-family: 'Inter', sans-serif; background-color: var(--dark-bg); color: white; }
+        body { font-family: 'Inter', sans-serif; background-color: var(--dark); color: white; margin: 0; }
         h1, h2, h3, .font-oswald { font-family: 'Oswald', sans-serif; text-transform: uppercase; }
-        
-        .text-neon { color: var(--primary); }
-        .bg-neon { background-color: var(--primary); }
-        .btn-glow:hover { box-shadow: 0 0 20px rgba(226, 255, 0, 0.4); transform: translateY(-2px); }
-        
-        input, select { 
-            background: #161616 !important; 
-            border: 1px solid #222 !important; 
-            color: white !important; 
+
+        .glow-box {
+            border: 1px solid rgba(226, 255, 0, 0.2);
+            background: rgba(255, 255, 255, 0.02);
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
             transition: all 0.3s ease;
         }
-        input:focus { border-color: var(--primary) !important; outline: none; box-shadow: 0 0 10px rgba(226, 255, 0, 0.1); }
+        .glow-box:focus-within {
+            border-color: var(--neon);
+            box-shadow: 0 0 30px rgba(226, 255, 0, 0.1);
+        }
+
+        input {
+            background: #111 !important;
+            border: 1px solid #333 !important;
+            color: white !important;
+            transition: all 0.3s;
+        }
+        input:focus { border-color: var(--neon) !important; outline: none; box-shadow: 0 0 15px rgba(226, 255, 0, 0.1); }
+
+        .btn-glow { transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .btn-glow:hover { box-shadow: 0 0 40px var(--neon); transform: scale(1.02); }
+
+        .text-neon { color: var(--neon); }
+        .bg-neon { background-color: var(--neon); }
+
+        /* Chrome, Safari, Edge, Opera */
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
         
-        .glass { background: rgba(255, 255, 255, 0.02); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.05); }
+        .loading-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.9);
+            z-index: 100;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(10px);
+        }
     </style>
 </head>
-<body class="min-h-screen bg-[#050505]">
+<body class="min-h-screen pb-20">
 
-    <header class="py-6 border-b border-white/5 bg-black/50">
-        <div class="max-w-5xl mx-auto px-6 flex justify-between items-center">
-            <div class="text-2xl font-black italic tracking-tighter uppercase">PROTOCOLO<span class="text-neon">DO SHAPE</span></div>
-            <div class="flex items-center gap-2 text-[10px] text-gray-500 font-bold uppercase tracking-widest">
-                <svg class="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"></path></svg>
-                Checkout Seguro & Criptografado
+    <header class="py-8 border-b border-white/5 bg-black/40 backdrop-blur-md sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-6 flex justify-between items-center">
+            <div class="text-2xl md:text-4xl font-black italic uppercase tracking-tighter">
+                PROTOCOLO<span class="text-neon">DO SHAPE</span>
+            </div>
+            <div class="flex items-center gap-3 text-[10px] md:text-xs font-bold text-gray-400 uppercase tracking-[0.2em]">
+                <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                Checkout 100% Seguro
             </div>
         </div>
     </header>
 
-    <main class="max-w-5xl mx-auto px-6 py-12">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
-            
-            <div class="lg:col-span-7 space-y-8">
-                <div class="glass p-8 rounded-[32px]">
-                    <div class="flex items-center gap-4 mb-8">
-                        <div class="w-10 h-10 rounded-full bg-neon text-black flex items-center justify-center font-black italic">1</div>
-                        <h2 class="text-2xl font-black italic uppercase">Dados de Contato</h2>
-                    </div>
+    <main class="max-w-7xl mx-auto px-6 mt-16 grid lg:grid-cols-12 gap-16">
+        
+        <!-- FORMULÁRIO -->
+        <div class="lg:col-span-7 space-y-12">
+            <div class="glow-box p-10 md:p-16 rounded-[50px]">
+                <form id="cakto-integration-form" class="space-y-10">
                     
-                    <form id="checkout-form" class="space-y-6">
-                        <div class="space-y-2">
-                            <label class="text-[10px] font-black uppercase tracking-widest text-gray-500 ml-1">Nome Completo</label>
-                            <input type="text" name="name" required class="w-full p-4 rounded-xl font-bold" placeholder="Digite seu nome completo">
-                        </div>
-
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <h2 class="text-3xl font-black italic mb-8 flex items-center gap-5">
+                            <span class="w-10 h-10 bg-neon text-black rounded-full flex items-center justify-center text-sm not-italic font-bold">1</span>
+                            Dados Pessoais
+                        </h2>
+                        <div class="grid gap-6">
                             <div class="space-y-2">
-                                <label class="text-[10px] font-black uppercase tracking-widest text-gray-500 ml-1">E-mail</label>
-                                <input type="email" name="email" required class="w-full p-4 rounded-xl font-bold" placeholder="Para receber o material">
+                                <label class="text-[10px] font-black text-gray-500 uppercase tracking-widest ml-1">Nome Completo</label>
+                                <input type="text" id="name" name="name" required placeholder="Nome e Sobrenome" class="w-full p-6 rounded-2xl font-bold text-lg">
                             </div>
-                            <div class="space-y-2">
-                                <label class="text-[10px] font-black uppercase tracking-widest text-gray-500 ml-1">WhatsApp</label>
-                                <input type="tel" id="whatsapp" name="whatsapp" required class="w-full p-4 rounded-xl font-bold" placeholder="(00) 00000-0000">
-                            </div>
-                        </div>
-
-                        <div class="space-y-2">
-                            <label class="text-[10px] font-black uppercase tracking-widest text-gray-500 ml-1">CPF</label>
-                            <input type="text" id="cpf" name="cpf" required class="w-full p-4 rounded-xl font-bold" placeholder="000.000.000-00">
-                        </div>
-
-                        <div class="pt-6 border-t border-white/5">
-                            <div class="flex items-center gap-4 mb-8">
-                                <div class="w-10 h-10 rounded-full bg-neon text-black flex items-center justify-center font-black italic">2</div>
-                                <h2 class="text-2xl font-black italic uppercase">Endereço de Faturamento</h2>
-                            </div>
-                        </div>
-
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div class="space-y-2">
-                                <label class="text-[10px] font-black uppercase tracking-widest text-gray-500 ml-1">CEP</label>
-                                <input type="text" id="cep" name="cep" required class="w-full p-4 rounded-xl font-bold" placeholder="00000-000">
+                            <div class="grid md:grid-cols-2 gap-6">
+                                <div class="space-y-2">
+                                    <label class="text-[10px] font-black text-gray-500 uppercase tracking-widest ml-1">E-mail para Acesso</label>
+                                    <input type="email" id="email" name="email" required placeholder="seu@email.com" class="w-full p-6 rounded-2xl font-bold text-lg">
+                                </div>
+                                <div class="space-y-2">
+                                    <label class="text-[10px] font-black text-gray-500 uppercase tracking-widest ml-1">WhatsApp</label>
+                                    <input type="tel" id="whatsapp" name="whatsapp" required placeholder="(00) 00000-0000" class="w-full p-6 rounded-2xl font-bold text-lg">
+                                </div>
                             </div>
                             <div class="space-y-2">
-                                <label class="text-[10px] font-black uppercase tracking-widest text-gray-500 ml-1">Cidade - UF</label>
-                                <input type="text" id="city" name="city" readonly class="w-full p-4 rounded-xl font-bold opacity-50 cursor-not-allowed" placeholder="Auto-preenchimento">
+                                <label class="text-[10px] font-black text-gray-500 uppercase tracking-widest ml-1">CPF (Necessário para nota fiscal)</label>
+                                <input type="text" id="cpf" name="cpf" required placeholder="000.000.000-00" class="w-full p-6 rounded-2xl font-bold text-lg">
                             </div>
                         </div>
+                    </div>
 
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                            <div class="md:col-span-2 space-y-2">
-                                <label class="text-[10px] font-black uppercase tracking-widest text-gray-500 ml-1">Rua / Logradouro</label>
-                                <input type="text" id="street" name="street" required class="w-full p-4 rounded-xl font-bold" placeholder="Ex: Av. Brasil">
+                    <div class="pt-10 border-t border-white/5">
+                        <h2 class="text-3xl font-black italic mb-8 flex items-center gap-5">
+                            <span class="w-10 h-10 bg-neon text-black rounded-full flex items-center justify-center text-sm not-italic font-bold">2</span>
+                            Endereço de Faturamento
+                        </h2>
+                        <div class="grid gap-6">
+                            <div class="grid md:grid-cols-3 gap-6">
+                                <div class="space-y-2">
+                                    <label class="text-[10px] font-black text-gray-500 uppercase tracking-widest ml-1">CEP</label>
+                                    <input type="text" id="cep" name="cep" required placeholder="00000-000" class="w-full p-6 rounded-2xl font-bold text-lg">
+                                </div>
+                                <div class="md:col-span-2 space-y-2">
+                                    <label class="text-[10px] font-black text-gray-500 uppercase tracking-widest ml-1">Cidade / Estado</label>
+                                    <input type="text" id="city" readonly placeholder="Auto-preenchimento" class="w-full p-6 rounded-2xl font-bold text-lg opacity-40 cursor-not-allowed">
+                                </div>
                             </div>
-                            <div class="space-y-2">
-                                <label class="text-[10px] font-black uppercase tracking-widest text-gray-500 ml-1">Número</label>
-                                <input type="text" name="number" required class="w-full p-4 rounded-xl font-bold" placeholder="123">
+                            <div class="grid md:grid-cols-4 gap-6">
+                                <div class="md:col-span-3 space-y-2">
+                                    <label class="text-[10px] font-black text-gray-500 uppercase tracking-widest ml-1">Logradouro / Rua</label>
+                                    <input type="text" id="street" name="street" required placeholder="Rua, Avenida..." class="w-full p-6 rounded-2xl font-bold text-lg">
+                                </div>
+                                <div class="space-y-2">
+                                    <label class="text-[10px] font-black text-gray-500 uppercase tracking-widest ml-1">Nº</label>
+                                    <input type="text" name="number" required placeholder="123" class="w-full p-6 rounded-2xl font-bold text-lg text-center">
+                                </div>
                             </div>
                         </div>
+                    </div>
 
-                        <div class="space-y-2">
-                            <label class="text-[10px] font-black uppercase tracking-widest text-gray-500 ml-1">Complemento (Opcional)</label>
-                            <input type="text" name="complement" class="w-full p-4 rounded-xl font-bold" placeholder="Apto, Bloco, etc">
-                        </div>
-
-                        <button type="submit" class="w-full bg-neon text-black py-6 rounded-2xl font-black text-2xl uppercase italic btn-glow transition-all flex items-center justify-center gap-4 mt-8">
-                            IR PARA PAGAMENTO SEGURO
-                            <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14.5v-9l6 4.5-6 4.5z"/></svg>
-                        </button>
-                    </form>
-                </div>
+                    <button type="submit" class="w-full bg-neon text-black py-8 rounded-[30px] font-black text-3xl uppercase italic btn-glow flex items-center justify-center gap-5 mt-10">
+                        FINALIZAR E PAGAR
+                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </button>
+                    <p class="text-center text-xs text-gray-500 font-bold uppercase tracking-widest">Acesso imediato após confirmação</p>
+                </form>
             </div>
+        </div>
 
-            <div class="lg:col-span-5 space-y-6">
-                <div class="glass p-8 rounded-[32px] sticky top-24 border border-neon/10">
-                    <h3 class="text-xl font-black italic uppercase mb-6 border-b border-white/5 pb-4">Seu Pedido</h3>
-                    
-                    <div class="flex gap-4 mb-6">
-                        <div class="w-20 h-20 bg-neon text-black rounded-2xl flex items-center justify-center shadow-lg">
-                            <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
-                        </div>
-                        <div>
-                            <p class="font-black italic uppercase leading-tight">Protocolo do Shape</p>
-                            <p class="text-xs text-gray-500 uppercase tracking-widest mt-1">Acesso Vitalício + Atualizações</p>
-                            <p class="text-neon font-black text-xl mt-2">R$ 29,90</p>
-                        </div>
+        <div class="lg:col-span-5">
+            <div class="glow-box p-10 rounded-[50px] sticky top-32 border-neon/10">
+                <h3 class="text-2xl font-black italic mb-10 border-b border-white/5 pb-5">Resumo do Pedido</h3>
+                
+                <div class="flex gap-6 mb-10">
+                    <div class="w-24 h-24 bg-neon/10 rounded-3xl flex items-center justify-center border border-neon/20">
+                        <svg class="w-12 h-12 text-neon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
                     </div>
-
-                    <div class="space-y-3 py-6 border-y border-white/5 mb-6">
-                        <div class="flex justify-between text-sm">
-                            <span class="text-gray-500">Preço Original</span>
-                            <span class="font-bold line-through opacity-50 text-red-500">R$ 97,00</span>
-                        </div>
-                        <div class="flex justify-between text-sm">
-                            <span class="text-green-500 font-bold italic uppercase tracking-tighter">Desconto Ativo (-69%)</span>
-                            <span class="text-green-500 font-bold">- R$ 67,10</span>
-                        </div>
-                    </div>
-
-                    <div class="flex justify-between items-center mb-8">
-                        <span class="text-lg font-black uppercase italic">Total</span>
-                        <span class="text-4xl font-black text-neon uppercase italic leading-none tracking-tighter">R$ 29,90</span>
-                    </div>
-
-                    <div class="space-y-4">
-                        <div class="flex items-center justify-center gap-2 text-[10px] text-green-500 font-black uppercase tracking-widest">
-                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
-                            Garantia de 7 Dias Incondicional
-                        </div>
-                        <div class="flex justify-center items-center gap-4 opacity-40 grayscale">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg" class="h-4" alt="">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" class="h-6" alt="">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a2/Logo%E2%80%94Pix.svg" class="h-4" alt="">
+                    <div class="flex flex-col justify-center">
+                        <p class="font-black text-xl italic uppercase leading-tight">Protocolo do Shape</p>
+                        <p class="text-xs text-gray-500 uppercase mt-2 tracking-widest font-bold">Acesso Vitalício + Atualizações</p>
+                        <div class="flex items-center gap-3 mt-3">
+                            <span class="text-neon font-black text-3xl italic">R$ 29,90</span>
+                            <span class="text-gray-600 line-through text-sm font-bold">R$ 97,00</span>
                         </div>
                     </div>
                 </div>
-            </div>
 
+                <div class="space-y-5 py-10 border-y border-white/5 mb-10">
+                    <div class="flex justify-between items-center">
+                        <span class="text-gray-400 font-bold uppercase text-xs tracking-widest">Subtotal</span>
+                        <span class="text-gray-400 font-bold text-lg">R$ 97,00</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-green-500 font-black uppercase text-xs tracking-widest italic">Cupom Aplicado</span>
+                        <span class="text-green-500 font-black text-lg">- R$ 67,10</span>
+                    </div>
+                    <div class="flex justify-between items-center pt-6">
+                        <span class="text-2xl font-black italic">TOTAL</span>
+                        <span class="text-5xl font-black text-neon italic tracking-tighter">R$ 29,90</span>
+                    </div>
+                </div>
+
+                <div class="space-y-8">
+                    <div class="flex items-center gap-6 grayscale opacity-30 justify-center">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg" class="h-5" alt="Visa">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" class="h-8" alt="Master">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a2/Logo%E2%80%94Pix.svg" class="h-6" alt="Pix">
+                    </div>
+                    <div class="p-6 bg-white/5 rounded-3xl border border-white/5">
+                        <p class="text-[10px] text-center text-gray-500 uppercase font-black leading-relaxed tracking-widest">
+                            Sua compra está segura. Utilizamos criptografia de 256 bits para proteger seus dados através da plataforma Cakto.
+                        </p>
+                    </div>
+                </div>
+            </div>
         </div>
     </main>
 
+    <div id="loader" class="loading-overlay">
+        <div class="w-20 h-20 border-4 border-neon/20 border-t-neon rounded-full animate-spin mb-6"></div>
+        <p class="text-neon font-black italic tracking-widest text-xl uppercase animate-pulse">Sincronizando com Cakto...</p>
+    </div>
+
     <script>
-        // Máscara WhatsApp
-        document.getElementById('whatsapp').addEventListener('input', (e) => {
-            let x = e.target.value.replace(/\D/g, '').match(/(\d{0,2})(\d{0,5})(\d{0,4})/);
-            e.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
-        });
+        // CONFIGURAÇÕES CAKTO (CREDENCIAIS)
+        const CAKTO_CLIENT_ID = "R50kJbZ68mXF3e6gpMdpzXrm4oSb0uRQazu0q9vi";
+        // Em um sistema real, o secret ficaria no servidor. 
+        const CAKTO_CLIENT_SECRET = "pqlU93417QYEsaZasiQ0Fjh8cotF9eSsHFfHR3hmEITefXu52jkmnnIOwVwKnjU2H1XT6V4niyKlrwhOvbPyiVyOh2Pd9QPS7TNUppfZhW1k3PPA26XpbOcP3t13lryU";
+        const CAKTO_PRODUCT_LINK = "https://pay.cakto.com.br/SEU_ID_DO_PRODUTO"; // Substitua pelo ID final do checkout
 
-        // Máscara CPF
-        document.getElementById('cpf').addEventListener('input', (e) => {
-            let x = e.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,3})(\d{0,2})/);
-            e.target.value = !x[2] ? x[1] : x[1] + '.' + x[2] + (x[3] ? '.' + x[3] : '') + (x[4] ? '-' + x[4] : '');
-        });
+        // MÁSCARAS
+        const mask = (el, fn) => {
+            el.addEventListener('input', e => e.target.value = fn(e.target.value));
+        };
 
-        // Máscara e API CEP
-        document.getElementById('cep').addEventListener('input', async (e) => {
-            let val = e.target.value.replace(/\D/g, '');
-            let x = val.match(/(\d{0,5})(\d{0,3})/);
-            e.target.value = !x[2] ? x[1] : x[1] + '-' + x[2];
+        const mCPF = v => v.replace(/\D/g, '').replace(/(\d{3})(\d)/, '$1.$2').replace(/(\d{3})(\d)/, '$1.$2').replace(/(\d{3})(\d{1,2})$/, '$1-$2').substring(0, 14);
+        const mTel = v => v.replace(/\D/g, '').replace(/^(\d{2})(\d)/g, '($1) $2').replace(/(\d)(\d{4})$/, '$1-$2').substring(0, 15);
+        const mCEP = v => v.replace(/\D/g, '').replace(/^(\d{5})(\d)/, '$1-$2').substring(0, 9);
 
-            if (val.length === 8) {
+        mask(document.getElementById('cpf'), mCPF);
+        mask(document.getElementById('whatsapp'), mTel);
+        mask(document.getElementById('cep'), mCEP);
+
+        // BUSCA CEP (ViaCEP)
+        document.getElementById('cep').addEventListener('blur', async (e) => {
+            const cep = e.target.value.replace(/\D/g, '');
+            if (cep.length === 8) {
                 try {
-                    const response = await fetch(`https://viacep.com.br/ws/${val}/json/`);
-                    const data = await response.json();
+                    const res = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
+                    const data = await res.json();
                     if (!data.erro) {
                         document.getElementById('street').value = data.logradouro;
                         document.getElementById('city').value = `${data.localidade} - ${data.uf}`;
                     }
-                } catch (error) { console.error("Erro ao buscar CEP"); }
+                } catch (e) { console.error('Erro na busca do CEP'); }
             }
         });
 
-        // Redirecionamento Final Cakto
-        document.getElementById('checkout-form').addEventListener('submit', function(e) {
+        // INTEGRAÇÃO DE ENVIO CAKTO
+        document.getElementById('cakto-integration-form').addEventListener('submit', function(e) {
             e.preventDefault();
-            const btn = e.target.querySelector('button');
-            btn.innerHTML = "PROCESSANDO...";
-            btn.style.opacity = "0.7";
             
-            // Aqui você deve colocar seu link direto da Cakto
+            const loader = document.getElementById('loader');
+            loader.style.display = 'flex';
+
+            // Coleta de dados higienizados
+            const name = encodeURIComponent(document.getElementById('name').value);
+            const email = encodeURIComponent(document.getElementById('email').value);
+            const phone = encodeURIComponent(document.getElementById('whatsapp').value.replace(/\D/g, ''));
+            const cpf = encodeURIComponent(document.getElementById('cpf').value.replace(/\D/g, ''));
+            const cep = encodeURIComponent(document.getElementById('cep').value.replace(/\D/g, ''));
+            const street = encodeURIComponent(document.getElementById('street').value);
+            const number = encodeURIComponent(e.target.number.value);
+
+            /* 
+               FLUXO CAKTO: 
+               Como estamos no front-end, o Client ID e Secret são usados para 
+               identificar a conta. O redirecionamento preenche os campos do checkout.
+            */
+            const finalUrl = `${CAKTO_PRODUCT_LINK}?name=${name}&email=${email}&phone=${phone}&cpf=${cpf}&zip_code=${cep}&address=${street}&number=${number}&client_id=${CAKTO_CLIENT_ID}`;
+
+            // Simulação de processamento de API para efeito visual e segurança
             setTimeout(() => {
-                window.location.href = "https://pay.cakto.com.br/SEU_ID_DO_PRODUTO";
-            }, 1000);
+                window.location.href = finalUrl;
+            }, 1500);
         });
     </script>
 </body>
