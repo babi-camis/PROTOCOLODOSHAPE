@@ -5,47 +5,123 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Finalizar Inscrição | PROTOCOLO DO SHAPE</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Oswald:wght@700&display=swap" rel="stylesheet">
     <style>
-        :root { --neon: #e2ff00; --dark: #050505; }
-        body { font-family: 'Inter', sans-serif; background-color: var(--dark); color: white; }
-        input { background: #111 !important; border: 1px solid #333 !important; color: white !important; }
+        :root { --neon: #e2ff00; --dark: #050505; --card: #111; }
+        body { font-family: 'Inter', sans-serif; background-color: var(--dark); color: white; margin: 0; }
+        h1, h2, h3, .font-oswald { font-family: 'Oswald', sans-serif; text-transform: uppercase; }
+        
+        .glass { background: rgba(255, 255, 255, 0.02); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.08); }
+        .btn-glow { transition: all 0.3s ease; }
         .btn-glow:hover { box-shadow: 0 0 40px var(--neon); transform: scale(1.02); }
+        
+        input { 
+            background: #111 !important; 
+            border: 1px solid #333 !important; 
+            color: white !important; 
+            transition: border 0.3s ease;
+        }
+        input:focus { border-color: var(--neon) !important; outline: none; }
+        
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-fade { animation: fadeIn 0.5s ease forwards; }
     </style>
 </head>
-<body class="min-h-screen p-6 md:p-20">
+<body class="min-h-screen p-4 md:p-12 lg:p-20">
 
-    <div class="max-w-6xl mx-auto grid lg:grid-cols-2 gap-16">
-        <div>
-            <h2 class="text-4xl font-black italic mb-10 uppercase">Finalizar <span class="text-neon">Inscrição</span></h2>
-            <form id="cakto-form" class="space-y-6">
-                <div class="space-y-4">
-                    <input type="text" id="name" required placeholder="Nome Completo" class="w-full p-5 rounded-2xl font-bold text-lg">
-                    <input type="email" id="email" required placeholder="E-mail Principal" class="w-full p-5 rounded-2xl font-bold text-lg">
-                    <input type="tel" id="whatsapp" required placeholder="WhatsApp (DDD + Número)" class="w-full p-5 rounded-2xl font-bold text-lg">
-                    <input type="text" id="cpf" required placeholder="CPF (Apenas números)" class="w-full p-5 rounded-2xl font-bold text-lg">
-                </div>
-                
-                <div class="pt-6 space-y-4">
-                    <h3 class="text-xl font-black italic uppercase text-gray-500">Endereço</h3>
-                    <input type="text" id="cep" required placeholder="CEP" class="w-full p-5 rounded-2xl font-bold text-lg">
-                    <input type="text" id="street" required placeholder="Rua / Logradouro" class="w-full p-5 rounded-2xl font-bold text-lg">
-                    <input type="text" id="number" required placeholder="Número" class="w-full p-5 rounded-2xl font-bold text-lg">
-                </div>
-
-                <button type="submit" class="w-full bg-neon text-black py-8 rounded-3xl font-black text-2xl uppercase italic btn-glow mt-10">
-                    PAGAR AGORA
-                </button>
-            </form>
+    <div class="max-w-6xl mx-auto">
+        <div class="flex items-center justify-between mb-12 animate-fade">
+            <a href="index.html" class="flex items-center gap-2 text-gray-500 hover:text-white transition-colors group">
+                <svg class="w-5 h-5 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                <span class="font-bold uppercase text-xs tracking-widest">Voltar para a Home</span>
+            </a>
+            <div class="text-xl font-black italic tracking-tighter uppercase">
+                PROTOCOLO<span class="text-[#e2ff00]">DO SHAPE</span>
+            </div>
         </div>
 
-        <div class="bg-white/5 p-10 rounded-[40px] border border-white/5 self-start sticky top-10">
-            <h3 class="text-2xl font-black mb-8 uppercase italic">Resumo</h3>
-            <div class="flex justify-between items-center mb-4">
-                <span>Protocolo do Shape</span>
-                <span class="font-bold">R$ 29,90</span>
+        <div class="grid lg:grid-cols-2 gap-12 lg:gap-20">
+            <div class="animate-fade" style="animation-delay: 0.1s;">
+                <h2 class="text-4xl md:text-5xl font-black italic mb-10 uppercase leading-none">
+                    Finalizar <br><span class="text-[#e2ff00]">Inscrição</span>
+                </h2>
+                
+                <form id="cakto-form" class="space-y-8">
+                    <!-- Dados Pessoais -->
+                    <div class="space-y-4">
+                        <h3 class="text-sm font-black uppercase text-gray-600 tracking-widest mb-4">Dados Pessoais</h3>
+                        <input type="text" id="name" required placeholder="Nome Completo" class="w-full p-5 rounded-2xl font-bold text-lg">
+                        <input type="email" id="email" required placeholder="E-mail Principal" class="w-full p-5 rounded-2xl font-bold text-lg">
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <input type="tel" id="whatsapp" required placeholder="WhatsApp (DDD + Número)" class="w-full p-5 rounded-2xl font-bold text-lg">
+                            <input type="text" id="cpf" required placeholder="CPF (Apenas números)" class="w-full p-5 rounded-2xl font-bold text-lg">
+                        </div>
+                    </div>
+                    
+                    <div class="pt-6 space-y-4">
+                        <h3 class="text-sm font-black uppercase text-gray-600 tracking-widest mb-4">Endereço de Faturamento</h3>
+                        <input type="text" id="cep" required placeholder="CEP" class="w-full p-5 rounded-2xl font-bold text-lg">
+                        <input type="text" id="street" required placeholder="Rua / Logradouro" class="w-full p-5 rounded-2xl font-bold text-lg">
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <input type="text" id="number" required placeholder="Número" class="w-full p-5 rounded-2xl font-bold text-lg">
+                            <input type="text" id="complement" placeholder="Complemento (Opcional)" class="w-full p-5 rounded-2xl font-bold text-lg">
+                        </div>
+                    </div>
+
+                    <button type="submit" class="w-full bg-[#e2ff00] text-black py-8 rounded-3xl font-black text-2xl uppercase italic btn-glow mt-10 flex items-center justify-center gap-4">
+                        PAGAR AGORA
+                        <svg class="w-8 h-8 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M13 7l5 5m0 0l-5 5m5-5H6"></path></svg>
+                    </button>
+                </form>
             </div>
-            <div class="border-t border-white/5 pt-4 text-xs text-gray-500 uppercase font-bold tracking-widest">
-                Acesso Imediato • 100% Seguro
+
+            <div class="self-start sticky top-10 animate-fade" style="animation-delay: 0.2s;">
+                <div class="glass p-10 rounded-[40px] border border-[#e2ff00]/20 relative overflow-hidden">
+                    <!-- Brilho Decorativo -->
+                    <div class="absolute -top-24 -right-24 w-48 h-48 bg-[#e2ff00]/10 rounded-full blur-3xl"></div>
+                    
+                    <h3 class="text-2xl font-black mb-8 uppercase italic flex items-center gap-3">
+                        <svg class="w-6 h-6 text-[#e2ff00]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+                        Resumo do Pedido
+                    </h3>
+                    
+                    <div class="space-y-6">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <p class="font-black text-xl uppercase italic">Protocolo do Shape</p>
+                                <p class="text-xs text-gray-500 font-bold uppercase tracking-widest mt-1">Acesso Vitalício + Planilhas</p>
+                            </div>
+                            <span class="font-black text-xl text-[#e2ff00]">R$ 29,90</span>
+                        </div>
+
+                        <div class="border-t border-white/5 pt-6 space-y-3">
+                            <div class="flex justify-between text-sm text-gray-400 font-bold uppercase">
+                                <span>Subtotal</span>
+                                <span>R$ 97,00</span>
+                            </div>
+                            <div class="flex justify-between text-sm text-[#e2ff00] font-bold uppercase">
+                                <span>Desconto Especial</span>
+                                <span>- R$ 67,10</span>
+                            </div>
+                        </div>
+
+                        <div class="border-t border-white/10 pt-6 flex justify-between items-center">
+                            <span class="text-sm font-black uppercase text-gray-400">Total a Pagar:</span>
+                            <span class="text-4xl font-black text-white italic">R$ 29,90</span>
+                        </div>
+                    </div>
+
+                    <div class="mt-10 p-6 bg-white/5 rounded-2xl border border-white/5 space-y-4">
+                        <div class="flex items-center gap-3 text-[10px] text-gray-400 font-black uppercase tracking-[0.2em]">
+                            <svg class="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"></path></svg>
+                            Checkout 100% Seguro
+                        </div>
+                        <div class="flex items-center gap-3 text-[10px] text-gray-400 font-black uppercase tracking-[0.2em]">
+                            <svg class="w-4 h-4 text-[#e2ff00]" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"></path></svg>
+                            Acesso Imediato via E-mail
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -54,14 +130,14 @@
     document.getElementById('cakto-form').addEventListener('submit', function(e) {
         e.preventDefault();
 
-        // LIMPEZA DE DADOS: Remove tudo que não for número para evitar erros na API
+        // LIMPEZA DE DADOS: Mantendo apenas números para evitar erro na API da Cakto
         const phone = document.getElementById('whatsapp').value.replace(/\D/g, '');
         const cpf = document.getElementById('cpf').value.replace(/\D/g, '');
         const zip = document.getElementById('cep').value.replace(/\D/g, '');
         
         const baseUrl = "https://pay.cakto.com.br/376mm6y_883600";
         
-        // Mapeamento exato de parâmetros que gateways brasileiros costumam aceitar
+        // Mapeamento de parâmetros oficiais para gateways de pagamento
         const params = new URLSearchParams({
             name: document.getElementById('name').value,
             email: document.getElementById('email').value,
@@ -69,25 +145,30 @@
             document: cpf,
             zipcode: zip,
             address: document.getElementById('street').value,
-            address_number: document.getElementById('number').value
+            address_number: document.getElementById('number').value,
+            complement: document.getElementById('complement').value
         });
 
         const finalUrl = `${baseUrl}?${params.toString()}`;
         
-        // Redirecionamento imediato
+        // Redirecionamento para o ambiente seguro da Cakto
         window.location.href = finalUrl;
     });
 
     document.getElementById('cep').addEventListener('blur', function() {
         const cep = this.value.replace(/\D/g, '');
         if(cep.length === 8) {
+            this.classList.add('animate-pulse');
             fetch(`https://viacep.com.br/ws/${cep}/json/`)
                 .then(r => r.json())
                 .then(d => {
+                    this.classList.remove('animate-pulse');
                     if(!d.erro) {
                         document.getElementById('street').value = d.logradouro;
+                        document.getElementById('number').focus();
                     }
-                });
+                })
+                .catch(() => this.classList.remove('animate-pulse'));
         }
     });
     </script>
