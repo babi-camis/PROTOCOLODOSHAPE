@@ -1,7 +1,7 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
-import requests
+from urllib.parse import urlencode
 import uvicorn
 
 app = FastAPI()
@@ -30,7 +30,36 @@ class CheckoutRequest(BaseModel):
 @app.post("/api/create-payment")
 async def create_payment(data: CheckoutRequest):
     """
-    Simula a geração de um link de checkout autenticado.
+    Gera o link de checkout com parâmetros otimizados para a API da Cakto.
+    """
+    try:
+        # Link do seu produto na Cakto (Certifique-se de usar o link de checkout direto)
+        base_url = PRODUCT_LINK 
+        
+        # Parâmetros padronizados para alta compatibilidade com Gateways brasileiros
+        params = {
+            "name": data.name,
+            "email": data.email,
+            "phone": data.phone,
+            "document": data.cpf,         # Alterado de 'cpf' para 'document' (padrão de API)
+            "zipcode": data.zip_code,      # CEP
+            "address": data.street,       # Rua
+            "address_number": data.number, # Número (padrão Cakto)
+            "client_id": CAKTO_CLIENT_ID
+        }
+        
+        query_string = urlencode(params)
+        checkout_url = f"{base_url}?{query_string}"
+        
+        # Log de segurança (opcional no console do servidor)
+        print(f"Checkout gerado com sucesso para: {data.email}")
+        
+        return {"checkout_url": checkout_url}
+        
+    except Exception as e:
+        print(f"Erro detectado: {str(e)}")
+        raise HTTPException(status_code=500, detail="Erro ao processar integração.")
+
     Em um ambiente real, você faria um POST para a Cakto enviando o Client ID e Secret.
     """
     try:
