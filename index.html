@@ -31,12 +31,14 @@
         .border-neon { border-color: var(--neon); }
         
         .glow-box {
-            border: 1px solid var(--neon);
-            box-shadow: 0 0 20px rgba(226, 255, 0, 0.2), inset 0 0 10px rgba(226, 255, 0, 0.1);
+            border: 1px solid rgba(226, 255, 0, 0.3);
+            box-shadow: 0 0 20px rgba(226, 255, 0, 0.1);
+            background: rgba(255, 255, 255, 0.02);
             transition: all 0.4s ease;
         }
         .glow-box:hover {
-            box-shadow: 0 0 40px rgba(226, 255, 0, 0.4), inset 0 0 15px rgba(226, 255, 0, 0.2);
+            border-color: var(--neon);
+            box-shadow: 0 0 30px rgba(226, 255, 0, 0.2);
         }
 
         .btn-glow { transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
@@ -63,9 +65,19 @@
         }
         input:focus { border-color: var(--neon) !important; outline: none; box-shadow: 0 0 15px var(--card-glow); }
 
-        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
-        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
-        .custom-scrollbar::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s cubic-bezier(0, 1, 0, 1);
+        }
+        .faq-item.active .faq-answer {
+            max-height: 1000px;
+            transition: max-height 1s ease-in;
+        }
+        .faq-item.active .faq-icon {
+            transform: rotate(45deg);
+            color: var(--neon);
+        }
 
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         .animate-fade { animation: fadeIn 0.8s ease forwards; }
@@ -105,41 +117,36 @@
                     CONSTRUA SEU <br> <span class="text-neon">MELHOR SHAPE.</span>
                 </h1>
                 <p class="text-gray-400 text-lg md:text-xl mb-12 max-w-xl leading-relaxed">
-                    Pare de perder tempo com treinos genéricos. Receba o mapa exato baseado no seu objetivo real.
+                    Pare de perder tempo com treinos genéricos. Receba o mapa exato baseado no seu objetivo real e biometria única.
                 </p>
-                <div class="flex flex-col sm:flex-row gap-6">
+                <div class="flex flex-col sm:flex-row gap-6 mb-20"> <!-- Adicionado margem inferior maior aqui -->
                     <a href="#form-section" class="bg-neon text-black px-10 py-6 rounded-2xl font-black text-xl btn-glow text-center uppercase italic flex items-center justify-center gap-4">
                         Gerar meu Treino
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M13 7l5 5m0 0l-5 5m5-5H6"></path></svg>
                     </a>
                 </div>
             </div>
-            <div class="hidden lg:block relative">
-                <div class="glow-box rounded-[40px] overflow-hidden p-2">
-                    <img src="https://images.unsplash.com/photo-1583454110551-21f2fa2adfcd?auto=format&fit=crop&q=80&w=800" class="rounded-[35px] w-full">
-                </div>
-            </div>
         </div>
     </section>
 
-    <section class="py-20 bg-neon text-black w-full overflow-hidden">
+    <section class="py-12 bg-neon text-black w-full overflow-hidden shadow-[0_0_50px_rgba(226,255,0,0.2)]"> <!-- Reduzido py-24 para py-12 -->
         <div class="max-w-[1400px] mx-auto px-6">
-            <div class="grid grid-cols-2 lg:grid-cols-4 gap-12 text-center">
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 text-center items-center"> <!-- Reduzido gap -->
                 <div>
-                    <div class="text-5xl md:text-7xl font-black italic" data-target="27391">0</div>
-                    <div class="text-[10px] font-black uppercase tracking-widest opacity-60">Alunos Ativos</div>
+                    <div class="text-5xl md:text-7xl font-black italic leading-none" data-target="27391">0</div>
+                    <div class="text-[10px] font-black uppercase tracking-widest opacity-60 mt-2">Alunos Ativos</div>
                 </div>
                 <div>
-                    <div class="text-5xl md:text-7xl font-black italic" data-target="143">0</div>
-                    <div class="text-[10px] font-black uppercase tracking-widest opacity-60">Ton. Perdidas</div>
+                    <div class="text-5xl md:text-7xl font-black italic leading-none" data-target="143">0</div>
+                    <div class="text-[10px] font-black uppercase tracking-widest opacity-60 mt-2">Ton. Perdidas</div>
                 </div>
                 <div>
-                    <div class="text-5xl md:text-7xl font-black italic" data-target="98">0</div>
-                    <div class="text-[10px] font-black uppercase tracking-widest opacity-60">% de Sucesso</div>
+                    <div class="text-5xl md:text-7xl font-black italic leading-none" data-target="98">0</div>
+                    <div class="text-[10px] font-black uppercase tracking-widest opacity-60 mt-2">% de Sucesso</div>
                 </div>
                 <div>
-                    <div class="text-5xl md:text-7xl font-black italic" data-target="12">0</div>
-                    <div class="text-[10px] font-black uppercase tracking-widest opacity-60">Países</div>
+                    <div class="text-5xl md:text-7xl font-black italic leading-none" data-target="12">0</div>
+                    <div class="text-[10px] font-black uppercase tracking-widest opacity-60 mt-2">Países</div>
                 </div>
             </div>
         </div>
@@ -149,25 +156,19 @@
         <div class="max-w-[1400px] mx-auto px-6">
             <div class="text-center mb-24">
                 <h2 class="text-5xl md:text-7xl font-black italic mb-6">RESULTADOS <span class="text-neon">REAIS</span></h2>
-                <div class="w-24 h-1 bg-neon mx-auto"></div>
+                <p class="text-gray-500 uppercase tracking-widest font-bold">O que dizem os alunos do protocolo</p>
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
-                <!-- Testimonial 1 -->
-                <div class="glass p-10 rounded-[40px] border-white/5 hover:border-neon/20 transition-all">
-                    <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&q=80&w=400" class="w-24 h-24 rounded-full object-cover mb-8 border-2 border-neon">
+                <div class="glow-box p-10 rounded-[40px]">
                     <p class="italic text-gray-400 mb-8 text-lg">"Saí de 115kg para 88kg em 4 meses. O treino é curto, mas a intensidade é brutal."</p>
                     <div class="font-bold text-neon uppercase italic text-xl">Ricardo Mendes</div>
                 </div>
-                <!-- Testimonial 2 -->
-                <div class="glass p-10 rounded-[40px] border-white/5 hover:border-neon/20 transition-all">
-                    <img src="https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?auto=format&fit=crop&q=80&w=400" class="w-24 h-24 rounded-full object-cover mb-8 border-2 border-neon">
+                <div class="glow-box p-10 rounded-[40px]">
                     <p class="italic text-gray-400 mb-8 text-lg">"Finalmente ganhei densidade. O protocolo de hipertrofia mudou meu corpo."</p>
                     <div class="font-bold text-neon uppercase italic text-xl">Julia Santos</div>
                 </div>
-                <!-- Testimonial 3 -->
-                <div class="glass p-10 rounded-[40px] border-white/5 hover:border-neon/20 transition-all">
-                    <img src="https://images.unsplash.com/photo-1594381898411-846e7d193883?auto=format&fit=crop&q=80&w=400" class="w-24 h-24 rounded-full object-cover mb-8 border-2 border-neon">
+                <div class="glow-box p-10 rounded-[40px]">
                     <p class="italic text-gray-400 mb-8 text-lg">"Bati meu recorde de carga em 3 semanas. Foco total em força bruta."</p>
                     <div class="font-bold text-neon uppercase italic text-xl">Marcos Lins</div>
                 </div>
@@ -177,9 +178,9 @@
 
     <section id="form-section" class="py-32 bg-[#0a0a0a]">
         <div class="max-w-[900px] mx-auto px-6">
-            <div class="glow-box p-10 md:p-20 rounded-[50px] glass">
+            <div class="glow-box p-10 md:p-20 rounded-[50px]">
                 <div class="text-center mb-16">
-                    <h2 class="text-4xl md:text-5xl font-black mb-4 uppercase">Sua <span class="text-neon">Metodologia</span></h2>
+                    <h2 class="text-4xl md:text-5xl font-black mb-4 uppercase">Calculadora de <span class="text-neon">Performance</span></h2>
                     <p class="text-gray-500 text-sm font-bold tracking-widest uppercase">Análise Biométrica Instantânea</p>
                 </div>
                 
@@ -218,24 +219,78 @@
                         </select>
                     </div>
 
-                    <button type="submit" class="w-full bg-neon text-black py-8 rounded-3xl font-black text-2xl uppercase btn-glow italic mt-4">
+                    <button type="submit" class="w-full bg-neon text-black py-8 rounded-3xl font-black text-2xl uppercase btn-glow italic">
                         Processar Perfil
                     </button>
                 </form>
 
-                <!-- Preview Section Hidden by Default -->
-                <div id="preview-section" class="hidden mt-16 animate-fade pt-10 border-t border-white/10">
-                    <div id="preview-content" class="bg-white/5 p-8 rounded-3xl mb-10"></div>
-                    <div class="text-center relative">
-                        <div class="filter blur-md opacity-20 select-none space-y-4 mb-10">
-                            <p class="text-2xl font-black uppercase italic">DIETA ANABÓLICA: BLOQUEADA</p>
-                            <p class="text-2xl font-black uppercase italic">MÓDULO CORE: BLOQUEADO</p>
+                <div id="preview-section" class="hidden mt-16 animate-fade pt-10 border-t border-white/10 text-center">
+                    <div id="preview-content" class="bg-white/5 p-8 rounded-3xl mb-10 text-left"></div>
+                    <a href="checkout.html" class="bg-white text-black px-12 py-5 rounded-2xl font-black uppercase text-lg btn-glow inline-flex items-center gap-4">
+                        Destravar Tudo
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"></path></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="faq" class="py-32 bg-[#050505] w-full">
+        <div class="max-w-[1000px] mx-auto px-6">
+            <div class="text-center mb-20">
+                <h2 class="text-5xl md:text-6xl font-black italic mb-6">S.A.C <span class="text-neon">PROTOCOL</span></h2>
+                <p class="text-gray-500 font-bold uppercase tracking-widest">Respostas para as dúvidas mais comuns</p>
+            </div>
+
+            <div class="space-y-6">
+                <!-- FAQ 1 -->
+                <div class="faq-item glow-box rounded-3xl overflow-hidden cursor-pointer">
+                    <div class="p-8 flex justify-between items-center bg-white/5 transition-colors hover:bg-white/10" onclick="toggleFaq(this)">
+                        <h3 class="text-xl font-bold uppercase italic">Como recebo o acesso?</h3>
+                        <svg class="w-8 h-8 faq-icon transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
+                    </div>
+                    <div class="faq-answer px-8">
+                        <div class="py-6 text-gray-400 leading-relaxed">
+                            O acesso é imediato! Assim que o seu pagamento for confirmado (Pix é instantâneo), você receberá um e-mail com os dados de login para a nossa plataforma exclusiva onde sua planilha estará liberada.
                         </div>
-                        <div class="absolute inset-0 flex flex-col items-center justify-center">
-                            <a href="checkout.html" class="bg-white text-black px-12 py-5 rounded-2xl font-black uppercase text-lg btn-glow inline-flex items-center gap-4">
-                                Destravar Tudo
-                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"></path></svg>
-                            </a>
+                    </div>
+                </div>
+
+                <!-- FAQ 2 -->
+                <div class="faq-item glow-box rounded-3xl overflow-hidden cursor-pointer">
+                    <div class="p-8 flex justify-between items-center bg-white/5 transition-colors hover:bg-white/10" onclick="toggleFaq(this)">
+                        <h3 class="text-xl font-bold uppercase italic">Serve para quem nunca treinou?</h3>
+                        <svg class="w-8 h-8 faq-icon transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
+                    </div>
+                    <div class="faq-answer px-8">
+                        <div class="py-6 text-gray-400 leading-relaxed">
+                            Sim! O Protocolo é dividido por níveis. Se você é iniciante, o sistema gerará uma planilha de adaptação para preparar suas articulações antes da intensidade bruta.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ 3 -->
+                <div class="faq-item glow-box rounded-3xl overflow-hidden cursor-pointer">
+                    <div class="p-8 flex justify-between items-center bg-white/5 transition-colors hover:bg-white/10" onclick="toggleFaq(this)">
+                        <h3 class="text-xl font-bold uppercase italic">Por quanto tempo tenho acesso?</h3>
+                        <svg class="w-8 h-8 faq-icon transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
+                    </div>
+                    <div class="faq-answer px-8">
+                        <div class="py-6 text-gray-400 leading-relaxed">
+                            O seu acesso é **vitalício**. Você paga uma única vez e terá todas as atualizações futuras do protocolo sem custo adicional.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ 4 -->
+                <div class="faq-item glow-box rounded-3xl overflow-hidden cursor-pointer">
+                    <div class="p-8 flex justify-between items-center bg-white/5 transition-colors hover:bg-white/10" onclick="toggleFaq(this)">
+                        <h3 class="text-xl font-bold uppercase italic">E se eu não tiver resultado?</h3>
+                        <svg class="w-8 h-8 faq-icon transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
+                    </div>
+                    <div class="faq-answer px-8">
+                        <div class="py-6 text-gray-400 leading-relaxed">
+                            Nós confiamos tanto no método que oferecemos uma garantia incondicional de 7 dias. Se não gostar da cor da planilha, devolvemos seu dinheiro.
                         </div>
                     </div>
                 </div>
@@ -243,45 +298,57 @@
         </div>
     </section>
 
-    <footer class="bg-[#050505] pt-32 pb-16 border-t border-white/5">
+    <footer class="bg-black pt-32 pb-16 border-t border-white/5">
         <div class="max-w-[1400px] mx-auto px-6">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-20 mb-24">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-20 mb-24">
                 <div class="space-y-6">
-                    <div class="text-3xl font-black italic tracking-tighter uppercase">PROTOCOLO<span class="text-neon">DO SHAPE</span></div>
-                    <p class="text-gray-500 text-sm leading-relaxed max-w-xs font-medium uppercase opacity-70">O mapa definitivo para a elite estética. Performance sem limites.</p>
+                    <div class="text-3xl font-black italic uppercase">PROTOCOLO<span class="text-neon">DO SHAPE</span></div>
+                    <p class="text-gray-500 text-sm leading-relaxed">Performance extrema para a elite estética.</p>
                 </div>
                 <div>
-                    <h4 class="text-white font-black uppercase text-xs tracking-widest mb-10 opacity-50">Mapa</h4>
-                    <ul class="space-y-6 text-sm text-gray-400 font-bold uppercase tracking-widest italic">
+                    <h4 class="text-white font-black uppercase text-xs tracking-widest mb-10">Mapa</h4>
+                    <ul class="space-y-6 text-sm text-gray-400 font-bold uppercase italic">
                         <li><a href="#" class="hover:text-neon transition">Home</a></li>
-                        <li><a href="#metodo" class="hover:text-neon transition">Método</a></li>
                         <li><a href="#resultados" class="hover:text-neon transition">Resultados</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h4 class="text-white font-black uppercase text-xs tracking-widest mb-10 opacity-50">Atendimento</h4>
-                    <ul class="space-y-6 text-sm text-gray-400 font-bold uppercase tracking-widest italic">
+                    <h4 class="text-white font-black uppercase text-xs tracking-widest mb-10">Suporte</h4>
+                    <ul class="space-y-6 text-sm text-gray-400 font-bold uppercase italic">
                         <li class="text-neon">suporte@protocolo.com</li>
                         <li>Seg - Sex</li>
-                        <li>09h às 18h</li>
                     </ul>
                 </div>
                 <div>
-                    <h4 class="text-white font-black uppercase text-xs tracking-widest mb-10 opacity-50">Segurança</h4>
+                    <h4 class="text-white font-black uppercase text-xs tracking-widest mb-10">Segurança</h4>
                     <div class="glass p-6 rounded-2xl flex items-center gap-4">
-                        <svg class="w-10 h-10 text-neon" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
-                        <span class="text-[10px] font-black uppercase tracking-widest text-gray-400">100% Seguro<br>Criptografado</span>
+                        <svg class="w-10 h-10 text-neon" fill="currentColor" viewBox="0 0 20 20"><path d="M10 1.944A11.954 11.954 0 002.166 5C2.056 5.65 2 6.32 2 7c0 5.225 3.34 9.67 8 11.317 4.66-1.647 8-6.092 8-11.317 0-.68-.056-1.35-.166-2.001A11.954 11.954 0 0010 1.944zM9 10.586L7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4a1 1 0 00-1.414-1.414L9 10.586z"></path></svg>
+                        <span class="text-[10px] font-black uppercase tracking-widest text-gray-400">100% Seguro</span>
                     </div>
                 </div>
             </div>
-            
-            <div class="pt-10 border-t border-white/5 text-center">
-                <p class="text-[10px] text-gray-700 font-bold uppercase tracking-[0.4em]">© 2024 Protocolo do Shape. Todos os direitos reservados.</p>
+            <div class="text-center pt-10 border-t border-white/5 opacity-30 text-[10px] font-bold uppercase tracking-[0.4em]">
+                © 2024 Protocolo do Shape. All rights reserved.
             </div>
         </div>
     </footer>
 
     <script>
+        // FAQ Accordion Logic
+        function toggleFaq(element) {
+            const item = element.parentElement;
+            const isActive = item.classList.contains('active');
+            
+            // Close all items
+            document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
+            
+            // Open clicked item if it wasn't active
+            if (!isActive) {
+                item.classList.add('active');
+            }
+        }
+
+        // Form Submission Logic
         document.getElementById('workout-form').addEventListener('submit', function(e) {
             e.preventDefault();
             const btn = e.target.querySelector('button');
@@ -305,7 +372,7 @@
                     <p class='text-white text-3xl font-black italic leading-tight uppercase'>${workout}</p>`;
                 
                 document.getElementById('preview-section').classList.remove('hidden');
-                btn.innerHTML = "PROCESSADO COM SUCESSO";
+                btn.innerHTML = "ANÁLISE CONCLUÍDA";
                 btn.disabled = false;
                 
                 setTimeout(() => {
@@ -314,7 +381,7 @@
             }, 1200);
         });
 
-        // Counter Animation
+        // Counter Animation Logic
         const counters = document.querySelectorAll('[data-target]');
         const observer = new IntersectionObserver(entries => {
             entries.forEach(entry => {
