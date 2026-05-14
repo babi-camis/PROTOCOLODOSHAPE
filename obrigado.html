@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscrição Confirmada | PROTOCOLO DO SHAPE</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Oswald:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root { --neon: #e2ff00; --dark: #050505; --card: #111; }
+        body { font-family: 'Inter', sans-serif; background-color: var(--dark); color: white; margin: 0; overflow-x: hidden; }
+        h1, h2, h3, .font-oswald { font-family: 'Oswald', sans-serif; text-transform: uppercase; }
+        
+        .glass { background: rgba(255, 255, 255, 0.02); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.08); }
+        
+        @keyframes drawCheck {
+            0% { stroke-dashoffset: 100; }
+            100% { stroke-dashoffset: 0; }
+        }
+        .animate-check { stroke-dasharray: 100; stroke-dashoffset: 100; animation: drawCheck 0.8s cubic-bezier(0.45, 0.05, 0.55, 0.95) forwards 0.5s; }
+        
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .reveal { animation: fadeInUp 0.8s ease forwards; opacity: 0; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-center p-6">
+
+    <!-- Background Elements -->
+    <div class="fixed inset-0 -z-10">
+        <div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-[#e2ff00]/5 rounded-full blur-[120px]"></div>
+        <div class="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-[#e2ff00]/5 rounded-full blur-[120px]"></div>
+    </div>
+
+    <div class="max-w-4xl w-full text-center space-y-8">
+        <!-- Logo -->
+        <div class="flex justify-center mb-4">
+            <div class="text-2xl font-black italic tracking-tighter uppercase">
+                PROTOCOLO<span class="text-[#e2ff00]">DO SHAPE</span>
+            </div>
+        </div>
+
+        <!-- Animated Success Icon -->
+        <div class="relative inline-block reveal" style="animation-delay: 0.2s;">
+            <svg class="w-32 h-32 text-[#e2ff00]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="10" stroke-width="1" class="opacity-20"></circle>
+                <path class="animate-check" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4"></path>
+            </svg>
+            <div class="absolute inset-0 bg-[#e2ff00]/20 blur-2xl rounded-full -z-10 animate-pulse"></div>
+        </div>
+
+        <div class="space-y-4 reveal" style="animation-delay: 0.4s;">
+            <h1 class="text-5xl md:text-7xl font-black italic leading-none">
+                PAGAMENTO <br><span class="text-[#e2ff00]">CONFIRMADO!</span>
+            </h1>
+            <p class="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto">
+                Sua jornada começou. O acesso ao seu protocolo de treinamento foi enviado agora mesmo para o seu e-mail.
+            </p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-6 mt-12 reveal" style="animation-delay: 0.6s;">
+            <div class="glass p-10 rounded-[32px] border border-[#e2ff00]/20 space-y-4 relative overflow-hidden group">
+                <div class="text-[#e2ff00] font-black text-4xl italic opacity-30">01</div>
+                <h3 class="text-2xl font-bold uppercase italic">Verifique o E-mail</h3>
+                <p class="text-gray-500 text-sm">Procure pelo remetente <span class="text-white">Protocolo do Shape</span> ou pela plataforma de pagamento na sua caixa de entrada.</p>
+                <div class="absolute -right-4 -bottom-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                    <svg class="w-24 h-24" fill="currentColor" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                </div>
+            </div>
+            
+            <div class="glass p-10 rounded-[32px] border border-white/5 space-y-4 relative overflow-hidden group">
+                <div class="text-[#e2ff00] font-black text-4xl italic opacity-30">02</div>
+                <h3 class="text-2xl font-bold uppercase italic">Cheque o Spam</h3>
+                <p class="text-gray-500 text-sm">Às vezes o treino pode cair na pasta de Spam ou Promoções. Não deixe de conferir lá também.</p>
+                <div class="absolute -right-4 -bottom-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                    <svg class="w-24 h-24" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L1 21h22L12 2zm1 14h-2v-2h2v2zm0-4h-2V8h2v4z"/></svg>
+                </div>
+            </div>
+        </div>
+
+        <div class="pt-16 space-y-6 reveal" style="animation-delay: 0.8s;">
+            <div class="inline-flex items-center gap-4 text-gray-500 bg-white/5 px-8 py-4 rounded-2xl border border-white/5">
+                <svg class="w-6 h-6 text-[#e2ff00]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                <span class="text-sm font-bold uppercase tracking-widest">O envio é automático e imediato.</span>
+            </div>
+            
+            <div class="flex flex-col md:flex-row items-center justify-center gap-8 pt-8 border-t border-white/5">
+                <div class="flex items-center gap-3 text-xs font-bold uppercase tracking-widest text-gray-500">
+                    <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"></path></svg>
+                    Compra 100% Segura
+                </div>
+                <div class="flex items-center gap-3 text-xs font-bold uppercase tracking-widest text-gray-500">
+                    <svg class="w-5 h-5 text-[#e2ff00]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                    Suporte: suporte@protocolodoshape.com.br
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
