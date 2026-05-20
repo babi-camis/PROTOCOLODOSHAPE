@@ -1,4 +1,5 @@
 from fastapi import FastAPI, Request, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import Dict
 import uvicorn
@@ -8,7 +9,16 @@ from email.mime.multipart import MIMEMultipart
 
 app = FastAPI()
 
-# Em produção, use um banco de dados real (SQLite, PostgreSQL, etc)
+# Configuração de CORS para permitir que o frontend comunique com o backend
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Em produção, substitua pelo domínio do seu site
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# Armazenamento temporário em memória (substituir por base de dados em produção)
 db_leads: Dict[str, dict] = {}
 
 class UserData(BaseModel):
@@ -22,62 +32,94 @@ class UserData(BaseModel):
 
 @app.post("/api/save-lead")
 async def save_lead(data: UserData):
-    # Salvamos os dados usando o e-mail como chave única
+    # Registo dos dados do lead utilizando o e-mail como identificador único
     db_leads[data.email.lower()] = data.dict()
-    return {"status": "success", "message": "Dados salvos. Prossiga para o checkout."}
+    return {"status": "success", "message": "Dados do lead guardados com sucesso."}
 
 @app.post("/api/cakto-webhook")
 async def cakto_webhook(request: Request):
-    # A Cakto envia os dados da venda aqui
-    payload = await request.json()
+    # Recebimento do payload enviado pela plataforma de pagamento Cakto
+    try:
+        payload = await request.json()
+    except Exception:
+        raise HTTPException(status_code=400, detail="Payload inválido.")
     
-    # Verificamos se o pagamento foi aprovado (depende do payload da Cakto)
-    status = payload.get("status") # Ex: "approved" ou "paid"
-    email_comprador = payload.get("email").lower()
+    # Extração das informações de pagamento e identificação do cliente
+    status = payload.get("status")  # Ex: "approved", "paid"
+    email_comprador = payload.get("email")
 
-    if status == "paid" or status == "approved":
-        # Buscamos a biometria salva anteriormente
+    if not email_comprador:
+        return {"status": "ignored", "reason": "E-mail não fornecido."}
+
+    email_comprador = email_comprador.lower()
+
+    # Verificação do estado de aprovação do pagamento
+    if status in ["paid", "approved", "completed"]:
         user_info = db_leads.get(email_comprador)
         
         if user_info:
-            send_personalized_email(user_info)
-            return {"status": "dispatched"}
+            # Disparo do e-mail com a planilha personalizada associada à biometria
+            email_enviado = send_personalized_email(user_info)
+            if email_enviado:
+                return {"status": "dispatched"}
+            else:
+                raise HTTPException(status_code=500, detail="Falha no envio do e-mail.")
             
-    return {"status": "ignored"}
+    return {"status": "ignored", "reason": "Estado de pagamento não elegível para disparo."}
 
-def send_personalized_email(user_info):
-    sender_email = "seu-email@gmail.com"
+def send_personalized_email(user_info: dict) -> bool:
+    # Insira aqui o seu endereço de e-mail do Gmail associado à senha de aplicação
+    sender_email = "seu-email@gmail.com" 
     receiver_email = user_info['email']
-    password = "SUA_SENHA_DE_APP_GMAIL" # Use 'Senhas de App' do Google
+    
+    # Senha de aplicação gerada na sua Conta Google (sem espaços)
+    password = "fgjpteikolbcleyk" 
 
     message = MIMEMultipart()
     message["From"] = f"Protocolo do Shape <{sender_email}>"
     message["To"] = receiver_email
-    message["Subject"] = f"🔥 Seu Protocolo Personalizado chegou, {user_info['name']}!"
+    message["Subject"] = f"🔥 O Seu Protocolo Personalizado Chegou, {user_info['name']}!"
 
-    # Lógica de seleção da planilha
+    # Mapeamento do link da planilha com base nas respostas da calculadora
     planilha_url = "https://link-da-planilha-padrao.com"
-    if user_info['gender'] == 'masculino' and user_info['objective'] == 'hipertrofia':
-        planilha_url = "https://seu-drive.com/planilha-massa-masculina.pdf"
     
-    body = f"""
-    Olá {user_info['name']}, seu pagamento foi confirmado!
-    
-    Com base no seu objetivo de {user_info['objective']}, preparamos seu material:
-    Acesse seu protocolo aqui: {planilha_url}
-    
-    Bora buscar o shape!
-    """
+    gender = user_info['gender'].lower()
+    objective = user_info['objective'].lower()
+
+    if gender == 'masculino':
+        if objective == 'hipertrofia':
+            planilha_url = "https://seu-drive.com/planilha-massa-masculina.pdf"
+        elif objective == 'emagrecimento':
+            planilha_url = "https://seu-drive.com/planilha-cutting-masculino.pdf"
+    elif gender == 'feminino':
+        if objective == 'hipertrofia':
+            planilha_url = "https://seu-drive.com/planilha-massa-feminina.pdf"
+        elif objective == 'emagrecimento':
+            planilha_url = "https://seu-drive.com/planilha-cutting-feminino.pdf"
+
+    # Corpo de texto do e-mail
+    body = f"""Olá {user_info['name']},
+
+O seu pagamento foi confirmado com sucesso pelo sistema!
+
+Analisámos a sua biometria e o seu objetivo ({user_info['objective']}) para libertar a sua planilha correta:
+👉 Aceda ao seu protocolo personalizado aqui: {planilha_url}
+
+Bons treinos, foco no objetivo!
+"""
     
     message.attach(MIMEText(body, "plain"))
 
     try:
+        # Conexão segura SMTP utilizando os servidores do Gmail na porta 465
         with smtplib.SMTP_SSL("smtp.gmail.com", 465) as server:
             server.login(sender_email, password)
             server.sendmail(sender_email, receiver_email, message.as_string())
-        print(f"E-mail enviado para {receiver_email}")
+        return True
     except Exception as e:
-        print(f"Erro ao enviar e-mail: {e}")
+        # Em produção, configure um sistema de logs adequado
+        print(f"Erro crítico no envio de e-mail para {receiver_email}: {e}")
+        return False
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)
