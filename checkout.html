@@ -40,13 +40,23 @@
             </div>
         </div>
 
-        <div class="bg-red-500/10 border border-red-500/30 rounded-2xl p-4 flex flex-col items-center justify-center text-center shadow-[0_0_15px_rgba(239,68,68,0.15)] mb-10 animate-fade">
+        <!-- Timer -->
+        <div id="timer-container" class="bg-red-500/10 border border-red-500/30 rounded-2xl p-4 flex flex-col items-center justify-center text-center shadow-[0_0_15px_rgba(239,68,68,0.15)] mb-10 animate-fade">
             <span class="text-xs uppercase tracking-widest text-red-400 font-bold mb-1">Seu desconto expira em:</span>
             <div class="text-3xl font-black font-oswald text-white tracking-wider flex items-center gap-2">
                 <span id="timer-minutes" class="bg-red-500 text-black px-2 py-1 rounded">15</span>
                 <span class="text-red-500">:</span>
                 <span id="timer-seconds" class="bg-red-500 text-black px-2 py-1 rounded">00</span>
             </div>
+        </div>
+
+        <!-- Modal de Ultima Chance (Hidden por padrão) -->
+        <div id="last-chance-modal" class="hidden bg-[#e2ff00] text-black p-6 rounded-2xl mb-10 text-center animate-pulse">
+            <h3 class="text-2xl font-black uppercase italic mb-2">Última Chance!</h3>
+            <p class="font-bold mb-4">Seu desconto expirou. Clique abaixo para reativar por apenas 5 minutos.</p>
+            <button onclick="reactivateDiscount()" class="bg-black text-[#e2ff00] px-8 py-3 rounded-full font-black uppercase italic hover:bg-gray-800">
+                Reativar Desconto Especial
+            </button>
         </div>
 
         <div class="grid lg:grid-cols-2 gap-12 lg:gap-20">
@@ -90,15 +100,15 @@
                         <div class="flex justify-between items-center">
                             <p class="font-bold">Protocolo do Shape</p>
                             <div class="text-right">
-                                <span class="block text-sm text-gray-500 line-through">R$ 97,00</span>
-                                <span class="block font-black text-xl text-[#e2ff00]">R$ 29,90</span>
+                                <span id="price-original" class="block text-sm text-gray-500 line-through">R$ 97,00</span>
+                                <span id="price-final" class="block font-black text-xl text-[#e2ff00]">R$ 29,90</span>
                             </div>
                         </div>
                     </div>
 
                     <div class="border-t border-white/10 pt-6 flex justify-between items-center">
                         <span class="text-sm font-black uppercase text-gray-400">Total a Pagar:</span>
-                        <span class="text-4xl font-black text-white italic">R$ 29,90</span>
+                        <span id="price-total" class="text-4xl font-black text-white italic">R$ 29,90</span>
                     </div>
                 </div>
             </div>
@@ -106,22 +116,59 @@
     </div>
 
     <script>
+        let endTime = localStorage.getItem('shape_timer_end');
+        if (!endTime) {
+            endTime = Date.now() + (15 * 60 * 1000);
+            localStorage.setItem('shape_timer_end', endTime);
+        }
+
+        function updateUI(active) {
+            const priceOriginal = document.getElementById('price-original');
+            const priceFinal = document.getElementById('price-final');
+            const priceTotal = document.getElementById('price-total');
+            const modal = document.getElementById('last-chance-modal');
+            const timerCont = document.getElementById('timer-container');
+
+            if (active) {
+                priceOriginal.style.display = 'block';
+                priceFinal.innerText = 'R$ 29,90';
+                priceTotal.innerText = 'R$ 29,90';
+                modal.classList.add('hidden');
+                timerCont.classList.remove('hidden');
+            } else {
+                priceOriginal.style.display = 'none';
+                priceFinal.innerText = 'R$ 97,00';
+                priceTotal.innerText = 'R$ 97,00';
+                modal.classList.remove('hidden');
+                timerCont.classList.add('hidden');
+            }
+        }
+
         function updateTimer() {
             const minElem = document.getElementById('timer-minutes');
             const secElem = document.getElementById('timer-seconds');
-            let endTime = localStorage.getItem('shape_timer_end');
-            if (!endTime) {
-                endTime = Date.now() + (15 * 60 * 1000);
-                localStorage.setItem('shape_timer_end', endTime);
-            }
             const now = Date.now();
             let remainingMs = parseInt(endTime, 10) - now;
-            if (remainingMs <= 0) remainingMs = 0;
+            
+            if (remainingMs <= 0) {
+                remainingMs = 0;
+                updateUI(false);
+            } else {
+                updateUI(true);
+            }
+
             const m = Math.floor(remainingMs / 60000);
             const s = Math.floor((remainingMs % 60000) / 1000);
             minElem.innerText = m.toString().padStart(2, '0');
             secElem.innerText = s.toString().padStart(2, '0');
         }
+
+        function reactivateDiscount() {
+            endTime = Date.now() + (5 * 60 * 1000);
+            localStorage.setItem('shape_timer_end', endTime);
+            updateUI(true);
+        }
+
         setInterval(updateTimer, 1000);
         updateTimer();
 
