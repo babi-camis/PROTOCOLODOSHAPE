@@ -171,6 +171,36 @@
                 .catch(() => this.classList.remove('animate-pulse'));
         }
     });
+
+        // Lógica a ser adicionada também no checkout.html
+        const minElem = document.getElementById('timer-minutes');
+        const secElem = document.getElementById('timer-seconds');
+        
+        let endTime = localStorage.getItem('shape_timer_end');
+        if (!endTime) {
+            endTime = Date.now() + (15 * 60 * 1000);
+            localStorage.setItem('shape_timer_end', endTime);
+        } else {
+            endTime = parseInt(endTime, 10);
+        }
+
+        function updateTimer() {
+            const now = Date.now();
+            let remainingMs = endTime - now;
+            if (remainingMs <= 0) remainingMs = 0;
+
+            const totalSecs = Math.floor(remainingMs / 1000);
+            const m = Math.floor(totalSecs / 60);
+            const s = totalSecs % 60;
+
+            if (minElem && secElem) {
+                minElem.innerText = m.toString().padStart(2, '0');
+                secElem.innerText = s.toString().padStart(2, '0');
+            }
+        }
+        updateTimer();
+        setInterval(updateTimer, 1000);
+        
     </script>
 </body>
 </html>
