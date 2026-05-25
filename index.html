@@ -53,7 +53,6 @@
             border-radius: 3px;
         }
         
-        /* Estilos do Popup de Venda em Tempo Real */
         .sales-popup {
             position: fixed;
             bottom: -100px;
@@ -74,11 +73,28 @@
                 width: 90%;
             }
         }
+
+        /* Transições Suaves para o Formulário e Preview */
+        #form-container {
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        #preview-section {
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .preview-hidden {
+            opacity: 0;
+            transform: translateX(20px);
+            display: none;
+        }
+        .preview-visible {
+            opacity: 1;
+            transform: translateX(0);
+            display: block;
+        }
     </style>
 </head>
 <body class="min-h-screen">
 
-    <!-- Header / Nav -->
     <header class="w-full py-12 px-6 md:px-12 absolute top-0 left-0 right-0 z-50">
         <div class="max-w-[1400px] mx-auto flex justify-between items-center w-full">
             <div class="text-2xl font-black italic tracking-tighter">
@@ -97,9 +113,7 @@
         </div>
     </header>
 
-    <!-- HERO SECTION -->
     <section class="relative w-full min-h-[90vh] flex flex-col justify-center px-6 md:px-12 pt-40 overflow-hidden">
-        <!-- Background Image com Overlay Escuro -->
         <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center opacity-20 -z-20"></div>
         <div class="absolute inset-0 bg-gradient-to-r from-[#050505] via-[#050505]/90 to-transparent -z-10"></div>
         <div class="absolute inset-0 bg-gradient-to-t from-[#050505] to-transparent -z-10"></div>
@@ -132,7 +146,6 @@
         </div>
     </section>
 
-    <!-- FAIXA DE ESTATÍSTICAS (Yellow Band) -->
     <section class="w-full bg-[#e2ff00] py-12 px-6 relative z-20 text-black">
         <div class="max-w-[1400px] mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             <div>
@@ -154,7 +167,6 @@
         </div>
     </section>
 
-    <!-- SEÇÃO DE DEPOIMENTOS (MovidA PARA ACIMA DA CALCULADORA) -->
     <section id="resultados" class="w-full px-6 py-24 space-y-16">
         <div class="text-center space-y-2">
             <h2 class="text-5xl md:text-7xl font-black italic">RESULTADOS <span class="text-[#e2ff00]">REAIS</span></h2>
@@ -162,7 +174,6 @@
         </div>
 
         <div class="max-w-[1200px] mx-auto grid md:grid-cols-3 gap-6">
-            <!-- Card 1 -->
             <div class="border border-[#e2ff00]/30 rounded-[32px] p-8 space-y-8 flex flex-col justify-between bg-black shadow-[0_0_15px_rgba(226,255,0,0.03)] hover:shadow-[0_0_25px_rgba(226,255,0,0.08)] transition-all">
                 <p class="text-gray-400 text-sm md:text-base leading-relaxed italic">
                     "Saí de 115kg para 88kg em 4 meses. O treino é curto, mas a intensidade é brutal."
@@ -172,7 +183,6 @@
                 </div>
             </div>
 
-            <!-- Card 2 -->
             <div class="border border-[#e2ff00]/30 rounded-[32px] p-8 space-y-8 flex flex-col justify-between bg-black shadow-[0_0_15px_rgba(226,255,0,0.03)] hover:shadow-[0_0_25px_rgba(226,255,0,0.08)] transition-all">
                 <p class="text-gray-400 text-sm md:text-base leading-relaxed italic">
                     "Finalmente ganhei densidade. O protocolo de hipertrofia mudou meu corpo."
@@ -182,7 +192,6 @@
                 </div>
             </div>
 
-            <!-- Card 3 -->
             <div class="border border-[#e2ff00]/30 rounded-[32px] p-8 space-y-8 flex flex-col justify-between bg-black shadow-[0_0_15px_rgba(226,255,0,0.03)] hover:shadow-[0_0_25px_rgba(226,255,0,0.08)] transition-all">
                 <p class="text-gray-400 text-sm md:text-base leading-relaxed italic">
                     "Bati meu recorde de carga em 3 semanas. Foco total em força bruta."
@@ -194,14 +203,13 @@
         </div>
     </section>
 
-    <!-- CALCULADORA & PREVIEW DINÂMICO -->
+    <!-- CALCULADORA & PREVIEW -->
     <section id="calculator" class="max-w-[1400px] mx-auto px-6 py-24 grid lg:grid-cols-12 gap-12 items-start scroll-mt-10">
         
-        <!-- Formulário (Calculadora) -->
-        <div class="lg:col-span-5 glow-box p-8 md:p-10 rounded-[32px] space-y-8 relative overflow-hidden">
+        <!-- Formulário (Calculadora) - Inicia centralizado -->
+        <div id="form-container" class="lg:col-span-12 max-w-2xl mx-auto w-full glow-box p-8 md:p-10 rounded-[32px] space-y-8 relative overflow-hidden">
             <div class="absolute top-0 right-0 w-32 h-32 bg-[#e2ff00]/5 rounded-full blur-3xl -z-10"></div>
             
-            <!-- TIMER DE ESCASSEZ -->
             <div class="bg-red-500/10 border border-red-500/30 rounded-2xl p-4 flex flex-col items-center justify-center text-center shadow-[0_0_15px_rgba(239,68,68,0.15)]">
                 <span class="text-xs uppercase tracking-widest text-red-400 font-bold mb-1">Acesso Imediato Encerrando Em:</span>
                 <div class="text-4xl font-black font-oswald text-white tracking-wider flex items-center gap-2">
@@ -213,33 +221,33 @@
 
             <div class="space-y-2 text-center md:text-left">
                 <h2 class="text-3xl md:text-4xl font-black italic">CRIE O SEU PROTOCOLO</h2>
-                <p class="text-gray-500 text-sm">Insira a sua biometria e veja o sistema gerar a sua estrutura calórica e de treinos em tempo real na tela.</p>
+                <p class="text-gray-500 text-sm">Insira a sua biometria exata abaixo. O nosso algoritmo irá calcular e revelar a prévia da sua planilha de treinos ideal.</p>
             </div>
 
             <form id="biometric-form" class="space-y-6">
                 <div class="grid grid-cols-2 gap-4">
                     <div class="space-y-2">
                         <label class="text-xs uppercase font-bold text-gray-400 tracking-wider">Nome</label>
-                        <input type="text" id="calc-name" value="Lucas Silva" class="w-full bg-white/5 border border-white/10 rounded-xl py-3 px-4 text-white focus:outline-none focus:border-[#e2ff00] transition" required>
+                        <input type="text" id="calc-name" placeholder="Seu nome" class="w-full bg-white/5 border border-white/10 rounded-xl py-3 px-4 text-white focus:outline-none focus:border-[#e2ff00] transition" required>
                     </div>
                     <div class="space-y-2">
                         <label class="text-xs uppercase font-bold text-gray-400 tracking-wider">E-mail</label>
-                        <input type="email" id="calc-email" value="lucas@exemplo.com" class="w-full bg-white/5 border border-white/10 rounded-xl py-3 px-4 text-white focus:outline-none focus:border-[#e2ff00] transition" required>
+                        <input type="email" id="calc-email" placeholder="seu@email.com" class="w-full bg-white/5 border border-white/10 rounded-xl py-3 px-4 text-white focus:outline-none focus:border-[#e2ff00] transition" required>
                     </div>
                 </div>
 
                 <div class="grid grid-cols-3 gap-4">
                     <div class="space-y-2">
                         <label class="text-xs uppercase font-bold text-gray-400 tracking-wider">Idade</label>
-                        <input type="number" id="calc-age" value="26" class="w-full bg-white/5 border border-white/10 rounded-xl py-3 px-4 text-white focus:outline-none focus:border-[#e2ff00] transition" required>
+                        <input type="number" id="calc-age" placeholder="Ex: 26" class="w-full bg-white/5 border border-white/10 rounded-xl py-3 px-4 text-white focus:outline-none focus:border-[#e2ff00] transition" required>
                     </div>
                     <div class="space-y-2">
                         <label class="text-xs uppercase font-bold text-gray-400 tracking-wider">Peso (kg)</label>
-                        <input type="number" id="calc-weight" value="82" class="w-full bg-white/5 border border-white/10 rounded-xl py-3 px-4 text-white focus:outline-none focus:border-[#e2ff00] transition" required>
+                        <input type="number" id="calc-weight" placeholder="Ex: 82" class="w-full bg-white/5 border border-white/10 rounded-xl py-3 px-4 text-white focus:outline-none focus:border-[#e2ff00] transition" required>
                     </div>
                     <div class="space-y-2">
                         <label class="text-xs uppercase font-bold text-gray-400 tracking-wider">Altura (cm)</label>
-                        <input type="number" id="calc-height" value="180" class="w-full bg-white/5 border border-white/10 rounded-xl py-3 px-4 text-white focus:outline-none focus:border-[#e2ff00] transition" required>
+                        <input type="number" id="calc-height" placeholder="Ex: 180" class="w-full bg-white/5 border border-white/10 rounded-xl py-3 px-4 text-white focus:outline-none focus:border-[#e2ff00] transition" required>
                     </div>
                 </div>
 
@@ -263,16 +271,16 @@
                 </div>
 
                 <button type="button" id="btn-submit" class="w-full py-4 btn-neon font-black uppercase italic tracking-wider rounded-xl cursor-pointer">
-                    Prosseguir Para Garantir Planilha
+                    GERAR PRÉVIA DO MEU TREINO
                 </button>
             </form>
         </div>
 
-        <!-- PREVIEW MATADOR E INTERATIVO DA PLANILHA -->
-        <div class="lg:col-span-7 space-y-6">
+        <!-- PREVIEW MATADOR (Inicia oculto) -->
+        <div id="preview-section" class="lg:col-span-7 space-y-6 preview-hidden">
             <div class="flex items-center justify-between">
                 <div class="space-y-1">
-                    <div class="text-[#e2ff00] text-xs font-black uppercase tracking-widest">Simulação Gerada em Tempo Real</div>
+                    <div class="text-[#e2ff00] text-xs font-black uppercase tracking-widest">Simulação Gerada com Sucesso</div>
                     <h3 class="text-2xl md:text-3xl font-black italic">Métricas Calculadas do seu Protocolo</h3>
                 </div>
                 <span class="hidden sm:inline-flex items-center gap-1.5 bg-green-500/10 border border-green-500/20 text-green-400 text-xs py-1 px-3 rounded-full font-bold">
@@ -280,10 +288,7 @@
                 </span>
             </div>
 
-            <!-- Dashboard Mockup Container -->
             <div class="glow-box rounded-[32px] overflow-hidden border border-[#e2ff00]/30 relative bg-[#090909]">
-                
-                <!-- Dashboard Header Bar -->
                 <div class="border-b border-white/5 bg-white/[0.02] py-4 px-6 flex items-center justify-between text-xs text-gray-400">
                     <div class="flex items-center gap-2">
                         <span class="w-3 h-3 rounded-full bg-red-500/40"></span>
@@ -292,56 +297,52 @@
                         <span class="ml-2 font-mono text-[10px] tracking-wider text-gray-500">PROTOCOLO_SHAPE_V4.2.xlsx</span>
                     </div>
                     <div class="flex items-center gap-4">
-                        <span id="preview-user-tag" class="font-bold text-[#e2ff00] bg-[#e2ff00]/10 px-2.5 py-1 rounded">LUCAS SILVA: ATIVO</span>
+                        <span id="preview-user-tag" class="font-bold text-[#e2ff00] bg-[#e2ff00]/10 px-2.5 py-1 rounded">USUÁRIO: ATIVO</span>
                     </div>
                 </div>
 
-                <!-- Grid principal do Preview -->
                 <div class="p-6 md:p-8 space-y-8">
-                    
-                    <!-- Linha 1: Métricas de Macros Estimados -->
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                         <div class="bg-white/[0.01] border border-white/5 rounded-2xl p-5 space-y-2 relative">
                             <span class="text-[10px] uppercase tracking-widest text-gray-500 font-bold">Meta Calórica Diária</span>
                             <div class="flex items-baseline gap-1">
-                                <span id="preview-calories" class="text-3xl font-black font-oswald text-[#e2ff00]">2,840</span>
+                                <span id="preview-calories" class="text-3xl font-black font-oswald text-[#e2ff00]">-</span>
                                 <span class="text-xs text-gray-400">kcal</span>
                             </div>
                             <div class="w-full h-1.5 bg-white/5 rounded-full overflow-hidden">
-                                <div id="bar-calories" class="h-full bg-[#e2ff00] rounded-full transition-all duration-500" style="width: 80%"></div>
+                                <div id="bar-calories" class="h-full bg-[#e2ff00] rounded-full transition-all duration-500" style="width: 0%"></div>
                             </div>
                         </div>
 
                         <div class="bg-white/[0.01] border border-white/5 rounded-2xl p-5 space-y-2">
                             <span class="text-[10px] uppercase tracking-widest text-gray-500 font-bold">Proteína Pura</span>
                             <div class="flex items-baseline gap-1">
-                                <span id="preview-protein" class="text-3xl font-black font-oswald text-white">180</span>
+                                <span id="preview-protein" class="text-3xl font-black font-oswald text-white">-</span>
                                 <span class="text-xs text-gray-400">g</span>
                             </div>
                             <div class="w-full h-1.5 bg-white/5 rounded-full overflow-hidden">
-                                <div id="bar-protein" class="h-full bg-white rounded-full transition-all duration-500" style="width: 75%"></div>
+                                <div id="bar-protein" class="h-full bg-white rounded-full transition-all duration-500" style="width: 0%"></div>
                             </div>
                         </div>
 
                         <div class="bg-white/[0.01] border border-white/5 rounded-2xl p-5 space-y-2">
                             <span class="text-[10px] uppercase tracking-widest text-gray-500 font-bold">Gordura / Carbos</span>
                             <div class="flex items-baseline gap-1">
-                                <span id="preview-fats-carbs" class="text-3xl font-black font-oswald text-gray-300">65g / 320g</span>
+                                <span id="preview-fats-carbs" class="text-3xl font-black font-oswald text-gray-300">- / -</span>
                             </div>
                             <div class="w-full h-1.5 bg-white/5 rounded-full overflow-hidden">
-                                <div id="bar-fats" class="h-full bg-gray-500 rounded-full transition-all duration-500" style="width: 60%"></div>
+                                <div id="bar-fats" class="h-full bg-gray-500 rounded-full transition-all duration-500" style="width: 0%"></div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Linha 2: Layout Interativo do Treino -->
                     <div class="bg-white/[0.01] border border-white/5 rounded-2xl p-6 space-y-6">
                         <div class="flex justify-between items-center pb-4 border-b border-white/5">
                             <div class="flex items-center gap-3">
                                 <span class="w-2.5 h-2.5 rounded-full bg-[#e2ff00]"></span>
                                 <h4 class="font-bold text-sm uppercase tracking-wider">Cronograma & Distribuição de Volume</h4>
                             </div>
-                            <span id="preview-split" class="text-xs text-[#e2ff00] font-black uppercase tracking-wider bg-[#e2ff00]/10 px-3 py-1 rounded">ABCDE EXTREMO (MAS)</span>
+                            <span id="preview-split" class="text-xs text-[#e2ff00] font-black uppercase tracking-wider bg-[#e2ff00]/10 px-3 py-1 rounded">PROCESSANDO...</span>
                         </div>
 
                         <div class="space-y-4 font-mono text-xs">
@@ -356,16 +357,15 @@
                         </div>
                     </div>
 
-                    <!-- Linha 3: Curva de Evolução Estimada -->
                     <div class="bg-white/[0.01] border border-white/5 rounded-2xl p-6 space-y-4">
                         <div class="flex justify-between items-center">
-                            <span class="text-[10px] uppercase tracking-widest text-gray-500 font-bold">Projeção de Mudança de Peso (12 Semanas)</span>
-                            <span id="preview-projection-tag" class="text-xs font-bold text-green-400">-7.2kg de Gordura Estimados</span>
+                            <span class="text-[10px] uppercase tracking-widest text-gray-500 font-bold">Projeção de Evolução (12 Semanas)</span>
+                            <span id="preview-projection-tag" class="text-xs font-bold text-green-400">Calculando...</span>
                         </div>
                         
                         <div class="relative pt-2">
                             <svg class="w-full h-24 stroke-[#e2ff00]" viewBox="0 0 100 20" fill="none" preserveAspectRatio="none">
-                                <path id="graph-curve" d="M 0 18 Q 25 15, 50 10 T 100 2" stroke-width="1.5" stroke-linecap="round"></path>
+                                <path id="graph-curve" d="M 0 10 Q 50 10, 100 10" stroke-width="1.5" stroke-linecap="round"></path>
                                 <line x1="0" y1="18" x2="100" y2="18" stroke="rgba(255,255,255,0.05)" stroke-width="0.5" stroke-dasharray="2,2" />
                                 <line x1="0" y1="10" x2="100" y2="10" stroke="rgba(255,255,255,0.05)" stroke-width="0.5" stroke-dasharray="2,2" />
                                 <line x1="0" y1="2" x2="100" y2="2" stroke="rgba(255,255,255,0.05)" stroke-width="0.5" stroke-dasharray="2,2" />
@@ -381,7 +381,7 @@
                 </div>
 
                 <div class="bg-[#e2ff00]/5 border-t border-[#e2ff00]/20 py-4 px-6 text-center text-xs md:text-sm">
-                    ⚠️ <span class="text-white font-medium">Os dados acima são gerados especificamente para as métricas digitadas no formulário ao lado.</span>
+                    ⚠️ <span class="text-white font-medium">Estes são dados preliminares baseados na sua biometria. Clique no botão ao lado para aceder à planilha completa.</span>
                 </div>
             </div>
         </div>
@@ -487,6 +487,8 @@
         const inputGender = document.getElementById('calc-gender');
         const inputObjective = document.getElementById('calc-objective');
         const btnSubmit = document.getElementById('btn-submit');
+        const formContainer = document.getElementById('form-container');
+        const previewSection = document.getElementById('preview-section');
 
         const previewUserTag = document.getElementById('preview-user-tag');
         const previewCalories = document.getElementById('preview-calories');
@@ -500,6 +502,8 @@
         const barProtein = document.getElementById('bar-protein');
         const barFats = document.getElementById('bar-fats');
         const graphCurve = document.getElementById('graph-curve');
+
+        let isPreviewGenerated = false;
 
         function updateLivePreview() {
             const name = inputName.value.trim() || 'LUCAS SILVA';
@@ -618,11 +622,12 @@
             });
         }
 
+        // Atualizar live preview apenas se já estiver gerado
         [inputName, inputAge, inputWeight, inputHeight, inputGender, inputObjective].forEach(element => {
-            element.addEventListener('input', updateLivePreview);
+            element.addEventListener('input', () => {
+                if(isPreviewGenerated) updateLivePreview();
+            });
         });
-
-        window.addEventListener('DOMContentLoaded', updateLivePreview);
 
         function toggleFaq(element) {
             const content = element.querySelector('.faq-content');
@@ -653,7 +658,42 @@
                 return;
             }
 
-            btnSubmit.innerText = "PROCESSANDO INFORMAÇÕES...";
+            if (!isPreviewGenerated) {
+                // Etapa 1: Gerar o Preview
+                btnSubmit.innerText = "ANALISANDO BIOMETRIA...";
+                btnSubmit.disabled = true;
+
+                // Simulação de tempo de processamento para aumentar a percepção de valor
+                setTimeout(() => {
+                    updateLivePreview();
+                    
+                    // Ajustar Layout
+                    formContainer.classList.remove('lg:col-span-12', 'max-w-2xl', 'mx-auto');
+                    formContainer.classList.add('lg:col-span-5');
+                    
+                    previewSection.classList.remove('preview-hidden');
+                    
+                    // Forçar um reflow para a animação disparar
+                    void previewSection.offsetWidth;
+                    
+                    previewSection.classList.add('preview-visible');
+
+                    btnSubmit.innerText = "GARANTIR A MINHA PLANILHA COMPLETA AGORA";
+                    btnSubmit.disabled = false;
+                    isPreviewGenerated = true;
+
+                    // Deslocar para focar no resultado
+                    setTimeout(() => {
+                        document.getElementById('calculator').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }, 100);
+
+                }, 1200);
+                
+                return;
+            }
+
+            // Etapa 2: Avançar para Checkout
+            btnSubmit.innerText = "REDIRECIONANDO...";
             btnSubmit.disabled = true;
 
             try {
