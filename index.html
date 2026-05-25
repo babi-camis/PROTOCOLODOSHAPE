@@ -710,20 +710,40 @@
             window.location.href = `checkout.html?${queryParams.toString()}`;
         });
 
-        // --- LÓGICA DO TIMER DE ESCASSEZ ---
-        let timeInSecs = 15 * 60; // 15 minutos
+        // --- LÓGICA DO TIMER DE ESCASSEZ (SINCRONIZADO) ---
         const minElem = document.getElementById('timer-minutes');
         const secElem = document.getElementById('timer-seconds');
+        const durationMs = 15 * 60 * 1000;
+        
+        let endTime = localStorage.getItem('shape_timer_end');
+        
+        if (!endTime) {
+            endTime = Date.now() + durationMs;
+            localStorage.setItem('shape_timer_end', endTime);
+        } else {
+            endTime = parseInt(endTime, 10);
+        }
 
-        setInterval(() => {
-            if (timeInSecs > 0) {
-                timeInSecs--;
-                const m = Math.floor(timeInSecs / 60);
-                const s = timeInSecs % 60;
+        function updateTimer() {
+            const now = Date.now();
+            let remainingMs = endTime - now;
+
+            if (remainingMs <= 0) {
+                remainingMs = 0; // Trava no zero sem reiniciar
+            }
+
+            const totalSecs = Math.floor(remainingMs / 1000);
+            const m = Math.floor(totalSecs / 60);
+            const s = totalSecs % 60;
+
+            if (minElem && secElem) {
                 minElem.innerText = m.toString().padStart(2, '0');
                 secElem.innerText = s.toString().padStart(2, '0');
             }
-        }, 1000);
+        }
+
+        updateTimer();
+        setInterval(updateTimer, 1000);
 
         // --- LÓGICA DO POPUP DE PROVA SOCIAL ---
         const popupNames = ["Marcos S.", "Ana C.", "Pedro R.", "Lucas T.", "Juliana M.", "Rafael F.", "Camila A.", "Felipe B.", "Thiago M.", "Bruno K."];
