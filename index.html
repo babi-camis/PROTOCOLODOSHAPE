@@ -52,6 +52,28 @@
             background: var(--neon);
             border-radius: 3px;
         }
+        
+        /* Estilos do Popup de Venda em Tempo Real */
+        .sales-popup {
+            position: fixed;
+            bottom: -100px;
+            left: 24px;
+            z-index: 100;
+            transition: bottom 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55), opacity 0.5s ease;
+            opacity: 0;
+            pointer-events: none;
+        }
+        .sales-popup.show {
+            bottom: 24px;
+            opacity: 1;
+        }
+        @media (max-width: 768px) {
+            .sales-popup {
+                left: 50%;
+                transform: translateX(-50%);
+                width: 90%;
+            }
+        }
     </style>
 </head>
 <body class="min-h-screen">
@@ -135,6 +157,16 @@
         <div class="lg:col-span-5 glow-box p-8 md:p-10 rounded-[32px] space-y-8 relative overflow-hidden">
             <div class="absolute top-0 right-0 w-32 h-32 bg-[#e2ff00]/5 rounded-full blur-3xl -z-10"></div>
             
+            <!-- TIMER DE ESCASSEZ -->
+            <div class="bg-red-500/10 border border-red-500/30 rounded-2xl p-4 flex flex-col items-center justify-center text-center shadow-[0_0_15px_rgba(239,68,68,0.15)]">
+                <span class="text-xs uppercase tracking-widest text-red-400 font-bold mb-1">Acesso Imediato Encerrando Em:</span>
+                <div class="text-4xl font-black font-oswald text-white tracking-wider flex items-center gap-2">
+                    <span id="timer-minutes" class="bg-red-500 text-black px-2 py-1 rounded">15</span>
+                    <span class="text-red-500">:</span>
+                    <span id="timer-seconds" class="bg-red-500 text-black px-2 py-1 rounded">00</span>
+                </div>
+            </div>
+
             <div class="space-y-2 text-center md:text-left">
                 <h2 class="text-3xl md:text-4xl font-black italic">CRIE O SEU PROTOCOLO</h2>
                 <p class="text-gray-500 text-sm">Insira a sua biometria e veja o sistema gerar a sua estrutura calórica e de treinos em tempo real na tela.</p>
@@ -431,6 +463,17 @@
         </div>
     </footer>
 
+    <!-- REAL-TIME SALES POPUP -->
+    <div id="sales-popup" class="sales-popup bg-[#111] border border-[#e2ff00]/40 p-4 rounded-xl shadow-[0_0_20px_rgba(226,255,0,0.15)] flex items-center gap-4 max-w-sm">
+        <div class="w-10 h-10 rounded-full bg-[#e2ff00]/10 flex items-center justify-center shrink-0">
+            <svg class="w-5 h-5 text-[#e2ff00]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+        </div>
+        <div>
+            <p class="text-sm text-gray-300"><span id="popup-name" class="font-bold text-white">João M.</span> acabou de comprar o protocolo.</p>
+            <p class="text-[10px] text-gray-500 uppercase tracking-widest mt-0.5" id="popup-time">Há 2 minutos</p>
+        </div>
+    </div>
+
     <script>
         const inputName = document.getElementById('calc-name');
         const inputEmail = document.getElementById('calc-email');
@@ -622,6 +665,52 @@
             const queryParams = new URLSearchParams({ name, email, gender, objective });
             window.location.href = `checkout.html?${queryParams.toString()}`;
         });
+
+        // --- LÓGICA DO TIMER DE ESCASSEZ ---
+        let timeInSecs = 15 * 60; // 15 minutos
+        const minElem = document.getElementById('timer-minutes');
+        const secElem = document.getElementById('timer-seconds');
+
+        setInterval(() => {
+            if (timeInSecs > 0) {
+                timeInSecs--;
+                const m = Math.floor(timeInSecs / 60);
+                const s = timeInSecs % 60;
+                minElem.innerText = m.toString().padStart(2, '0');
+                secElem.innerText = s.toString().padStart(2, '0');
+            }
+        }, 1000);
+
+        // --- LÓGICA DO POPUP DE PROVA SOCIAL ---
+        const popupNames = ["Marcos S.", "Ana C.", "Pedro R.", "Lucas T.", "Juliana M.", "Rafael F.", "Camila A.", "Felipe B.", "Thiago M.", "Bruno K."];
+        const popupTimes = ["Agora mesmo", "Há 1 minuto", "Há 2 minutos", "Agora mesmo", "Há 3 minutos"];
+        const popupEl = document.getElementById('sales-popup');
+        const popupNameEl = document.getElementById('popup-name');
+        const popupTimeEl = document.getElementById('popup-time');
+
+        function triggerSalesPopup() {
+            const randomName = popupNames[Math.floor(Math.random() * popupNames.length)];
+            const randomTime = popupTimes[Math.floor(Math.random() * popupTimes.length)];
+            
+            popupNameEl.innerText = randomName;
+            popupTimeEl.innerText = randomTime;
+            
+            popupEl.classList.add('show');
+            
+            setTimeout(() => {
+                popupEl.classList.remove('show');
+            }, 4000); // Popup fica visível por 4 segundos
+        }
+
+        // Primeiro disparo após 3 segundos
+        setTimeout(() => {
+            triggerSalesPopup();
+            // Disparos subsequentes em intervalos aleatórios entre 10s e 18s
+            setInterval(() => {
+                triggerSalesPopup();
+            }, Math.floor(Math.random() * 8000) + 10000);
+        }, 3000);
+
     </script>
 </body>
 </html>
