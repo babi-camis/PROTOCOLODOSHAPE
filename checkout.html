@@ -40,7 +40,6 @@
             </div>
         </div>
 
-        <!-- Timer adicionado aqui -->
         <div class="bg-red-500/10 border border-red-500/30 rounded-2xl p-4 flex flex-col items-center justify-center text-center shadow-[0_0_15px_rgba(239,68,68,0.15)] mb-10 animate-fade">
             <span class="text-xs uppercase tracking-widest text-red-400 font-bold mb-1">Seu desconto expira em:</span>
             <div class="text-3xl font-black font-oswald text-white tracking-wider flex items-center gap-2">
@@ -62,8 +61,18 @@
                         <input type="text" id="name" required placeholder="Nome Completo" class="w-full p-5 rounded-2xl font-bold text-lg">
                         <input type="email" id="email" required placeholder="E-mail Principal" class="w-full p-5 rounded-2xl font-bold text-lg">
                         <div class="grid md:grid-cols-2 gap-4">
-                            <input type="tel" id="whatsapp" required placeholder="WhatsApp" class="w-full p-5 rounded-2xl font-bold text-lg">
-                            <input type="text" id="cpf" required placeholder="CPF" class="w-full p-5 rounded-2xl font-bold text-lg">
+                            <input type="tel" id="whatsapp" required placeholder="WhatsApp (DDD + Número)" class="w-full p-5 rounded-2xl font-bold text-lg">
+                            <input type="text" id="cpf" required placeholder="CPF (Apenas números)" class="w-full p-5 rounded-2xl font-bold text-lg">
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-4 pt-6 border-t border-white/5">
+                        <h3 class="text-sm font-black uppercase text-gray-600 tracking-widest mb-4">Endereço de Faturamento</h3>
+                        <input type="text" id="cep" required placeholder="CEP" class="w-full p-5 rounded-2xl font-bold text-lg">
+                        <input type="text" id="street" required placeholder="Rua / Logradouro" class="w-full p-5 rounded-2xl font-bold text-lg">
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <input type="text" id="number" required placeholder="Número" class="w-full p-5 rounded-2xl font-bold text-lg">
+                            <input type="text" id="complement" placeholder="Complemento (Opcional)" class="w-full p-5 rounded-2xl font-bold text-lg">
                         </div>
                     </div>
                     
@@ -90,45 +99,52 @@
     </div>
 
     <script>
-        // Lógica do Timer (Sincronizado)
         function updateTimer() {
             const minElem = document.getElementById('timer-minutes');
             const secElem = document.getElementById('timer-seconds');
             let endTime = localStorage.getItem('shape_timer_end');
-            
             if (!endTime) {
                 endTime = Date.now() + (15 * 60 * 1000);
                 localStorage.setItem('shape_timer_end', endTime);
             }
-            
             const now = Date.now();
             let remainingMs = parseInt(endTime, 10) - now;
             if (remainingMs <= 0) remainingMs = 0;
-
             const m = Math.floor(remainingMs / 60000);
             const s = Math.floor((remainingMs % 60000) / 1000);
-
             minElem.innerText = m.toString().padStart(2, '0');
             secElem.innerText = s.toString().padStart(2, '0');
         }
-        
         setInterval(updateTimer, 1000);
         updateTimer();
 
-        // Lógica de Envio
+        document.getElementById('cep').addEventListener('blur', function() {
+            const cep = this.value.replace(/\D/g, '');
+            if(cep.length === 8) {
+                fetch(`https://viacep.com.br/ws/${cep}/json/`)
+                .then(r => r.json())
+                .then(d => {
+                    if(!d.erro) {
+                        document.getElementById('street').value = d.logradouro;
+                        document.getElementById('number').focus();
+                    }
+                });
+            }
+        });
+
         document.getElementById('cakto-form').addEventListener('submit', function(e) {
             e.preventDefault();
-            const phone = document.getElementById('whatsapp').value.replace(/\D/g, '');
-            const cpf = document.getElementById('cpf').value.replace(/\D/g, '');
             const baseUrl = "https://pay.cakto.com.br/376mm6y_883600";
-            
             const params = new URLSearchParams({
                 name: document.getElementById('name').value,
                 email: document.getElementById('email').value,
-                phone: phone,
-                document: cpf
+                phone: document.getElementById('whatsapp').value.replace(/\D/g, ''),
+                document: document.getElementById('cpf').value.replace(/\D/g, ''),
+                zipcode: document.getElementById('cep').value.replace(/\D/g, ''),
+                address: document.getElementById('street').value,
+                address_number: document.getElementById('number').value,
+                complement: document.getElementById('complement').value
             });
-
             window.location.href = `${baseUrl}?${params.toString()}`;
         });
     </script>
