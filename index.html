@@ -7,162 +7,63 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=Oswald:wght@700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --neon: #e2ff00;
-            --dark: #050505;
-        }
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--dark);
-            color: white;
-            overflow-x: hidden;
-        }
-        h1, h2, h3, .font-oswald {
-            font-family: 'Oswald', sans-serif;
-            text-transform: uppercase;
-        }
-        .glow-box {
-            background: rgba(255, 255, 255, 0.02);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(226, 255, 0, 0.15);
-            box-shadow: 0 0 25px rgba(226, 255, 0, 0.03);
-            transition: all 0.4s ease;
-        }
-        .glow-box:hover {
-            border-color: var(--neon);
-            box-shadow: 0 0 35px rgba(226, 255, 0, 0.12);
-        }
-        .btn-neon {
-            background-color: var(--neon);
-            color: var(--dark);
-            transition: all 0.3s ease;
-        }
-        .btn-neon:hover {
-            box-shadow: 0 0 20px rgba(226, 255, 0, 0.5);
-            transform: translateY(-2px);
-        }
-        .custom-scrollbar::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-track {
-            background: rgba(255,255,255,0.02);
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: var(--neon);
-            border-radius: 3px;
-        }
-        
-        .sales-popup {
-            position: fixed;
-            bottom: -100px;
-            left: 24px;
-            z-index: 100;
-            transition: bottom 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55), opacity 0.5s ease;
-            opacity: 0;
-            pointer-events: none;
-        }
-        .sales-popup.show {
-            bottom: 24px;
-            opacity: 1;
-        }
-        @media (max-width: 768px) {
-            .sales-popup {
-                left: 50%;
-                transform: translateX(-50%);
-                width: 90%;
-            }
-        }
-
-        /* Transições Suaves para o Formulário e Preview */
-        #form-container {
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        #preview-section {
-            transition: opacity 0.8s ease, transform 0.8s ease;
-        }
-        .preview-hidden {
-            opacity: 0;
-            transform: translateX(20px);
-            display: none;
-        }
-        .preview-visible {
-            opacity: 1;
-            transform: translateX(0);
-            display: block;
-        }
+        :root { --neon: #e2ff00; --dark: #050505; }
+        body { font-family: 'Inter', sans-serif; background-color: var(--dark); color: white; overflow-x: hidden; }
+        h1, h2, h3, .font-oswald { font-family: 'Oswald', sans-serif; text-transform: uppercase; }
+        .glow-box { background: rgba(255, 255, 255, 0.02); backdrop-filter: blur(12px); border: 1px solid rgba(226, 255, 0, 0.15); box-shadow: 0 0 25px rgba(226, 255, 0, 0.03); transition: all 0.4s ease; }
+        .glow-box:hover { border-color: var(--neon); box-shadow: 0 0 35px rgba(226, 255, 0, 0.12); }
+        .btn-neon { background-color: var(--neon); color: var(--dark); transition: all 0.3s ease; }
+        .btn-neon:hover { box-shadow: 0 0 20px rgba(226, 255, 0, 0.5); transform: translateY(-2px); }
+        .sales-popup { position: fixed; bottom: -100px; left: 24px; z-index: 100; transition: bottom 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55), opacity 0.5s ease; opacity: 0; pointer-events: none; }
+        .sales-popup.show { bottom: 24px; opacity: 1; pointer-events: auto; }
+        @media (max-width: 768px) { .sales-popup { left: 50%; transform: translateX(-50%); width: 90%; } }
     </style>
 </head>
 <body class="min-h-screen">
 
     <header class="w-full py-12 px-6 md:px-12 absolute top-0 left-0 right-0 z-50">
         <div class="max-w-[1400px] mx-auto flex justify-between items-center w-full">
-            <div class="text-2xl font-black italic tracking-tighter">
-                PROTOCOLO<span class="text-[#e2ff00]">DO SHAPE</span>
-            </div>
-            
+            <div class="text-2xl font-black italic tracking-tighter">PROTOCOLO<span class="text-[#e2ff00]">DO SHAPE</span></div>
             <nav class="hidden md:flex gap-8 text-xs font-bold uppercase tracking-widest text-gray-300">
                 <a href="#metodo" class="hover:text-white transition">O Método</a>
                 <a href="#resultados" class="hover:text-white transition">Resultados</a>
                 <a href="#duvidas" class="hover:text-white transition">Dúvidas</a>
             </nav>
-
-            <a href="#calculator" class="btn-neon font-bold text-xs uppercase tracking-widest py-3 px-6 rounded-full transition">
-                Começar Agora
-            </a>
+            <a href="#calculator" class="btn-neon font-bold text-xs uppercase tracking-widest py-3 px-6 rounded-full transition">Começar Agora</a>
         </div>
     </header>
 
     <section class="relative w-full min-h-[90vh] flex flex-col justify-center px-6 md:px-12 pt-40 overflow-hidden">
         <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center opacity-20 -z-20"></div>
-        <div class="absolute inset-0 bg-gradient-to-r from-[#050505] via-[#050505]/90 to-transparent -z-10"></div>
-        <div class="absolute inset-0 bg-gradient-to-t from-[#050505] to-transparent -z-10"></div>
-        
         <div class="max-w-[1400px] mx-auto w-full relative z-30">
-            <div class="max-w-4xl space-y-6">
-                <div class="flex items-center gap-3">
-                    <div class="w-12 h-[2px] bg-[#e2ff00]"></div>
-                    <span class="text-[#e2ff00] text-xs font-bold uppercase tracking-widest">Performance Extrema</span>
-                </div>
-                
-                <h1 class="text-6xl md:text-[8rem] font-black italic leading-[0.85] tracking-tighter">
-                    <span class="text-white block">CONSTRUA</span>
-                    <span class="text-white block">SEU</span>
-                    <span class="text-[#e2ff00] block">MELHOR</span>
-                    <span class="text-[#e2ff00] block">SHAPE.</span>
-                </h1>
-                
-                <p class="text-gray-300 text-lg md:text-xl max-w-xl font-light leading-relaxed mt-8">
-                    Pare de perder tempo com treinos genéricos. Receba o mapa exato baseado no seu objetivo real e biometria única.
-                </p>
-
-                <div class="pt-6 pb-12">
-                    <a href="#calculator" class="btn-neon inline-flex items-center gap-3 font-black text-lg md:text-xl uppercase tracking-wider italic px-10 py-5 rounded-xl transform active:scale-95 transition">
-                        GERAR MEU TREINO 
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                    </a>
-                </div>
-            </div>
+            <h1 class="text-6xl md:text-[8rem] font-black italic leading-[0.85] tracking-tighter">
+                <span class="text-white block">CONSTRUA</span>
+                <span class="text-white block">SEU</span>
+                <span class="text-[#e2ff00] block">MELHOR</span>
+                <span class="text-[#e2ff00] block">SHAPE.</span>
+            </h1>
+            <p class="text-gray-300 text-lg md:text-xl max-w-xl font-light leading-relaxed mt-8">Pare de perder tempo com treinos genéricos. Receba o mapa exato baseado no seu objetivo real e biometria única.</p>
+            <div class="pt-6 pb-12"><a href="#calculator" class="btn-neon inline-flex items-center gap-3 font-black text-lg md:text-xl uppercase tracking-wider italic px-10 py-5 rounded-xl transform active:scale-95 transition">GERAR MEU TREINO</a></div>
         </div>
     </section>
 
     <section class="w-full bg-[#e2ff00] py-12 px-6 relative z-20 text-black">
         <div class="max-w-[1400px] mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-            <div>
-                <div class="text-5xl md:text-7xl font-oswald font-black italic">27391</div>
-                <div class="text-[10px] md:text-xs font-bold uppercase tracking-widest mt-2">Alunos Ativos</div>
-            </div>
-            <div>
-                <div class="text-5xl md:text-7xl font-oswald font-black italic">143</div>
-                <div class="text-[10px] md:text-xs font-bold uppercase tracking-widest mt-2">Ton. Perdidas</div>
-            </div>
-            <div>
-                <div class="text-5xl md:text-7xl font-oswald font-black italic">98</div>
-                <div class="text-[10px] md:text-xs font-bold uppercase tracking-widest mt-2">% De Sucesso</div>
-            </div>
-            <div>
-                <div class="text-5xl md:text-7xl font-oswald font-black italic">12</div>
-                <div class="text-[10px] md:text-xs font-bold uppercase tracking-widest mt-2">Países</div>
+            <div><div class="text-5xl md:text-7xl font-oswald font-black italic">27391</div><div class="text-[10px] md:text-xs font-bold uppercase tracking-widest mt-2">Alunos Ativos</div></div>
+            <div><div class="text-5xl md:text-7xl font-oswald font-black italic">143</div><div class="text-[10px] md:text-xs font-bold uppercase tracking-widest mt-2">Ton. Perdidas</div></div>
+            <div><div class="text-5xl md:text-7xl font-oswald font-black italic">98</div><div class="text-[10px] md:text-xs font-bold uppercase tracking-widest mt-2">% De Sucesso</div></div>
+            <div><div class="text-5xl md:text-7xl font-oswald font-black italic">12</div><div class="text-[10px] md:text-xs font-bold uppercase tracking-widest mt-2">Países</div></div>
+        </div>
+    </section>
+
+    <section id="metodo" class="py-24 px-6 bg-[#050505]">
+        <div class="max-w-[1000px] mx-auto text-center">
+            <h2 class="text-4xl md:text-6xl font-black italic mb-8">A CIÊNCIA POR TRÁS DO SHAPE</h2>
+            <p class="text-gray-400 text-lg leading-relaxed mb-12">O Protocolo do Shape não é uma planilha de PDF básica. É uma ferramenta de precisão que calibra carga, volume e intensidade para cada fase do seu treino. Se você busca evoluir, pare de atirar no escuro.</p>
+            <div class="glow-box p-12 rounded-[32px] border-[#e2ff00]/40">
+                <p class="text-xs uppercase tracking-widest font-bold text-[#e2ff00] mb-4">Oferta de Lançamento por Tempo Limitado</p>
+                <h3 class="text-5xl font-black italic text-white mb-6">De <span class="line-through text-gray-500">R$ 197,00</span> por <span class="text-[#e2ff00]">R$ 29,90</span></h3>
+                <a href="#calculator" class="btn-neon inline-block px-12 py-4 rounded-full font-black text-lg uppercase italic hover:bg-white hover:text-black transition">Garantir Meu Acesso com Desconto</a>
             </div>
         </div>
     </section>
@@ -172,34 +73,10 @@
             <h2 class="text-5xl md:text-7xl font-black italic">RESULTADOS <span class="text-[#e2ff00]">REAIS</span></h2>
             <p class="text-gray-500 text-xs font-bold uppercase tracking-widest">O que dizem os alunos do protocolo</p>
         </div>
-
         <div class="max-w-[1200px] mx-auto grid md:grid-cols-3 gap-6">
-            <div class="border border-[#e2ff00]/30 rounded-[32px] p-8 space-y-8 flex flex-col justify-between bg-black shadow-[0_0_15px_rgba(226,255,0,0.03)] hover:shadow-[0_0_25px_rgba(226,255,0,0.08)] transition-all">
-                <p class="text-gray-400 text-sm md:text-base leading-relaxed italic">
-                    "Saí de 115kg para 88kg em 4 meses. O treino é curto, mas a intensidade é brutal."
-                </p>
-                <div class="text-[#e2ff00] font-black italic uppercase tracking-wider text-lg">
-                    RICARDO MENDES
-                </div>
-            </div>
-
-            <div class="border border-[#e2ff00]/30 rounded-[32px] p-8 space-y-8 flex flex-col justify-between bg-black shadow-[0_0_15px_rgba(226,255,0,0.03)] hover:shadow-[0_0_25px_rgba(226,255,0,0.08)] transition-all">
-                <p class="text-gray-400 text-sm md:text-base leading-relaxed italic">
-                    "Finalmente ganhei densidade. O protocolo de hipertrofia mudou meu corpo."
-                </p>
-                <div class="text-[#e2ff00] font-black italic uppercase tracking-wider text-lg">
-                    JULIA SANTOS
-                </div>
-            </div>
-
-            <div class="border border-[#e2ff00]/30 rounded-[32px] p-8 space-y-8 flex flex-col justify-between bg-black shadow-[0_0_15px_rgba(226,255,0,0.03)] hover:shadow-[0_0_25px_rgba(226,255,0,0.08)] transition-all">
-                <p class="text-gray-400 text-sm md:text-base leading-relaxed italic">
-                    "Bati meu recorde de carga em 3 semanas. Foco total em força bruta."
-                </p>
-                <div class="text-[#e2ff00] font-black italic uppercase tracking-wider text-lg">
-                    MARCOS LINS
-                </div>
-            </div>
+            <div class="border border-[#e2ff00]/30 rounded-[32px] p-8 bg-black hover:shadow-[0_0_25px_rgba(226,255,0,0.08)] transition-all italic">"Saí de 115kg para 88kg em 4 meses. O treino é curto, mas a intensidade é brutal." - <span class="text-[#e2ff00] font-bold">RICARDO MENDES</span></div>
+            <div class="border border-[#e2ff00]/30 rounded-[32px] p-8 bg-black hover:shadow-[0_0_25px_rgba(226,255,0,0.08)] transition-all italic">"Finalmente ganhei densidade. O protocolo de hipertrofia mudou meu corpo." - <span class="text-[#e2ff00] font-bold">JULIA SANTOS</span></div>
+            <div class="border border-[#e2ff00]/30 rounded-[32px] p-8 bg-black hover:shadow-[0_0_25px_rgba(226,255,0,0.08)] transition-all italic">"Bati meu recorde de carga em 3 semanas. Foco total em força bruta." - <span class="text-[#e2ff00] font-bold">MARCOS LINS</span></div>
         </div>
     </section>
 
@@ -387,7 +264,7 @@
         </div>
     </section>
 
-    <!-- SEÇÃO FAQ -->
+  <!-- SEÇÃO FAQ -->
     <section id="duvidas" class="max-w-[900px] mx-auto px-6 py-20 space-y-12">
         <div class="text-center space-y-2">
             <h2 class="text-4xl md:text-5xl font-black italic">DÚVIDAS FREQUENTES</h2>
