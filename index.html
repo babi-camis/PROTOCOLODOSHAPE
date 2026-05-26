@@ -1,339 +1,171 @@
 <!DOCTYPE html>
-
 <html lang="pt-pt">
-
 <head>
-
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Protocolo do Shape | Planilha de Treino de Alta Performance</title>
-
     <script src="https://cdn.tailwindcss.com"></script>
-
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=Oswald:wght@700&display=swap" rel="stylesheet">
-
     <style>
-
         :root {
-
             --neon: #e2ff00;
-
             --dark: #050505;
-
         }
-
         body {
-
             font-family: 'Inter', sans-serif;
-
             background-color: var(--dark);
-
             color: white;
-
             overflow-x: hidden;
-
         }
-
         h1, h2, h3, .font-oswald {
-
             font-family: 'Oswald', sans-serif;
-
             text-transform: uppercase;
-
         }
-
         .glow-box {
-
             background: rgba(255, 255, 255, 0.02);
-
             backdrop-filter: blur(12px);
-
             border: 1px solid rgba(226, 255, 0, 0.15);
-
             box-shadow: 0 0 25px rgba(226, 255, 0, 0.03);
-
             transition: all 0.4s ease;
-
         }
-
         .glow-box:hover {
-
             border-color: var(--neon);
-
             box-shadow: 0 0 35px rgba(226, 255, 0, 0.12);
-
         }
-
         .btn-neon {
-
             background-color: var(--neon);
-
             color: var(--dark);
-
             transition: all 0.3s ease;
-
         }
-
         .btn-neon:hover {
-
             box-shadow: 0 0 20px rgba(226, 255, 0, 0.5);
-
             transform: translateY(-2px);
-
         }
-
         .custom-scrollbar::-webkit-scrollbar {
-
             width: 6px;
-
             height: 6px;
-
         }
-
         .custom-scrollbar::-webkit-scrollbar-track {
-
             background: rgba(255,255,255,0.02);
-
         }
-
         .custom-scrollbar::-webkit-scrollbar-thumb {
-
             background: var(--neon);
-
             border-radius: 3px;
-
         }
-
         
-
         .sales-popup {
-
             position: fixed;
-
             bottom: -100px;
-
             left: 24px;
-
             z-index: 100;
-
             transition: bottom 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55), opacity 0.5s ease;
-
             opacity: 0;
-
             pointer-events: none;
-
         }
-
         .sales-popup.show {
-
             bottom: 24px;
-
             opacity: 1;
-
         }
-
         @media (max-width: 768px) {
-
             .sales-popup {
-
                 left: 50%;
-
                 transform: translateX(-50%);
-
                 width: 90%;
-
             }
-
         }
-
-
 
         /* Transições Suaves para o Formulário e Preview */
-
         #form-container {
-
             transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-
         }
-
         #preview-section {
-
             transition: opacity 0.8s ease, transform 0.8s ease;
-
         }
-
         .preview-hidden {
-
             opacity: 0;
-
             transform: translateX(20px);
-
             display: none;
-
         }
-
         .preview-visible {
-
             opacity: 1;
-
             transform: translateX(0);
-
             display: block;
-
         }
-
     </style>
-
 </head>
-
 <body class="min-h-screen">
 
-
-
     <header class="w-full py-12 px-6 md:px-12 absolute top-0 left-0 right-0 z-50">
-
         <div class="max-w-[1400px] mx-auto flex justify-between items-center w-full">
-
             <div class="text-2xl font-black italic tracking-tighter">
-
                 PROTOCOLO<span class="text-[#e2ff00]">DO SHAPE</span>
-
             </div>
-
             
-
             <nav class="hidden md:flex gap-8 text-xs font-bold uppercase tracking-widest text-gray-300">
-
                 <a href="#metodo" class="hover:text-white transition">O Método</a>
-
                 <a href="#resultados" class="hover:text-white transition">Resultados</a>
-
                 <a href="#duvidas" class="hover:text-white transition">Dúvidas</a>
-
             </nav>
 
-
-
             <a href="#calculator" class="btn-neon font-bold text-xs uppercase tracking-widest py-3 px-6 rounded-full transition">
-
                 Começar Agora
-
             </a>
-
         </div>
-
     </header>
 
-
-
     <section class="relative w-full min-h-[90vh] flex flex-col justify-center px-6 md:px-12 pt-40 overflow-hidden">
-
         <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center opacity-20 -z-20"></div>
-
         <div class="absolute inset-0 bg-gradient-to-r from-[#050505] via-[#050505]/90 to-transparent -z-10"></div>
-
         <div class="absolute inset-0 bg-gradient-to-t from-[#050505] to-transparent -z-10"></div>
-
         
-
         <div class="max-w-[1400px] mx-auto w-full relative z-30">
-
             <div class="max-w-4xl space-y-6">
-
                 <div class="flex items-center gap-3">
-
                     <div class="w-12 h-[2px] bg-[#e2ff00]"></div>
-
                     <span class="text-[#e2ff00] text-xs font-bold uppercase tracking-widest">Performance Extrema</span>
-
                 </div>
-
                 
-
                 <h1 class="text-6xl md:text-[8rem] font-black italic leading-[0.85] tracking-tighter">
-
                     <span class="text-white block">CONSTRUA</span>
-
                     <span class="text-white block">SEU</span>
-
                     <span class="text-[#e2ff00] block">MELHOR</span>
-
                     <span class="text-[#e2ff00] block">SHAPE.</span>
-
                 </h1>
-
                 
-
                 <p class="text-gray-300 text-lg md:text-xl max-w-xl font-light leading-relaxed mt-8">
-
                     Pare de perder tempo com treinos genéricos. Receba o mapa exato baseado no seu objetivo real e biometria única.
-
                 </p>
 
-
-
                 <div class="pt-6 pb-12">
-
                     <a href="#calculator" class="btn-neon inline-flex items-center gap-3 font-black text-lg md:text-xl uppercase tracking-wider italic px-10 py-5 rounded-xl transform active:scale-95 transition">
-
                         GERAR MEU TREINO 
-
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-
                     </a>
-
                 </div>
-
             </div>
-
         </div>
-
     </section>
-
-
 
     <section class="w-full bg-[#e2ff00] py-12 px-6 relative z-20 text-black">
-
         <div class="max-w-[1400px] mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-
             <div>
-
                 <div class="text-5xl md:text-7xl font-oswald font-black italic">27391</div>
-
                 <div class="text-[10px] md:text-xs font-bold uppercase tracking-widest mt-2">Alunos Ativos</div>
-
             </div>
-
             <div>
-
                 <div class="text-5xl md:text-7xl font-oswald font-black italic">143</div>
-
                 <div class="text-[10px] md:text-xs font-bold uppercase tracking-widest mt-2">Ton. Perdidas</div>
-
             </div>
-
             <div>
-
                 <div class="text-5xl md:text-7xl font-oswald font-black italic">98</div>
-
                 <div class="text-[10px] md:text-xs font-bold uppercase tracking-widest mt-2">% De Sucesso</div>
-
             </div>
-
             <div>
-
                 <div class="text-5xl md:text-7xl font-oswald font-black italic">12</div>
-
                 <div class="text-[10px] md:text-xs font-bold uppercase tracking-widest mt-2">Países</div>
-
             </div>
-
         </div>
-
     </section>
-
 
     <section id="metodo" class="py-24 px-6 bg-[#050505]">
         <div class="max-w-[1000px] mx-auto text-center">
@@ -543,43 +375,7 @@
         </div>
     </section>
 
-
-      <!-- SEÇÃO DE RECEBÍVEIS (SEPARADA) -->
-    <section class="py-16 px-6 bg-[#0a0a0a] border-t border-white/5">
-        <div class="max-w-4xl mx-auto text-center space-y-12">
-            <div class="space-y-4">
-                <h2 class="text-4xl font-black italic">O QUE VOCÊ VAI RECEBER</h2>
-                <div class="w-24 h-1 bg-[#e2ff00] mx-auto"></div>
-            </div>
-            
-            <div class="grid md:grid-cols-2 gap-6">
-                <div class="glow-box p-8 rounded-2xl text-left border-l-4 border-[#e2ff00]">
-                    <h4 class="font-bold text-lg mb-2">Planilha Personalizada</h4>
-                    <p class="text-sm text-gray-400">Periodização completa baseada na sua biometria.</p>
-                </div>
-                <div class="glow-box p-8 rounded-2xl text-left border-l-4 border-[#e2ff00]">
-                    <h4 class="font-bold text-lg mb-2">Guia de Carga</h4>
-                    <p class="text-sm text-gray-400">Progressão otimizada para máximo ganho.</p>
-                </div>
-                <div class="glow-box p-8 rounded-2xl text-left border-l-4 border-[#e2ff00]">
-                    <h4 class="font-bold text-lg mb-2">Foco Técnico</h4>
-                    <p class="text-sm text-gray-400">Instruções precisas para evitar lesões.</p>
-                </div>
-                <div class="glow-box p-8 rounded-2xl text-left border-l-4 border-[#e2ff00]">
-                    <h4 class="font-bold text-lg mb-2">Macros Calculados</h4>
-                    <p class="text-sm text-gray-400">Alinhamento nutricional exato ao objetivo.</p>
-                </div>
-            </div>
-
-            <div class="glow-box p-10 rounded-[32px] border-[#e2ff00]/40">
-                <p class="text-xs uppercase tracking-widest font-bold text-[#e2ff00] mb-2">Oportunidade única</p>
-                <h3 class="text-5xl font-black italic text-white mb-6">De <span class="line-through text-gray-500">R$ 197,00</span> por apenas <span class="text-[#e2ff00]">R$ 29,90</span></h3>
-                <a href="#calculator" class="btn-neon inline-block px-12 py-4 rounded-full font-black text-lg uppercase italic hover:bg-white transition">Garantir Meu Acesso Agora</a>
-            </div>
-        </div>
-    </section>
-
-  <!-- SEÇÃO FAQ -->
+    <!-- SEÇÃO FAQ -->
     <section id="duvidas" class="max-w-[900px] mx-auto px-6 py-20 space-y-12">
         <div class="text-center space-y-2">
             <h2 class="text-4xl md:text-5xl font-black italic">DÚVIDAS FREQUENTES</h2>
@@ -670,7 +466,22 @@
         </div>
     </div>
 
-    <script>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // Configuração Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyDmlnKsW-MFP9jZjhwHhPMI7zdT9Uyywbg",
+            authDomain: "protocolodoshape.firebaseapp.com",
+            projectId: "protocolodoshape",
+            storageBucket: "protocolodoshape.firebasestorage.app",
+            messagingSenderId: "1061373895634",
+            appId: "1:1061373895634:web:32146d77edc5ca71b3de0b"
+        };
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
         const inputName = document.getElementById('calc-name');
         const inputEmail = document.getElementById('calc-email');
         const inputAge = document.getElementById('calc-age');
@@ -814,14 +625,13 @@
             });
         }
 
-        // Atualizar live preview apenas se já estiver gerado
         [inputName, inputAge, inputWeight, inputHeight, inputGender, inputObjective].forEach(element => {
             element.addEventListener('input', () => {
                 if(isPreviewGenerated) updateLivePreview();
             });
         });
 
-        function toggleFaq(element) {
+        window.toggleFaq = function(element) {
             const content = element.querySelector('.faq-content');
             const icon = element.querySelector('.faq-icon');
             
@@ -834,7 +644,7 @@
                 icon.style.transform = 'rotate(45deg)';
                 icon.innerText = "×";
             }
-        }
+        };
 
         btnSubmit.addEventListener('click', async () => {
             const name = inputName.value.trim();
@@ -851,51 +661,48 @@
             }
 
             if (!isPreviewGenerated) {
-                // Etapa 1: Gerar o Preview
                 btnSubmit.innerText = "ANALISANDO BIOMETRIA...";
                 btnSubmit.disabled = true;
 
-                // Simulação de tempo de processamento para aumentar a percepção de valor
                 setTimeout(() => {
                     updateLivePreview();
                     
-                    // Ajustar Layout
                     formContainer.classList.remove('lg:col-span-12', 'max-w-2xl', 'mx-auto');
                     formContainer.classList.add('lg:col-span-5');
                     
                     previewSection.classList.remove('preview-hidden');
-                    
-                    // Forçar um reflow para a animação disparar
                     void previewSection.offsetWidth;
-                    
                     previewSection.classList.add('preview-visible');
 
                     btnSubmit.innerText = "GARANTIR A MINHA PLANILHA COMPLETA AGORA";
                     btnSubmit.disabled = false;
                     isPreviewGenerated = true;
 
-                    // Deslocar para focar no resultado
                     setTimeout(() => {
                         document.getElementById('calculator').scrollIntoView({ behavior: 'smooth', block: 'start' });
                     }, 100);
-
                 }, 1200);
                 
                 return;
             }
 
-            // Etapa 2: Avançar para Checkout
             btnSubmit.innerText = "REDIRECIONANDO...";
             btnSubmit.disabled = true;
 
             try {
-                await fetch('http://localhost:8000/api/save-lead', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ name, email, age: parseInt(age), weight: parseFloat(weight), height: parseFloat(height), gender, objective })
+                // Remove o fetch local e adiciona salvamento direto no Firebase
+                await addDoc(collection(db, "leads"), {
+                    name,
+                    email,
+                    age: parseInt(age),
+                    weight: parseFloat(weight),
+                    height: parseFloat(height),
+                    gender,
+                    objective,
+                    createdAt: serverTimestamp()
                 });
             } catch (err) {
-                console.warn("Backend local offline, operando em modo estático.");
+                console.error("Erro ao salvar no Firebase:", err);
             }
 
             const queryParams = new URLSearchParams({ name, email, gender, objective });
@@ -921,7 +728,7 @@
             let remainingMs = endTime - now;
 
             if (remainingMs <= 0) {
-                remainingMs = 0; // Trava no zero sem reiniciar
+                remainingMs = 0; 
             }
 
             const totalSecs = Math.floor(remainingMs / 1000);
@@ -945,6 +752,8 @@
         const popupTimeEl = document.getElementById('popup-time');
 
         function triggerSalesPopup() {
+            if (!popupEl || !popupNameEl || !popupTimeEl) return;
+            
             const randomName = popupNames[Math.floor(Math.random() * popupNames.length)];
             const randomTime = popupTimes[Math.floor(Math.random() * popupTimes.length)];
             
@@ -955,13 +764,11 @@
             
             setTimeout(() => {
                 popupEl.classList.remove('show');
-            }, 4000); // Popup fica visível por 4 segundos
+            }, 4000); 
         }
 
-        // Primeiro disparo após 3 segundos
         setTimeout(() => {
             triggerSalesPopup();
-            // Disparos subsequentes em intervalos aleatórios entre 10s e 18s
             setInterval(() => {
                 triggerSalesPopup();
             }, Math.floor(Math.random() * 8000) + 10000);
