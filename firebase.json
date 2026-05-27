@@ -4,13 +4,12 @@
     "ignore": [
       "firebase.json",
       "**/.*",
-      "README.md",
       "server.py"
     ],
     "rewrites": [
       {
         "source": "/api/**",
-        "function": "backend_server"
+        "function": "api_server"
       }
     ]
   },
